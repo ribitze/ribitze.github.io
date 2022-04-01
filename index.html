@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500&display=swap');
+      </style>
+    <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./style.css" />
+    <script defer src="./scripts/script.js"></script>
+    <script src="./scripts/kanjis.js"></script>
+    <title id="title">KANJI</title>
+  </head>
+  <body>
+    <div id="kanji-stash">
+    </div>
+    <div class="container">
+      <div class="kanji">
+        <div>
+        <p class="symbol"></p>
+      </div>
+      <div class="reading">
+          <span>kun: </span><span id="kun-reading"></span>
+          <br>
+          <span>on: </span><span id="on-reading"></span>
+      </div>
+      <div class="meaning">
+        <p id="meaning-print">
+        </p>
+      </div>
+    </div>
+
+    <div class="sidebar">
+    </div>
+    <div id="fold-button">
+    </div>
+
+    <div class="container">
+      <footer id="kanji-footer">
+        <input id="input-kanji" type="text" placeholder="入">
+        <!-- <input id="kun" type="text" placeholder="Kunyomi">
+        <input id="on" type="text" placeholder="Onyomi"> -->
+        <button id="create-kanji">+</button>
+        <button id="dark-mode-btn"><i class="fa fa-sun-o"></i></button>
+        <button id="kanji-toggle">[ - ]</button>
+      </footer>
+    </div>
+  </body>
+</html>
+
+<!-- onclick="this.value=''" -->

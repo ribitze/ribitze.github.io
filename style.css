@@ -1,0 +1,333 @@
+body {
+  box-sizing: border-box;
+  margin: 0px;
+  padding: 0px;
+  background: rgb(35, 20, 51);
+}
+
+i {
+  color: rgb(255, 230, 0);
+  opacity: 0.7;
+}
+
+i:hover {
+  color: rgb(255, 238, 0);
+  opacity: 1;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.kanji {
+  font-family: 'Noto Sans JP', sans-serif;
+  color: rgb(224, 224, 206);
+  margin: 10px;
+  padding: 10px;
+  min-width: 150px;
+  min-height: 250px;
+  max-width: 350px;
+  max-height: 500px;
+  margin: 50px;
+}
+
+.symbol {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: normal;
+  padding: 0px;
+  margin: 20px 20px;
+  font-size: 200px;
+}
+
+.reading {
+  margin: 0px;
+  padding: 0px;
+  font-family: 'Abel', sans-serif;
+  font-size: 20px;
+}
+
+.meaning p {
+  font-family: 'Roboto Medium', sans-serif;
+  font-weight: 500;
+  font-size: 25px;
+  margin: 10px 30px;
+  padding: 0px;
+}
+
+.kanji-list {
+  font-family: 'Noto Sans JP', sans-serif;
+}
+
+.kanji-list:hover {
+  color: #b42f55;
+}
+
+.sidebar {
+  /* border-left: 1px solid #e0e0ce; */
+  display: flex;
+  position: fixed;
+  flex-direction: column;
+  top: 0;
+  right: 18px;
+  width: 22vw;
+  height: 100vh;
+  text-align: left;
+  padding-left: 10px;
+  margin: 100px 65px 100px 100px;
+  font-family: 'Roboto Light', sans-serif;
+  color: rgb(224, 224, 206);
+  /*scroll*/
+  overflow: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.sidebar::after {
+  content: '';
+  margin: 0px 0px 110px 0px;
+  flex: 0 0 0;
+}
+
+.jap-sentence {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 16px;
+}
+
+.eng-sentence {
+  padding-bottom: 10px;
+  font-size: 14px;
+}
+
+.jap-sentence:hover,
+.eng-sentence:hover {
+  color: #b42f55;
+}
+
+#fold-button {
+  position: fixed;
+  top: 106px;
+  right: 15px;
+  width: 20px;
+  height: 3px;
+  border-top: 9px double #2fbbb4;
+  border-bottom: 3px solid #2fbbb4;
+}
+
+#fold-button:hover {
+  border-top: 9px double #b42f55;
+  border-bottom: 3px solid #b42f55;
+  cursor: pointer;
+}
+
+#kanji-footer {
+  z-index: 0;
+  margin-left: auto;
+  margin-right: auto;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  margin-bottom: 5px;
+  width: 100%;
+  opacity: 0;
+  transition: visibility 0s, opacity 1.2s linear;
+  transition-delay: 1.3s;
+}
+
+#kanji-footer:hover {
+  visibility: visible;
+  opacity: 1;
+  transition: visibility 0s, opacity 0.2s linear;
+}
+
+#kanji-footer input {
+  border: none;
+  padding: 4px;
+  text-align: center;
+}
+
+#input-kanji,
+#sentence-search,
+#create-kanji,
+#kanji-toggle,
+#dark-mode-btn {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  font-size: 15px;
+  border: none;
+  width: 32px;
+  height: 32px;
+  padding: 4px;
+  opacity: 0.8;
+}
+
+#input-kanji {
+  background-color: rgb(213, 255, 241);
+  font-family: 'Roboto Medium', sans-serif;
+  width: 64px;
+  height: 24px;
+  opacity: 0.8;
+}
+
+#input-kanji:hover {
+  background-color: rgb(198, 253, 235);
+  opacity: 1;
+}
+
+#input-kanji::placeholder {
+  font-family: 'Noto Sans JP Medium', sans-serif;
+  font-size: 14px;
+  opacity: 0.55;
+}
+
+#create-kanji {
+  background-color: rgb(191, 120, 226);
+  color: white;
+}
+
+#create-kanji:hover {
+  background-color: rgb(192, 114, 231);
+  opacity: 1;
+}
+
+#dark-mode-btn {
+  background-color: rgb(118, 90, 212);
+  color: rgb(255, 222, 149);
+}
+
+#dark-mode-btn:hover {
+  opacity: 1;
+}
+
+#kanji-toggle {
+  background-color: rgb(73, 79, 95);
+  color: white;
+}
+
+#kanji-toggle:hover {
+  opacity: 1;
+}
+
+#kanji-stash {
+  color: #2fbbb4;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  position: fixed;
+  padding: 0px;
+  margin: 100px 100px;
+  width: 20vw;
+  height: 100vh;
+  font-size: 16px;
+  letter-spacing: 0.2em;
+  /*look*/
+  /*scrollbar*/
+  overflow: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+#kanji-stash::after {
+  content: '';
+  margin: 0px 0px 20% 0px;
+  flex: 0 0 0;
+}
+
+/*–––––––––––––––––––––––*/
+/*–––––MEDIA-QUERIES–––––*/
+
+@media screen and (width <= 1200px) {
+  .kanji {
+    max-width: 300px;
+  }
+}
+
+@media screen and (width <= 1090px) {
+  .symbol {
+    margin: 30px 10px 0px 10px;
+    font-size: 170px;
+  }
+
+  .reading {
+    font-size: 18px;
+  }
+
+  .meaning p {
+    font-size: 23px;
+  }
+
+  #kanji-stash {
+    margin: 100px 50px 100px 100px;
+    height: 100vh;
+  }
+}
+
+@media screen and (width <= 970px) {
+  .kanji {
+    margin: 100px 0px;
+    margin-left: 25%;
+  }
+
+  .symbol {
+    font-size: 170px;
+  }
+
+  #fold-button {
+    top: 1%;
+    right: 50%;
+    left: 50%;
+  }
+}
+
+@media screen and (width <= 750px) {
+  .kanji {
+    justify-content: center;
+    align-items: center;
+    margin: 0%;
+  }
+
+  .symbol {
+    font-size: 135px;
+  }
+
+  .reading {
+    font-size: 17px;
+  }
+
+  .meaning p {
+    margin: 10px 10px;
+    font-size: 22px;
+  }
+
+  #kanji-stash {
+    display: flex;
+    height: 40vh;
+    min-width: 80vw;
+    bottom: 0;
+    left: 0;
+    margin: 0% 10%;
+  }
+
+  #kanji-footer {
+    display: flex;
+    flex-direction: column;
+  }
+
+  #input-kanji {
+    max-width: 24px;
+  }
+
+  .sidebar {
+    /* border-left: 1px solid #e0e0ce; */
+    top: 35px;
+    right: 0;
+    margin: 60px 12%;
+    height: 100vh;
+    text-align: center;
+    padding: 0px;
+    /*scroll*/
+  }
+}
