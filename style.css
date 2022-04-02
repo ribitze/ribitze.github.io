@@ -106,7 +106,7 @@ i:hover {
   color: #b42f55;
 }
 
-#fold-button {
+#sidebar-button {
   position: fixed;
   top: 106px;
   right: 15px;
@@ -116,7 +116,7 @@ i:hover {
   border-bottom: 3px solid #2fbbb4;
 }
 
-#fold-button:hover {
+#sidebar-button:hover {
   border-top: 9px double #b42f55;
   border-bottom: 3px solid #b42f55;
   cursor: pointer;
@@ -201,14 +201,14 @@ i:hover {
   opacity: 1;
 }
 
-#kanji-toggle {
+/* #kanji-toggle {
   background-color: rgb(73, 79, 95);
   color: white;
 }
 
 #kanji-toggle:hover {
   opacity: 1;
-}
+} */
 
 #kanji-stash {
   color: #2fbbb4;
@@ -275,7 +275,7 @@ i:hover {
     font-size: 170px;
   }
 
-  #fold-button {
+  #sidebar-button {
     top: 1%;
     right: 50%;
     left: 50%;

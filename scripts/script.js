@@ -28,7 +28,7 @@ const sidebarContent = $('#sidebar-content');
 
 /*const japSentence = $('.jap-sentence');
 const engSentence = $('.eng-sentence');*/
-const foldBtn = $('#fold-button');
+const sidebarBtn = $('#sidebar-button');
 // if Dark-Mode is turned on == true (default)
 let isDark = true;
 // if toggleKanjiFullScreen is active
@@ -225,7 +225,7 @@ function checkWindow() {
     kanjiFooter.style.display = 'grid';
     kanjiMain.style.display = 'none';
     sidebar.style.display = 'none';
-    foldBtn.style.display = 'none';
+    sidebarBtn.style.display = 'none';
     inputKanji.style.width = inputSmall;
     inputKanji.style.height = bigBtn;
     kanjiBtn.style.height = bigBtn;
@@ -242,7 +242,7 @@ function checkWindow() {
     }
     //––––––––––––––––––––––––––
     sidebar.style.display = 'flex';
-    foldBtn.style.removeProperty('display');
+    sidebarBtn.style.removeProperty('display');
     //
     inputKanji.style.width = inputBig;
     inputKanji.style.height = inputSmall;
@@ -307,9 +307,9 @@ document.onkeydown = function keyPress(event) {
       ? (sidebar.style.display = 'flex')
       : (sidebar.style.display = 'none');
 
-    foldBtn.style.display === 'none'
-      ? foldBtn.style.removeProperty('display')
-      : (foldBtn.style.display = 'none');
+    sidebarBtn.style.display === 'none'
+      ? sidebarBtn.style.removeProperty('display')
+      : (sidebarBtn.style.display = 'none');
   }
 
   //––––––––––––––––––––––––––––––––––––––––
@@ -418,8 +418,8 @@ function loadActions() {
 kanjiBtn.addEventListener('click', () => createKanji(inputKanji.value));
 darkModeBtn.addEventListener('click', toggleDarkMode);
 /* kanjiToggleBtn.addEventListener('click', toggleKanjiFullScreen); */
-// fold-button
-foldBtn.addEventListener('click', () => {
+// sidebar-button
+sidebarBtn.addEventListener('click', () => {
   expandSidebar();
   smallSideBar();
 });
