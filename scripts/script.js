@@ -201,7 +201,7 @@ function checkWindow() {
   }
 }
 
-function toggleKanjiFullScreen() {
+/* function toggleKanjiFullScreen() {
   const smallStash = '20vw';
   const expandedStash = '86vw';
   const bigBtn = '48px';
@@ -211,60 +211,58 @@ function toggleKanjiFullScreen() {
   const smallFont = '16px';
   const bigFont = '23px';
 
-  if (window.innerWidth >= 1090) {
-    kanjiStash.style.width > smallStash
-      ? (kanjiStash.style.width = smallStash)
-      : (kanjiStash.style.width = expandedStash);
+  kanjiStash.style.width > smallStash
+    ? (kanjiStash.style.width = smallStash)
+    : (kanjiStash.style.width = expandedStash);
 
-    kanjiStash.style.fontSize > smallFont
-      ? (kanjiStash.style.fontSize = smallFont)
-      : (kanjiStash.style.fontSize = bigFont);
+  kanjiStash.style.fontSize > smallFont
+    ? (kanjiStash.style.fontSize = smallFont)
+    : (kanjiStash.style.fontSize = bigFont);
 
-    if (kanjiStash.style.width === expandedStash) {
-      kanjiStash.style.letterSpacing = '0.4em';
-      kanjiFooter.style.removeProperty('bottom');
-      kanjiFooter.style.display = 'grid';
+  if (kanjiStash.style.width === expandedStash) {
+    kanjiStash.style.letterSpacing = '0.4em';
+    kanjiFooter.style.removeProperty('bottom');
+    kanjiFooter.style.display = 'grid';
+    kanjiMain.style.display = 'none';
+    sidebar.style.display = 'none';
+    foldBtn.style.display = 'none';
+    inputKanji.style.width = inputSmall;
+    inputKanji.style.height = bigBtn;
+    kanjiBtn.style.height = bigBtn;
+    darkModeBtn.style.height = bigBtn;
+    kanjiToggleBtn.style.height = bigBtn;
+  } else if (kanjiStash.style.width !== expandedStash) {
+    kanjiStash.style.letterSpacing = '0.2em';
+    kanjiFooter.style.removeProperty('display');
+    // checks if sidebar is (still) expanded
+    if (sidebar.style.width > '22vw') {
       kanjiMain.style.display = 'none';
-      sidebar.style.display = 'none';
-      foldBtn.style.display = 'none';
-      inputKanji.style.width = inputSmall;
-      inputKanji.style.height = bigBtn;
-      kanjiBtn.style.height = bigBtn;
-      darkModeBtn.style.height = bigBtn;
-      kanjiToggleBtn.style.height = bigBtn;
-    } else if (kanjiStash.style.width !== expandedStash) {
-      kanjiStash.style.letterSpacing = '0.2em';
-      kanjiFooter.style.removeProperty('display');
-      // checks if sidebar is (still) expanded
-      if (sidebar.style.width > '22vw') {
-        kanjiMain.style.display = 'none';
-      } else {
-        kanjiMain.style.removeProperty('display');
-      }
-      //––––––––––––––––––––––––––
-      sidebar.style.display = 'flex';
-      foldBtn.style.removeProperty('display');
-      //
-      inputKanji.style.width = inputBig;
-      inputKanji.style.height = inputSmall;
-      kanjiBtn.style.height = smallBtn;
-      darkModeBtn.style.height = smallBtn;
-      kanjiToggleBtn.style.height = smallBtn;
+    } else {
+      kanjiMain.style.removeProperty('display');
     }
+    //––––––––––––––––––––––––––
+    sidebar.style.display = 'flex';
+    foldBtn.style.removeProperty('display');
+    //
+    inputKanji.style.width = inputBig;
+    inputKanji.style.height = inputSmall;
+    kanjiBtn.style.height = smallBtn;
+    darkModeBtn.style.height = smallBtn;
+    kanjiToggleBtn.style.height = smallBtn;
   }
-}
+} */
 
 function changeFooter(boolean) {
   if (boolean) {
     inputKanji.style.background = '#d5fff1';
     kanjiBtn.style.background = '#bf78e2';
     darkModeBtn.style.background = '#765ad4';
-    kanjiToggleBtn.style.background = '#c76a32';
+    /* kanjiToggleBtn.style.background = '#c76a32'; */
   } else if (!boolean) {
     inputKanji.style.background = '#b3fce4';
     kanjiBtn.style.background = '#c95ef7';
     darkModeBtn.style.background = '#825dfc';
-    kanjiToggleBtn.style.background = '#f07e3a';
+    /* kanjiToggleBtn.style.background = '#f07e3a'; */
   }
 }
 
@@ -419,7 +417,7 @@ function loadActions() {
 // footer – button-events
 kanjiBtn.addEventListener('click', () => createKanji(inputKanji.value));
 darkModeBtn.addEventListener('click', toggleDarkMode);
-kanjiToggleBtn.addEventListener('click', toggleKanjiFullScreen);
+/* kanjiToggleBtn.addEventListener('click', toggleKanjiFullScreen); */
 // fold-button
 foldBtn.addEventListener('click', () => {
   expandSidebar();

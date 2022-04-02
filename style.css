@@ -303,7 +303,6 @@ i:hover {
   }
 
   #kanji-stash {
-    display: flex;
     height: 40vh;
     min-width: 80vw;
     bottom: 0;
