@@ -11,7 +11,11 @@ const inputKanji = $('#input-kanji');
 const kanjiBtn = $('#create-kanji');
 const darkModeBtn = $('#dark-mode-btn');
 const darkModeIcon = $('.fa-sun-o');
+const kanjiCounter = $('#kanji-counter');
+/*
 const kanjiToggleBtn = $('#kanji-toggle');
+*/
+// main-kanji
 const kanjiMain = $('.kanji');
 // footer: input-values
 const kanji = $('.symbol');
@@ -31,8 +35,6 @@ const engSentence = $('.eng-sentence');*/
 const sidebarBtn = $('#sidebar-button');
 // if Dark-Mode is turned on == true (default)
 let isDark = true;
-// if toggleKanjiFullScreen is active
-const isFullScreen = false;
 // example-kanji
 const onLoadValue = '入';
 
@@ -78,9 +80,48 @@ function createKanji(char) {
 
 function clickOnKanji(name) {
   createKanji(name.textContent);
-  kanjiStash.addEventListener('dblclick', () => {
+  /*   kanjiStash.addEventListener('dblclick', () => {
     if (kanjiStash.style.width === '86vw') toggleKanjiFullScreen();
-  });
+  }); */
+}
+
+function highlightKanji() {
+  //const dayHighlight = '#ff7f7f';
+  const dayHighlight = '#13949d';
+  const dayDefault = '#000';
+  const darkHighlight = 'rgb(247, 183, 104)';
+  const darkDefault = 'rgb(47, 187, 180)';
+
+  let endValue = kanjis.length + 1;
+  let userValue = endValue + Number(kanjiCounter.value) + 1 - endValue;
+
+  for (i = 1; i < userValue; i++) {
+    let selection = $(`#kanji${i}`);
+
+    isDark
+      ? (selection.style.color = darkHighlight)
+      : (selection.style.color = dayHighlight);
+  }
+
+  for (i = userValue; i < endValue; i++) {
+    let selection = $(`#kanji${i}`);
+
+    isDark
+      ? (selection.style.color = darkDefault)
+      : (selection.style.color = dayDefault);
+  }
+
+  /*
+// selects elements by clicking → clickOnKanji<<
+//––––––––––––––––––––––––––––––––––––––––––––––  
+  let selectedKanji = document.querySelector(`#${elementID}`);
+  const colorHighlight = 'rgb(247, 183, 104)';
+  const defaultColor = 'rgb(47, 187, 180)';
+
+  selectedKanji.style.color !== colorHighlight
+    ? (selectedKanji.style.color = colorHighlight)
+    : (selectedKanji.style.color = defaultColor);
+    */
 }
 
 function showSentences(char) {
@@ -142,6 +183,7 @@ function showSentences(char) {
 }
 
 function copyToClipBoard(data) {
+  // DOM-method
   navigator.clipboard.writeText(data.textContent);
 }
 
@@ -290,6 +332,7 @@ function toggleDarkMode() {
     darkModeIcon.className = 'fa fa-sun-o';
   }
   changeFooter(isDark);
+  highlightKanji();
 }
 
 document.onkeydown = function keyPress(event) {
@@ -314,9 +357,9 @@ document.onkeydown = function keyPress(event) {
 
   //––––––––––––––––––––––––––––––––––––––––
   if (event.key === 'Enter') createKanji(inputKanji.value);
-  if (event.ctrlKey && event.key === 'Enter') toggleKanjiFullScreen();
+  if (event.ctrlKey && event.key === 'Enter') highlightKanji();
   if (event.ctrlKey && event.key === ' ') toggleDarkMode();
-  if (event.key === 'ArrowUp') kanjiStash.scrollTo(0, 0);
+  if (event.key === ' ') kanjiStash.scrollTo(0, 0);
 };
 
 function scrollStash(event) {
@@ -411,12 +454,14 @@ function loadActions() {
   changeFooter(isDark);
   smallSideBar();
   checkWindow();
+  highlightKanji();
 }
 
 //–––––––––––––––EVENTS––––––––––––––––––
 // footer – button-events
 kanjiBtn.addEventListener('click', () => createKanji(inputKanji.value));
 darkModeBtn.addEventListener('click', toggleDarkMode);
+kanjiCounter.addEventListener('input', highlightKanji);
 /* kanjiToggleBtn.addEventListener('click', toggleKanjiFullScreen); */
 // sidebar-button
 sidebarBtn.addEventListener('click', () => {

@@ -59,10 +59,11 @@ i:hover {
 
 .kanji-list {
   font-family: 'Noto Sans JP', sans-serif;
+  color: rgb(47, 187, 180);
 }
 
 .kanji-list:hover {
-  color: #b42f55;
+  color: #b42f55 !important;
 }
 
 .sidebar {
@@ -182,6 +183,34 @@ i:hover {
   opacity: 0.55;
 }
 
+#kanji-counter {
+  font-family: 'Roboto Medium', sans-serif;
+  background-color: rgb(255, 231, 196);
+  /* background-color: #ffe4c4; */
+  /* background-color: #fbdfbb; */
+  /* background-color: rgb(247, 183, 104); */
+  font-size: 0.85em;
+  border: none;
+  padding: 0px;
+  width: 48px;
+  height: 24px;
+  opacity: 0.8;
+}
+
+#kanji-counter:hover {
+  opacity: 1;
+}
+
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+
 #create-kanji {
   background-color: rgb(191, 120, 226);
   color: white;
@@ -211,7 +240,7 @@ i:hover {
 } */
 
 #kanji-stash {
-  color: #2fbbb4;
+  color: rgb(47, 187, 180);
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -232,7 +261,7 @@ i:hover {
 
 #kanji-stash::after {
   content: '';
-  margin: 0px 0px 20% 0px;
+  margin: 0px 0px 130px 0px;
   flex: 0 0 0;
 }
 
@@ -316,7 +345,14 @@ i:hover {
   }
 
   #input-kanji {
+    width: 24px;
+  }
+
+  #kanji-counter {
     max-width: 24px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    font-size: 0.65em;
   }
 
   .sidebar {
