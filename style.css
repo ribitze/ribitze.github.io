@@ -134,7 +134,7 @@ i:hover {
   width: 100%;
   opacity: 0;
   transition: visibility 0s, opacity 1.2s linear;
-  transition-delay: 1.3s;
+  transition-delay: 4.8s;
 }
 
 #kanji-footer:hover {
@@ -150,7 +150,6 @@ i:hover {
 }
 
 #input-kanji,
-#sentence-search,
 #create-kanji,
 #kanji-toggle,
 #dark-mode-btn {
@@ -183,34 +182,6 @@ i:hover {
   opacity: 0.55;
 }
 
-#kanji-counter {
-  font-family: 'Roboto Medium', sans-serif;
-  background-color: rgb(255, 231, 196);
-  /* background-color: #ffe4c4; */
-  /* background-color: #fbdfbb; */
-  /* background-color: rgb(247, 183, 104); */
-  font-size: 0.85em;
-  border: none;
-  padding: 0px;
-  width: 48px;
-  height: 24px;
-  opacity: 0.8;
-}
-
-#kanji-counter:hover {
-  opacity: 1;
-}
-
-input[type='number']::-webkit-inner-spin-button,
-input[type='number']::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-input[type='number'] {
-  -moz-appearance: textfield;
-}
-
 #create-kanji {
   background-color: rgb(191, 120, 226);
   color: white;
@@ -229,6 +200,43 @@ input[type='number'] {
 #dark-mode-btn:hover {
   opacity: 1;
 }
+
+#kanji-counter {
+  font-family: 'Roboto Medium', sans-serif;
+  background-color: #f7b768;
+  /* background-color: rgb(255, 231, 196); */
+  /* background-color: #ffe4c4; */
+  /* background-color: #fbdfbb; */
+  /* background-color: rgb(247, 183, 104); */
+  color: black;
+  font-size: 0.85em;
+  border: none;
+  padding: 0px;
+  width: 48px;
+  height: 24px;
+  opacity: 0.8;
+}
+
+#kanji-counter:hover {
+  opacity: 1;
+}
+
+.highlight-search {
+  color: #be3121 !important;
+}
+
+/*kanji-counter appearance
+–––––––––––––––––––––––––*/
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+/*––––––––––––––––––––––––*/
 
 /* #kanji-toggle {
   background-color: rgb(73, 79, 95);
@@ -348,10 +356,14 @@ input[type='number'] {
     width: 24px;
   }
 
+  #input-kanji:focus {
+    width: 40px;
+  }
+
   #kanji-counter {
-    max-width: 24px;
     font-family: 'Roboto', sans-serif;
     font-weight: 500;
+    max-width: 24px;
     font-size: 0.65em;
   }
 
