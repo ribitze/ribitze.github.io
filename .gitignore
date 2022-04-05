@@ -1,4 +1,8 @@
-# ignored files and data-types
-
+# FILES
 writeToFile.js
 notes.md
+meta.json
+readJSON.js
+
+# FOLDERS
+jisho/

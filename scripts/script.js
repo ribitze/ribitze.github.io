@@ -6,7 +6,7 @@ const title = $('#title');
 const container = $('.container');
 const body = $('body');
 // footer-elements
-const kanjiFooter = $('#kanji-footer');
+const kanjiControl = $('#kanji-control');
 const inputKanji = $('#input-kanji');
 const kanjiBtn = $('#create-kanji');
 const highlightSearch = $('.highlight-search');
@@ -20,6 +20,8 @@ const kanji = $('.symbol');
 const kun = $('#kun-reading');
 const on = $('#on-reading');
 const meaning = $('#meaning-print');
+// kanji-words
+const kanjiWords = $('.kanji-words');
 // kanji-stash
 const kanjiStash = $('#kanji-stash');
 const kanjiList = $('.kanji-list');
@@ -28,6 +30,8 @@ const hoverClass = $('.hover-state');
 const sidebar = $('.sidebar');
 const sidebarContent = $('#sidebar-content');
 const sidebarBtn = $('#sidebar-button');
+const sidebarSmall = '20vw'; // global sidebar-values
+const sidebarBig = '55vw';
 // if Dark-Mode is turned on == true (default)
 let isDark = true;
 // example-kanji
@@ -42,12 +46,12 @@ function stashKanji() {
   let counter = 1;
   for (const kanji of kanjis) {
     let kanjiName = `kan${counter}`;
-    let divElement = document.createElement('div');
-    divElement.textContent = kanji;
-    divElement.id = kanjiName;
-    divElement.className = 'kanji-list';
-    divElement.setAttribute('onclick', `clickOnKanji(${kanjiName})`);
-    kanjiStash.appendChild(divElement);
+    let stashElement = document.createElement('div');
+    stashElement.textContent = kanji;
+    stashElement.id = kanjiName;
+    stashElement.className = 'kanji-list';
+    stashElement.setAttribute('onclick', `clickOnKanji(${kanjiName})`);
+    kanjiStash.appendChild(stashElement);
     stashedKanji.push({
       char: `${kanji}`,
       id: `${kanjiName}`,
@@ -63,9 +67,9 @@ function createKanji(char) {
       if (data[char]) {
         let entries = data[char];
 
-        kanji.innerHTML = char;
-        kun.innerHTML = entries.readings_kun.join('. ');
-        on.textContent = entries.readings_on.join('. ');
+        kanji.textContent = char;
+        kun.textContent = `kun: ${entries.readings_kun.join('. ')}`;
+        on.textContent = `on: ${entries.readings_on.join('. ')}`;
         meaning.textContent = `${entries.meanings.join(', ')}`.toLowerCase();
         title.firstChild.textContent =
           `${char}-${entries.meanings[0]}`.toLowerCase();
@@ -80,11 +84,56 @@ function createKanji(char) {
   showSentences(char);
 }
 
+function createWords(char) {
+  fetch(`../jisho/${char}.json`)
+    .then(response => response.json())
+    .then(jisho => {
+      let len = jisho.data.length;
+      kanjiWords.textContent = '';
+      for (let i = 0; i < len; i++) {
+        let jap = jisho.data[i].slug;
+        let eng = jisho.data[i].senses[0].english_definitions.join(', ');
+
+        let japWord = document.createElement('div');
+        japWord.id = `jap${i}`;
+        japWord.textContent = `${jap} `;
+        japWord.className = 'jap-word';
+        japWord.setAttribute('ondblclick', `copyToClipBoard(${japWord.id})`);
+        kanjiWords.appendChild(japWord);
+        //–––
+        let engWord = document.createElement('div');
+        engWord.id = `eng${i}`;
+        engWord.textContent = eng;
+        engWord.className = 'eng-word';
+        engWord.setAttribute('ondblclick', `copyToClipBoard(${engWord.id})`);
+        kanjiWords.appendChild(engWord);
+      }
+    })
+    .catch(e => {
+      console.log(e);
+    });
+  kanjiWords.scrollTo(0, 0);
+}
+
+function showWords() {
+  if (kanjiWords.style.display === 'none') {
+    kanji.style.display = 'none';
+    kun.style.display = 'none';
+    on.style.display = 'none';
+    meaning.style.display = 'none';
+    kanjiWords.style.display = 'block';
+  } else {
+    kanji.style.removeProperty('display');
+    kun.style.removeProperty('display');
+    on.style.removeProperty('display');
+    meaning.style.removeProperty('display');
+    kanjiWords.style.display = 'none';
+  }
+}
+
 function clickOnKanji(name) {
   createKanji(name.textContent);
-  /*   kanjiStash.addEventListener('dblclick', () => {
-    if (kanjiStash.style.width === '86vw') toggleKanjiFullScreen();
-  }); */
+  createWords(name.textContent);
 }
 
 function highlightKanji() {
@@ -125,6 +174,7 @@ function scrollToKanji(char) {
         return;
       } else {
         selected.scrollIntoView();
+        // highlights the entered kanji until 'input-kanji' is used again:
         selected.classList.add('highlight-search');
         inputKanji.addEventListener('click', () => {
           selected.classList.remove('highlight-search');
@@ -155,7 +205,7 @@ function showSentences(char) {
             japSentence.id = `jap${trueCounter}`;
             japSentence.className = 'jap-sentence';
             japSentence.setAttribute(
-              'onclick',
+              'ondblclick',
               `copyToClipBoard(${japSentence.id})`
             );
             sidebar.appendChild(japSentence);
@@ -164,7 +214,7 @@ function showSentences(char) {
             engSentence.id = `eng${trueCounter}`;
             engSentence.className = 'eng-sentence';
             engSentence.setAttribute(
-              'onclick',
+              'ondblclick',
               `copyToClipBoard(${engSentence.id})`
             );
             sidebar.appendChild(engSentence);
@@ -191,20 +241,21 @@ function showSentences(char) {
 
 function copyToClipBoard(data) {
   // DOM-method
+  console.log(data);
   navigator.clipboard.writeText(data.textContent);
 }
 
 function expandSidebar() {
-  const sidebarSmall = '22vw';
-  const sidebarBig = '55vw';
+  const small = sidebarSmall;
+  const big = sidebarBig;
 
-  sidebar.style.width > sidebarSmall
-    ? (sidebar.style.width = sidebarSmall)
-    : (sidebar.style.width = sidebarBig);
+  sidebar.style.width > small
+    ? (sidebar.style.width = small)
+    : (sidebar.style.width = big);
 
-  if (sidebar.style.width === sidebarBig) {
+  if (sidebar.style.width === big) {
     kanjiMain.style.display = 'none';
-  } else if (sidebar.style.width !== sidebarBig) {
+  } else if (sidebar.style.width !== big) {
     kanjiMain.style.removeProperty('display');
     //restoring properties after 'smallSideBar()'
     sidebar.style.display = 'flex';
@@ -231,20 +282,19 @@ function smallSideBar() {
 }
 
 function checkWindow() {
-  const sidebarSmall = '22vw';
-  const sidebarBig = '55vw';
+  const small = sidebarSmall;
+  const big = sidebarBig;
   let smallScreen = 970;
 
   if (window.innerWidth <= smallScreen) {
-    if (sidebar.style.display === 'none' || sidebar.style.width <= sidebarBig) {
+    if (sidebar.style.display === 'none' || sidebar.style.width <= big) {
       kanjiMain.style.removeProperty('display');
       sidebar.style.display = 'none';
-      sidebar.style.width = sidebarSmall;
-      kanjiFooter.style.zIndex = '-1';
+      sidebar.style.width = small;
     }
   } else if (window.innerWidth > smallScreen) {
     sidebar.style.display = 'flex';
-    if (sidebar.style.width > sidebarSmall) {
+    if (sidebar.style.width > small) {
       kanjiMain.style.display = 'none';
     }
   }
@@ -345,9 +395,9 @@ function toggleDarkMode() {
 document.onkeydown = function keyPress(event) {
   /* gets rid of all elements except the main-kanji – for   printing */
   if (event.key === 'Escape') {
-    kanjiFooter.style.display === 'none'
-      ? (kanjiFooter.style.display = 'block')
-      : (kanjiFooter.style.display = 'none');
+    kanjiControl.style.display === 'none'
+      ? (kanjiControl.style.display = 'block')
+      : (kanjiControl.style.display = 'none');
 
     kanjiStash.style.display === 'none'
       ? (kanjiStash.style.display = 'flex')
@@ -368,6 +418,9 @@ document.onkeydown = function keyPress(event) {
     scrollToKanji(inputKanji.value);
   }
   if (event.ctrlKey && event.key === ' ') toggleDarkMode();
+  if (event.ctrlKey && event.key === 'Backspace') {
+    showWords();
+  }
   if (event.key === 'PageUp') kanjiStash.scrollTo(0, 0);
 };
 
@@ -457,6 +510,49 @@ function scrollSidebar(event) {
   sidebar.addEventListener('mousedown', mouseDownHandler);
 }
 
+function scrollWords(event) {
+  event = event || window.event;
+  kanjiWords.style.cursor = 'grab';
+  let pos = { top: 0, left: 0, x: 0, y: 0 };
+
+  const mouseDownHandler = function (event) {
+    kanjiWords.style.cursor = 'grabbing';
+    kanjiWords.style.userSelect = 'none';
+
+    pos = {
+      left: kanjiWords.scrollLeft,
+      top: kanjiWords.scrollTop,
+      // Get the current mouse position
+      x: event.clientX,
+      y: event.clientY,
+    };
+
+    document.addEventListener('mousemove', mouseMoveHandler);
+    document.addEventListener('mouseup', mouseUpHandler);
+  };
+
+  const mouseMoveHandler = function (event) {
+    // How far the mouse has been moved
+    const dx = event.clientX - pos.x;
+    const dy = event.clientY - pos.y;
+
+    // Scroll the element
+    kanjiWords.scrollTop = pos.top - dy;
+    kanjiWords.scrollLeft = pos.left - dx;
+  };
+
+  const mouseUpHandler = function () {
+    kanjiWords.style.cursor = 'grab';
+    kanjiWords.style.removeProperty('user-select');
+
+    document.removeEventListener('mousemove', mouseMoveHandler);
+    document.removeEventListener('mouseup', mouseUpHandler);
+  };
+
+  // Attach the handler
+  kanjiWords.addEventListener('mousedown', mouseDownHandler);
+}
+
 function loadActions() {
   stashKanji();
   createKanji(onLoadValue);
@@ -473,6 +569,11 @@ kanjiBtn.addEventListener('click', () => {
 });
 darkModeBtn.addEventListener('click', toggleDarkMode);
 kanjiCounter.addEventListener('input', highlightKanji);
+kanjiMain.addEventListener('auxclick', () => {
+  createWords(kanji.textContent);
+  showWords();
+});
+
 /* kanjiToggleBtn.addEventListener('click', toggleKanjiFullScreen); */
 // sidebar-button
 sidebarBtn.addEventListener('click', () => {
@@ -482,6 +583,7 @@ sidebarBtn.addEventListener('click', () => {
 // scroll-behaviour
 document.addEventListener('DOMContentLoaded', () => {
   scrollStash(), scrollSidebar();
+  scrollWords();
   highlightKanji();
 });
 // stash Kanji on windowload

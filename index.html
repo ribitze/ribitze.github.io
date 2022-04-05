@@ -20,11 +20,13 @@
       <div class="kanji">
         <div>
         <p class="symbol"></p>
-      </div>
+        <div class="kanji-words">
+          </div>
+        </div>
       <div class="reading">
-          <span>kun: </span><span id="kun-reading"></span>
+          <span></span><span id="kun-reading"></span>
           <br>
-          <span>on: </span><span id="on-reading"></span>
+          <span></span><span id="on-reading"></span>
       </div>
       <div class="meaning">
         <p id="meaning-print">
@@ -38,13 +40,10 @@
     </div>
 
     <div class="container">
-      <footer id="kanji-footer">
+      <footer id="kanji-control">
         <input id="input-kanji" type="text" placeholder="入" onclick="this.value=''">
-        <!-- <input id="kun" type="text" placeholder="Kunyomi">
-        <input id="on" type="text" placeholder="Onyomi"> -->
         <button id="create-kanji">+</button>
         <button id="dark-mode-btn"><i class="fa fa-sun-o"></i></button>
-        <!-- <button id="kanji-toggle">[ - ]</button> -->
         <input type="number" id="kanji-counter" min="0" max="2502" placeholder="数">
       </footer>
     </div>

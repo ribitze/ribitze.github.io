@@ -1,3 +1,8 @@
+* {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 body {
   box-sizing: border-box;
   margin: 0px;
@@ -23,6 +28,7 @@ i:hover {
 }
 
 .kanji {
+  cursor: pointer;
   font-family: 'Noto Sans JP', sans-serif;
   color: rgb(224, 224, 206);
   margin: 10px;
@@ -30,8 +36,12 @@ i:hover {
   min-width: 150px;
   min-height: 250px;
   max-width: 350px;
-  max-height: 500px;
+  max-height: 100vh;
   margin: 50px;
+  /*scroll*/
+  overflow: hidden;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 .symbol {
@@ -53,17 +63,31 @@ i:hover {
   font-family: 'Roboto Medium', sans-serif;
   font-weight: 500;
   font-size: 25px;
-  margin: 10px 30px;
+  margin: 10px 30px 30px 30px;
   padding: 0px;
 }
 
-.kanji-list {
-  font-family: 'Noto Sans JP', sans-serif;
-  color: rgb(47, 187, 180);
+.kanji-words {
+  font-family: 'Roboto Light', sans-serif;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  height: 100vh;
+  margin-top: 40px;
+  /*scroll*/
+  overflow: hidden;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
-.kanji-list:hover {
-  color: #b42f55 !important;
+.jap-word {
+  font-size: 16px;
+}
+
+.eng-word {
+  font-size: 14px;
+  margin-bottom: 10px;
 }
 
 .sidebar {
@@ -73,7 +97,7 @@ i:hover {
   flex-direction: column;
   top: 0;
   right: 18px;
-  width: 22vw;
+  width: 20vw;
   height: 100vh;
   text-align: left;
   padding-left: 10px;
@@ -93,7 +117,6 @@ i:hover {
 }
 
 .jap-sentence {
-  font-family: 'Noto Sans JP', sans-serif;
   font-size: 16px;
 }
 
@@ -123,27 +146,26 @@ i:hover {
   cursor: pointer;
 }
 
-#kanji-footer {
-  z-index: 0;
+#kanji-control {
+  display: block;
   margin-left: auto;
   margin-right: auto;
   position: fixed;
-  bottom: 0;
+  top: 0;
   left: 0;
-  margin-bottom: 5px;
   width: 100%;
   opacity: 0;
   transition: visibility 0s, opacity 1.2s linear;
   transition-delay: 4.8s;
 }
 
-#kanji-footer:hover {
+#kanji-control:hover {
   visibility: visible;
   opacity: 1;
   transition: visibility 0s, opacity 0.2s linear;
 }
 
-#kanji-footer input {
+#kanji-control input {
   border: none;
   padding: 4px;
   text-align: center;
@@ -152,7 +174,8 @@ i:hover {
 #input-kanji,
 #create-kanji,
 #kanji-toggle,
-#dark-mode-btn {
+#dark-mode-btn,
+#kanji-counter {
   font-family: 'Roboto', sans-serif;
   font-weight: 500;
   font-size: 15px;
@@ -202,14 +225,13 @@ i:hover {
 }
 
 #kanji-counter {
-  font-family: 'Roboto Medium', sans-serif;
+  font-family: 'Roboto', sans-serif;
   background-color: #f7b768;
   /* background-color: rgb(255, 231, 196); */
   /* background-color: #ffe4c4; */
   /* background-color: #fbdfbb; */
   /* background-color: rgb(247, 183, 104); */
-  color: black;
-  font-size: 0.85em;
+  color: rgb(35, 20, 51);
   border: none;
   padding: 0px;
   width: 48px;
@@ -219,6 +241,12 @@ i:hover {
 
 #kanji-counter:hover {
   opacity: 1;
+}
+
+#kanji-counter::placeholder {
+  font-family: 'Noto Sans JP Medium', sans-serif;
+  font-size: 14px;
+  opacity: 0.55;
 }
 
 .highlight-search {
@@ -238,16 +266,8 @@ input[type='number'] {
 }
 /*––––––––––––––––––––––––*/
 
-/* #kanji-toggle {
-  background-color: rgb(73, 79, 95);
-  color: white;
-}
-
-#kanji-toggle:hover {
-  opacity: 1;
-} */
-
 #kanji-stash {
+  font-family: 'Roboto Light', sans-serif;
   color: rgb(47, 187, 180);
   display: flex;
   flex-direction: row;
@@ -260,9 +280,8 @@ input[type='number'] {
   height: 100vh;
   font-size: 16px;
   letter-spacing: 0.2em;
-  /*look*/
   /*scrollbar*/
-  overflow: scroll;
+  overflow: auto;
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
@@ -271,6 +290,15 @@ input[type='number'] {
   content: '';
   margin: 0px 0px 130px 0px;
   flex: 0 0 0;
+}
+
+.kanji-list {
+  font-family: 'Roboto Light', sans-serif;
+  color: rgb(47, 187, 180);
+}
+
+.kanji-list:hover {
+  color: #b42f55 !important;
 }
 
 /*–––––––––––––––––––––––*/
@@ -285,15 +313,15 @@ input[type='number'] {
 @media screen and (width <= 1090px) {
   .symbol {
     margin: 30px 10px 0px 10px;
-    font-size: 170px;
+    font-size: 150px;
   }
 
   .reading {
-    font-size: 18px;
+    font-size: 17px;
   }
 
   .meaning p {
-    font-size: 23px;
+    font-size: 22px;
   }
 
   #kanji-stash {
@@ -312,44 +340,8 @@ input[type='number'] {
     font-size: 170px;
   }
 
-  #sidebar-button {
-    top: 1%;
-    right: 50%;
-    left: 50%;
-  }
-}
-
-@media screen and (width <= 750px) {
-  .kanji {
-    justify-content: center;
-    align-items: center;
-    margin: 0%;
-  }
-
-  .symbol {
-    font-size: 135px;
-  }
-
-  .reading {
-    font-size: 17px;
-  }
-
-  .meaning p {
-    margin: 10px 10px;
-    font-size: 22px;
-  }
-
-  #kanji-stash {
-    height: 40vh;
-    min-width: 80vw;
-    bottom: 0;
-    left: 0;
-    margin: 0% 10%;
-  }
-
-  #kanji-footer {
-    display: flex;
-    flex-direction: column;
+  .kanji-words {
+    margin-top: 0px;
   }
 
   #input-kanji {
@@ -367,14 +359,61 @@ input[type='number'] {
     font-size: 0.65em;
   }
 
+  #kanji-control {
+    z-index: -1;
+    display: flex;
+    flex-direction: column;
+    margin-left: auto;
+    margin-right: auto;
+    position: fixed;
+    top: 85%;
+    left: 0;
+  }
+
   .sidebar {
-    /* border-left: 1px solid #e0e0ce; */
-    top: 35px;
+    margin-top: 60px;
     right: 0;
-    margin: 60px 12%;
-    height: 100vh;
     text-align: center;
     padding: 0px;
-    /*scroll*/
+  }
+
+  #sidebar-button {
+    top: 1%;
+    right: 50%;
+    left: 50%;
+  }
+}
+
+@media screen and (width <= 750px) {
+  .kanji {
+    justify-content: center;
+    align-items: center;
+    margin: 0%;
+  }
+
+  .symbol {
+    font-size: 125px;
+  }
+
+  .reading {
+    font-size: 16px;
+  }
+
+  .meaning p {
+    margin: 10px 10px;
+    font-size: 19px;
+  }
+
+  .kanji-words {
+    margin-top: 50px;
+    height: 47.5vh;
+  }
+
+  #kanji-stash {
+    height: 40vh;
+    min-width: 80vw;
+    bottom: 0;
+    left: 0;
+    margin: 0% 10%;
   }
 }
