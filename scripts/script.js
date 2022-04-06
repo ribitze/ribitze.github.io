@@ -15,11 +15,11 @@ const darkModeIcon = $('.fa-sun-o');
 const kanjiCounter = $('#kanji-counter');
 // main-kanji
 const kanjiMain = $('.kanji');
-// footer: input-values
 const kanji = $('.symbol');
 const kun = $('#kun-reading');
 const on = $('#on-reading');
 const meaning = $('#meaning-print');
+const frequency = $('#frequency');
 // kanji-words
 const kanjiWords = $('.kanji-words');
 // kanji-stash
@@ -39,7 +39,7 @@ const onLoadValue = '入';
 // 'stashKanji': kanji + ID
 let stashedKanji = [];
 // 'showSentences': kanji / jap + eng
-let sentences = [];
+// let sentences = [];
 
 // kanji-stash
 function stashKanji() {
@@ -74,9 +74,10 @@ function createKanji(char) {
         let entries = data[char];
 
         kanji.textContent = char;
-        kun.textContent = `kun: ${entries.readings_kun.join('. ')}`;
-        on.textContent = `on: ${entries.readings_on.join('. ')}`;
+        kun.textContent = `kun: ${entries.readings_kun.join(' ⏐ ')}`;
+        on.textContent = `on: ${entries.readings_on.join(' ⏐ ')}`;
         meaning.textContent = `${entries.meanings.join(', ')}`.toLowerCase();
+        frequency.textContent = `[ ${entries.freq} ]`.toLowerCase();
         title.firstChild.textContent =
           `${char}-${entries.meanings[0]}`.toLowerCase();
       } else {
@@ -96,6 +97,7 @@ function createWords(char) {
     .then(jisho => {
       let len = jisho.data.length;
       kanjiWords.textContent = '';
+
       for (let i = 0; i < len; i++) {
         let jap = jisho.data[i].slug;
         let eng = jisho.data[i].senses[0].english_definitions.join(', ');
@@ -138,13 +140,13 @@ function showWords() {
 }
 
 function showSentences(char) {
-  sentences.length = 0;
+  /*  sentences.length = 0; */
   fetch('../all_v10.json')
     .then(response => response.json())
     .then(data => {
       if (data) {
         let trueCounter = 0;
-        let maximum = 100;
+        let maximum = 50;
         sidebar.textContent = '';
         for (let i = 0; i < data.length; i++) {
           let japData = data[i].jap;
@@ -172,11 +174,11 @@ function showSentences(char) {
             );
             sidebar.appendChild(engSentence);
             //
-            sentences.push({
+            /*             sentences.push({
               char: `${char}`,
               jap: `${japSentence.textContent}`,
               eng: `${engSentence.textContent}`,
-            });
+            }); */
             if (trueCounter == maximum) break;
           }
         }
@@ -188,7 +190,6 @@ function showSentences(char) {
         sidebar.style.fontFamily = 'Roboto Light';
       }
       sidebar.scrollTo(0, 0);
-      return sentences;
     });
 }
 
@@ -404,7 +405,7 @@ document.onkeydown = function keyPress(event) {
   /* gets rid of all elements except the main-kanji – for   printing */
   if (event.key === 'Escape') {
     kanjiControl.style.display === 'none'
-      ? (kanjiControl.style.display = 'block')
+      ? (kanjiControl.style.display = 'flex')
       : (kanjiControl.style.display = 'none');
 
     kanjiStash.style.display === 'none'
@@ -564,6 +565,7 @@ function scrollWords(event) {
 function loadActions() {
   stashKanji();
   createKanji(onLoadValue);
+  createWords(onLoadValue);
   changeFooter(isDark);
   smallSideBar();
   checkWindow();

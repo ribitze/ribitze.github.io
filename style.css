@@ -63,8 +63,13 @@ i:hover {
   font-family: 'Roboto Medium', sans-serif;
   font-weight: 500;
   font-size: 25px;
-  margin: 15px 30px 30px 30px;
+  margin: 15px 30px 15px 30px;
   padding: 0px;
+}
+
+#frequency {
+  font-family: 'Roboto Medium', sans-serif;
+  font-size: 14px;
 }
 
 .kanji-words {
@@ -82,7 +87,7 @@ i:hover {
 
 .jap-word {
   font-family: 'Roboto', sans-serif;
-  font-size: 16px;
+  font-size: 17px;
 }
 
 .eng-word {
@@ -118,7 +123,7 @@ i:hover {
 
 .jap-sentence {
   font-family: 'Roboto', sans-serif;
-  font-size: 16px;
+  font-size: 17px;
 }
 
 .eng-sentence {
@@ -149,16 +154,14 @@ i:hover {
 }
 
 #kanji-control {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
+  display: flex;
+  justify-content: center;
   position: fixed;
   top: 0;
-  left: 0;
   width: 100%;
   opacity: 0;
   transition: visibility 0s, opacity 1.2s linear;
-  transition-delay: 4.8s;
+  transition-delay: 1.8s;
 }
 
 #kanji-control:hover {
@@ -295,6 +298,7 @@ input[type='number'] {
 
 .kanji-list {
   font-family: 'Roboto', sans-serif;
+  font-size: 17px;
   color: rgb(47, 187, 180);
 }
 
@@ -383,6 +387,10 @@ input[type='number'] {
     right: 50%;
     left: 50%;
   }
+
+  .kanji-list {
+    font-size: 16px;
+  }
 }
 
 @media screen and (width <= 750px) {
@@ -397,12 +405,16 @@ input[type='number'] {
   }
 
   .reading {
-    font-size: 16px;
+    font-size: 17px;
   }
 
   .meaning p {
     margin: 10px 10px;
-    font-size: 19px;
+    font-size: 20px;
+  }
+
+  #frequency {
+    font-size: 12px;
   }
 
   .kanji-words {
@@ -412,7 +424,7 @@ input[type='number'] {
 
   #kanji-stash {
     height: 40vh;
-    min-width: 80vw;
+    width: 80vw;
     bottom: 0;
     left: 0;
     margin: 0% 10%;
