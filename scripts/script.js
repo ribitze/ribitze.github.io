@@ -129,12 +129,14 @@ function showWords() {
     kun.style.display = 'none';
     on.style.display = 'none';
     meaning.style.display = 'none';
+    frequency.style.display = 'none';
     kanjiWords.style.display = 'block';
   } else {
     kanji.style.removeProperty('display');
     kun.style.removeProperty('display');
     on.style.removeProperty('display');
     meaning.style.removeProperty('display');
+    frequency.style.removeProperty('display');
     kanjiWords.style.display = 'none';
   }
 }
