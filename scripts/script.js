@@ -62,7 +62,6 @@ function stashKanji() {
 
 function clickOnKanji(name) {
   createKanji(name.textContent);
-  createWords(name.textContent);
   highlightClicked(name.id);
 }
 
@@ -72,7 +71,6 @@ function createKanji(char) {
     .then(data => {
       if (data[char]) {
         let entries = data[char];
-
         kanji.textContent = char;
         kun.textContent = `kun: ${entries.readings_kun.join(' ⏐ ')}`;
         on.textContent = `on: ${entries.readings_on.join(' ⏐ ')}`;
@@ -88,7 +86,12 @@ function createKanji(char) {
         meaning.textContent = noValue;
       }
     });
-  showSentences(char);
+  setTimeout(() => {
+    createWords(char);
+  }, 100);
+  setTimeout(() => {
+    showSentences(char);
+  }, 100);
 }
 
 function createWords(char) {
@@ -569,7 +572,7 @@ function loadActions() {
   createKanji(onLoadValue);
   createWords(onLoadValue);
   changeFooter(isDark);
-  smallSideBar();
+  //smallSideBar();
   checkWindow();
 }
 
