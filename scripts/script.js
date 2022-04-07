@@ -19,7 +19,11 @@ const kanji = $('.symbol');
 const kun = $('#kun-reading');
 const on = $('#on-reading');
 const meaning = $('#meaning-print');
-const frequency = $('#frequency');
+// meta-data
+const metaData = $('.meta-data');
+const metaRadical = $('#radical');
+const metaParts = $('#parts');
+const metaFrequency = $('#frequency');
 // kanji-words
 const kanjiWords = $('.kanji-words');
 // kanji-stash
@@ -75,7 +79,9 @@ function createKanji(char) {
         kun.textContent = `kun: ${entries.readings_kun.join(' ⏐ ')}`;
         on.textContent = `on: ${entries.readings_on.join(' ⏐ ')}`;
         meaning.textContent = `${entries.meanings.join(', ')}`.toLowerCase();
-        frequency.textContent = `[ ${entries.freq} ]`.toLowerCase();
+        metaRadical.textContent = `radical: ${entries.radical} ⏐ no. ${entries.kangxi}`;
+        metaParts.textContent = `parts: ${entries.parts}`;
+        metaFrequency.textContent = `▲ ${entries.freq}`;
         title.firstChild.textContent =
           `${char}-${entries.meanings[0]}`.toLowerCase();
       } else {
@@ -85,12 +91,28 @@ function createKanji(char) {
         on.textContent = noValue;
         meaning.textContent = noValue;
       }
+
+      checkMeta(char);
+
+      function checkMeta(char) {
+        data[char].radical !== undefined
+          ? metaRadical.style.removeProperty('display')
+          : (metaRadical.style.display = 'none');
+
+        data[char].parts !== undefined
+          ? metaParts.style.removeProperty('display')
+          : (metaParts.style.display = 'none');
+
+        data[char].freq !== undefined
+          ? metaFrequency.style.removeProperty('display')
+          : (metaFrequency.style.display = 'none');
+      }
     });
   setTimeout(() => {
-    createWords(char);
-  }, 100);
-  setTimeout(() => {
     showSentences(char);
+  }, 250);
+  setTimeout(() => {
+    createWords(char);
   }, 100);
 }
 
@@ -132,14 +154,14 @@ function showWords() {
     kun.style.display = 'none';
     on.style.display = 'none';
     meaning.style.display = 'none';
-    frequency.style.display = 'none';
+    metaFrequency.style.display = 'none';
     kanjiWords.style.display = 'block';
   } else {
     kanji.style.removeProperty('display');
     kun.style.removeProperty('display');
     on.style.removeProperty('display');
     meaning.style.removeProperty('display');
-    frequency.style.removeProperty('display');
+    metaFrequency.style.removeProperty('display');
     kanjiWords.style.display = 'none';
   }
 }
@@ -243,8 +265,10 @@ function expandSidebar() {
 
   if (sidebar.style.width === big) {
     kanjiMain.style.display = 'none';
+    metaData.style.display = 'none';
   } else if (sidebar.style.width !== big) {
     kanjiMain.style.removeProperty('display');
+    metaData.style.removeProperty('display');
     //restoring properties after 'smallSideBar()'
     sidebar.style.display = 'flex';
     sidebar.style.textAlign = 'left';
@@ -426,6 +450,34 @@ document.onkeydown = function keyPress(event) {
       : (sidebarBtn.style.display = 'none');
   }
 
+  if (event.ctrlKey && event.altKey && event.key === 'm') {
+    if (sidebar.style.width > sidebarSmall) {
+      kanjiControl.style.display === 'none'
+        ? (kanjiControl.style.display = 'flex')
+        : (kanjiControl.style.display = 'none');
+
+      kanjiStash.style.display === 'none'
+        ? (kanjiStash.style.display = 'flex')
+        : (kanjiStash.style.display = 'none');
+    } else {
+      kanjiControl.style.display === 'none'
+        ? (kanjiControl.style.display = 'flex')
+        : (kanjiControl.style.display = 'none');
+
+      kanjiStash.style.display === 'none'
+        ? (kanjiStash.style.display = 'flex')
+        : (kanjiStash.style.display = 'none');
+
+      kanjiMain.style.display === 'none'
+        ? kanjiMain.style.removeProperty('display')
+        : (kanjiMain.style.display = 'none');
+
+      metaData.style.display === 'none'
+        ? metaData.style.removeProperty('display')
+        : (metaData.style.display = 'none');
+    }
+  }
+
   //––––––––––––––––––––––––––––––––––––––––
   if (event.key === 'Enter') {
     createKanji(inputKanji.value);
@@ -572,7 +624,6 @@ function loadActions() {
   createKanji(onLoadValue);
   createWords(onLoadValue);
   changeFooter(isDark);
-  //smallSideBar();
   checkWindow();
 }
 
