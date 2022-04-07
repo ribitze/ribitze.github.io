@@ -39,7 +39,7 @@ const sidebarBig = '55vw';
 // if Dark-Mode is turned on == true (default)
 let isDark = true;
 // example-kanji
-const onLoadValue = '入';
+const onLoadValue = '一';
 // 'stashKanji': kanji + ID
 let stashedKanji = [];
 // 'showSentences': kanji / jap + eng
@@ -430,6 +430,11 @@ function toggleDarkMode() {
   highlightKanji();
 }
 
+function goToJisho(char) {
+  let urlEnd = '%23kanji';
+  window.open(`https://jisho.org/search/${char}${urlEnd}`, (target = '_blank'));
+}
+
 document.onkeydown = function keyPress(event) {
   /* gets rid of all elements except the main-kanji – for   printing */
   if (event.key === 'Escape') {
@@ -449,7 +454,6 @@ document.onkeydown = function keyPress(event) {
       ? sidebarBtn.style.removeProperty('display')
       : (sidebarBtn.style.display = 'none');
   }
-
   if (event.ctrlKey && event.altKey && event.key === 'm') {
     if (sidebar.style.width > sidebarSmall) {
       kanjiControl.style.display === 'none'
@@ -477,7 +481,6 @@ document.onkeydown = function keyPress(event) {
         : (metaData.style.display = 'none');
     }
   }
-
   //––––––––––––––––––––––––––––––––––––––––
   if (event.key === 'Enter') {
     createKanji(inputKanji.value);
@@ -487,6 +490,10 @@ document.onkeydown = function keyPress(event) {
   if (event.ctrlKey && event.key === 'Backspace') {
     showWords();
   }
+  if (event.ctrlKey && event.altKey && event.key === 'j') {
+    goToJisho(kanji.textContent);
+  }
+  //––––––––––––––––––––––––––––––––––––––––
   if (event.key === 'PageUp') kanjiStash.scrollTo(0, 0);
 };
 
