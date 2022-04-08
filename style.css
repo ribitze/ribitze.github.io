@@ -31,8 +31,6 @@ i:hover {
   cursor: pointer;
   font-family: 'Noto Sans JP', sans-serif;
   color: rgb(224, 224, 206);
-  margin: 10px;
-  padding: 10px;
   min-width: 150px;
   min-height: 250px;
   max-width: 350px;
@@ -48,7 +46,7 @@ i:hover {
   font-family: 'Noto Sans JP', sans-serif;
   font-weight: normal;
   padding: 0px;
-  margin: 20px 20px 0px 20px;
+  margin: 0px 20px;
   font-size: 200px;
 }
 
@@ -105,7 +103,7 @@ i:hover {
   align-items: center;
   text-align: center;
   height: 100vh;
-  margin-top: 40px;
+  margin-top: 50px;
   /*scroll*/
   overflow: hidden;
   -ms-overflow-style: none;
@@ -344,7 +342,7 @@ input[type='number'] {
 
 @media screen and (width <= 1090px) {
   .symbol {
-    margin: 30px 10px 0px 10px;
+    margin: 20px 10px 0px 10px;
     font-size: 150px;
   }
 
@@ -372,7 +370,7 @@ input[type='number'] {
   }
 
   .kanji-words {
-    margin-top: 0px;
+    margin-top: 50px;
   }
 
   #input-kanji {

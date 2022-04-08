@@ -1,8 +1,6 @@
 # FILES
-writeToFile.js
 notes.md
 meta.json
-readJSON.js
-kanjis.txt
 
 # FOLDERS
+private/

@@ -368,9 +368,14 @@ function checkWindow() {
       sidebar.style.display = 'none';
       sidebar.style.width = small;
 
-      kanjiTree.style.display === 'flex'
-        ? (metaData.style.display = 'none')
-        : metaData.style.removeProperty('display');
+      if (
+        kanjiTree.style.display === 'flex' ||
+        kanjiWords.style.display === 'block'
+      ) {
+        metaData.style.display = 'none';
+      } else {
+        metaData.style.removeProperty('display');
+      }
     }
   } else if (window.innerWidth > smallScreen) {
     sidebar.style.display = 'flex';
