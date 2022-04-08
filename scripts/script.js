@@ -43,7 +43,7 @@ let sentences = [];
 // if Dark-Mode is turned on == true (default)
 let isDark = true;
 // defines which kanji is shown on window.load
-kanjiCounter.value = 7;
+kanjiCounter.value = 14;
 let onLoadValue = '日';
 
 // kanji-stash
@@ -80,7 +80,7 @@ function createKanji(char) {
         kun.textContent = `kun: ${entries.readings_kun.join(' ⏐ ')}`;
         on.textContent = `on: ${entries.readings_on.join(' ⏐ ')}`;
         meaning.textContent = `${entries.meanings.join(', ')}`.toLowerCase();
-        metaRadical.textContent = `radical: ${entries.radical} ⏐ no. ${entries.kangxi}`;
+        metaRadical.textContent = `${entries.radical} ⏐ no. ${entries.kangxi}`;
         metaFrequency.textContent = `▲ ${entries.freq}`;
         title.firstChild.textContent =
           `${char}-${entries.meanings[0]}`.toLowerCase();
@@ -92,12 +92,20 @@ function createKanji(char) {
         meaning.textContent = noValue;
       }
 
+      if (data[char] === undefined) {
+        return;
+      } else {
+        (async () => {
+          await createTree(char);
+        })();
+      }
+
       checkMeta(char);
 
       function checkMeta(char) {
-        data[char].radical !== undefined
-          ? metaRadical.style.removeProperty('display')
-          : (metaRadical.style.display = 'none');
+        data[char].kangxi === ''
+          ? (metaRadical.style.display = 'none')
+          : metaRadical.style.removeProperty('display');
 
         data[char].freq !== undefined
           ? metaFrequency.style.removeProperty('display')
@@ -110,10 +118,6 @@ function createKanji(char) {
   setTimeout(() => {
     createWords(char);
   }, 100);
-
-  (async () => {
-    await createTree(char);
-  })();
 }
 
 function createSentences(char) {
@@ -176,7 +180,6 @@ function createWords(char) {
     .then(jisho => {
       let len = jisho.data.length;
       kanjiWords.textContent = '';
-
       for (let i = 0; i < len; i++) {
         let jap = jisho.data[i].slug;
         let eng = jisho.data[i].senses[0].english_definitions.join(', ');
@@ -672,7 +675,6 @@ function scrollWords(event) {
 function loadActions() {
   stashKanji();
   createKanji(onLoadValue);
-  createWords(onLoadValue);
   changeFooter(isDark);
   checkWindow();
 }
@@ -692,6 +694,9 @@ kanjiMain.addEventListener('auxclick', () => {
 sidebarBtn.addEventListener('click', () => {
   expandSidebar();
   smallSideBar();
+});
+sidebarBtn.addEventListener('auxclick', () => {
+  showWords();
 });
 // scroll-behaviour
 document.addEventListener('DOMContentLoaded', () => {

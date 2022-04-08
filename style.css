@@ -53,7 +53,7 @@ i:hover {
 .reading {
   margin: 0px;
   padding: 0px;
-  font-family: 'Roboto Medium', sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-size: 19px;
 }
 
@@ -85,15 +85,17 @@ i:hover {
 
 #tree {
   display: none;
-  font-family: 'Noto Sans JP', sans-serif;
-  margin-top: 50px;
-  font-size: 30px;
+  font-family: 'Oxygen Mono', monospace;
+  margin-top: 60px;
+  font-size: 25px;
   padding: 10px;
   justify-content: center;
-  max-height: 60vh;
-  width: 280px;
+  height: 100vh;
+  min-width: 270px;
+  max-width: 320px;
   text-align: left;
   white-space: pre-wrap;
+  letter-spacing: -0.15em;
 }
 
 .kanji-words {
@@ -454,9 +456,10 @@ input[type='number'] {
   }
 
   #tree {
-    font-size: 17px;
+    margin-top: 45px;
+    font-size: 16px;
     padding: 0px;
-    max-height: 50vh;
+    max-height: 60vh;
   }
 
   #kanji-stash {
