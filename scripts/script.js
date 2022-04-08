@@ -23,7 +23,6 @@ const kanjiTree = $('#tree');
 // meta-data
 const metaData = $('.meta-data');
 const metaRadical = $('#radical');
-const metaParts = $('#parts');
 const metaFrequency = $('#frequency');
 // kanji-words
 const kanjiWords = $('.kanji-words');
@@ -82,7 +81,6 @@ function createKanji(char) {
         on.textContent = `on: ${entries.readings_on.join(' ⏐ ')}`;
         meaning.textContent = `${entries.meanings.join(', ')}`.toLowerCase();
         metaRadical.textContent = `radical: ${entries.radical} ⏐ no. ${entries.kangxi}`;
-        metaParts.textContent = `parts: ${entries.parts}`;
         metaFrequency.textContent = `▲ ${entries.freq}`;
         title.firstChild.textContent =
           `${char}-${entries.meanings[0]}`.toLowerCase();
@@ -100,10 +98,6 @@ function createKanji(char) {
         data[char].radical !== undefined
           ? metaRadical.style.removeProperty('display')
           : (metaRadical.style.display = 'none');
-
-        data[char].parts !== undefined
-          ? metaParts.style.removeProperty('display')
-          : (metaParts.style.display = 'none');
 
         data[char].freq !== undefined
           ? metaFrequency.style.removeProperty('display')
@@ -536,9 +530,6 @@ document.onkeydown = function keyPress(event) {
   if (event.ctrlKey && event.key === ' ') {
     toggleDarkMode();
   }
-  if (event.ctrlKey && event.altKey && event.key === 'PageDown') {
-    showTree();
-  }
   if (event.ctrlKey && event.key === 'Backspace') {
     showWords();
   }
@@ -695,7 +686,7 @@ kanjiBtn.addEventListener('click', () => {
 darkModeBtn.addEventListener('click', toggleDarkMode);
 kanjiCounter.addEventListener('input', highlightKanji);
 kanjiMain.addEventListener('auxclick', () => {
-  showWords();
+  showTree();
 });
 // sidebar-button
 sidebarBtn.addEventListener('click', () => {
@@ -705,7 +696,6 @@ sidebarBtn.addEventListener('click', () => {
 // scroll-behaviour
 document.addEventListener('DOMContentLoaded', () => {
   scrollStash(), scrollSidebar();
-  scrollWords();
   highlightKanji();
 });
 // stash Kanji on windowload

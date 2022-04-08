@@ -385,8 +385,7 @@
     "readings_on": ["にち", "じつ"],
     "readings_kun": ["ひ", "-び", "-か"],
     "kangxi": "72",
-    "radical": "sun, day 日",
-    "parts": "日"
+    "radical": "sun, day 日"
   },
   "月": {
     "strokes": 4,
@@ -4576,7 +4575,9 @@
     "freq": 283,
     "meanings": ["Doubt", "Distrust", "Be Suspicious", "Question"],
     "readings_on": ["ぎ"],
-    "readings_kun": ["うたが.う"]
+    "readings_kun": ["うたが.う"],
+    "kangxi": "103",
+    "radical": "bolt of cloth 疋 ▪ ⺪"
   },
   "皆": {
     "strokes": 9,

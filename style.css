@@ -70,13 +70,12 @@ i:hover {
 }
 
 #radical,
-#parts,
 #frequency {
   font-size: 16px;
   padding-bottom: 0.15em;
 }
 
-#parts {
+#radical {
   padding-bottom: 0.5em;
 }
 
