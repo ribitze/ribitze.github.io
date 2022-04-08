@@ -35,7 +35,7 @@ i:hover {
   padding: 10px;
   min-width: 150px;
   min-height: 250px;
-  max-width: 500px;
+  max-width: 350px;
   max-height: 100vh;
   margin: 50px;
   /*scroll*/
@@ -68,7 +68,7 @@ i:hover {
 }
 
 .meta-data {
-  font-family: 'Roboto Medium', sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 
 #radical,
@@ -84,6 +84,19 @@ i:hover {
 
 #frequency {
   font-size: 14px;
+}
+
+#tree {
+  display: none;
+  font-family: 'Noto Sans JP', sans-serif;
+  margin-top: 50px;
+  font-size: 30px;
+  padding: 10px;
+  justify-content: center;
+  max-height: 60vh;
+  width: 280px;
+  text-align: left;
+  white-space: pre-wrap;
 }
 
 .kanji-words {
@@ -351,7 +364,6 @@ input[type='number'] {
 
 @media screen and (width <= 970px) {
   .kanji {
-    margin: 100px 0px;
     margin-left: 25%;
   }
 
@@ -442,6 +454,12 @@ input[type='number'] {
   .kanji-words {
     margin-top: 50px;
     height: 47.5vh;
+  }
+
+  #tree {
+    font-size: 17px;
+    padding: 0px;
+    max-height: 50vh;
   }
 
   #kanji-stash {

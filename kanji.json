@@ -6,9 +6,9 @@
     "meanings": ["One", "One Radical (no.1)"],
     "readings_on": ["いち", "いつ"],
     "readings_kun": ["ひと-", "ひと.つ"],
-    "kangxi": "",
-    "radical": "",
-    "parts": ""
+    "kangxi": "1",
+    "radical": "one 一",
+    "parts": "一"
   },
   "二": {
     "strokes": 2,
@@ -16,7 +16,10 @@
     "freq": 9,
     "meanings": ["Two", "Two Radical (no. 7)"],
     "readings_on": ["に", "じ"],
-    "readings_kun": ["ふた", "ふた.つ", "ふたたび"]
+    "readings_kun": ["ふた", "ふた.つ", "ふたたび"],
+    "kangxi": "7",
+    "radical": "two 二",
+    "parts": "二"
   },
   "九": {
     "strokes": 2,
@@ -24,7 +27,10 @@
     "freq": 55,
     "meanings": ["Nine"],
     "readings_on": ["きゅう", "く"],
-    "readings_kun": ["ここの", "ここの.つ"]
+    "readings_kun": ["ここの", "ここの.つ"],
+    "kangxi": "5",
+    "radical": "second 乛 ▪ 乙 ⺄ 乚",
+    "parts": "九"
   },
   "七": {
     "strokes": 2,
@@ -40,7 +46,10 @@
     "freq": 5,
     "meanings": ["Person"],
     "readings_on": ["じん", "にん"],
-    "readings_kun": ["ひと", "-り", "-と"]
+    "readings_kun": ["ひと", "-り", "-と"],
+    "kangxi": "9",
+    "radical": "man, human 人 ▪ 亻",
+    "parts": "人"
   },
   "入": {
     "strokes": 2,
@@ -79,7 +88,10 @@
     "freq": 8,
     "meanings": ["Ten"],
     "readings_on": ["じゅう", "じっ", "じゅっ"],
-    "readings_kun": ["とお", "と"]
+    "readings_kun": ["とお", "と"],
+    "kangxi": "24",
+    "radical": "ten, complete 十",
+    "parts": "十"
   },
   "三": {
     "strokes": 3,
@@ -148,7 +160,10 @@
     "freq": 7,
     "meanings": ["Large", "Big"],
     "readings_on": ["だい", "たい"],
-    "readings_kun": ["おお-", "おお.きい", "-おお.いに"]
+    "readings_kun": ["おお-", "おお.きい", "-おお.いに"],
+    "kangxi": "37",
+    "radical": "big, very 大",
+    "parts": "大"
   },
   "女": {
     "strokes": 3,
@@ -368,7 +383,10 @@
     "freq": 1,
     "meanings": ["Day", "Sun", "Japan", "Counter For Days"],
     "readings_on": ["にち", "じつ"],
-    "readings_kun": ["ひ", "-び", "-か"]
+    "readings_kun": ["ひ", "-び", "-か"],
+    "kangxi": "72",
+    "radical": "sun, day 日",
+    "parts": "日"
   },
   "月": {
     "strokes": 4,
