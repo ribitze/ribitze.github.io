@@ -460,7 +460,7 @@ function checkWindow() {
   }
 } */
 
-function changeFooter(boolean) {
+function changeControl(boolean) {
   if (boolean) {
     inputKanji.style.background = '#c1e8e4';
     kanjiBtn.style.background = '#c1e8e4';
@@ -499,7 +499,7 @@ function toggleDarkMode() {
     kanjiTree.style.color = treeNight;
     darkModeIcon.className = 'fa fa-sun-o';
   }
-  changeFooter(isDark);
+  changeControl(isDark);
   highlightKanji();
 }
 
@@ -699,7 +699,7 @@ function scrollWords(event) {
 function loadActions() {
   stashKanji();
   createKanji(onLoadValue);
-  changeFooter(isDark);
+  changeControl(isDark);
   checkWindow();
   //toggleDarkMode();
 }
