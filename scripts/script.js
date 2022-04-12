@@ -1,7 +1,7 @@
 // custom querySelector – NOT jquery!
 const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
-//–––––––––––––––––––––––––––––––––––––––––––––––––
+//–––––––––––––––––––––––
 const title = $('#title');
 const container = $('.container');
 const body = $('body');
@@ -12,7 +12,7 @@ const kanjiBtn = $('#create-kanji');
 const highlightSearch = $('.highlight-search');
 const darkModeBtn = $('#dark-mode-btn');
 const darkModeIcon = $('.fa-sun-o');
-const kanjiCounter = $('#kanji-counter');
+const kanjiCounterBtn = $('#kanji-counter');
 // main-kanji
 const kanjiMain = $('.kanji');
 const kanji = $('.symbol');
@@ -22,8 +22,8 @@ const meaning = $('#meaning-print');
 const kanjiTree = $('#tree');
 // meta-data
 const metaData = $('.meta-data');
-const metaRadical = $('#radical');
-const metaFrequency = $('#frequency');
+const metaRadical = $('.radical');
+const metaFrequency = $('.frequency');
 // kanji-words
 const kanjiWords = $('.kanji-words');
 // kanji-stash
@@ -42,7 +42,7 @@ let sentences = [];
 // if Dark-Mode is turned on == true (default)
 let isDark = true;
 // defines which kanji is shown on window.load
-kanjiCounter.value = 14;
+kanjiCounterBtn.value = 14;
 let onLoadValue = '日';
 
 // kanji-stash
@@ -82,15 +82,21 @@ function createKanji(char) {
         );
         meaning.textContent = `${entries.meanings.join(', ')}`.toLowerCase();
         metaRadical.textContent = `${entries.radical} ⏐ ${entries.kangxi}`;
-        metaFrequency.textContent = `▲ ${entries.freq}`;
+        metaRadical.id = `${entries.kangxi}`;
+        entries.freq === null
+          ? (metaFrequency.textContent = '▲ –')
+          : (metaFrequency.textContent = `▲ ${entries.freq}`);
         title.firstChild.textContent =
           `${char}-${entries.meanings[0]}`.toLowerCase();
       } else {
         let noValue = '?';
+        let empty = '⸺';
         kanji.innerHTML = noValue;
-        kun.innerHTML = noValue;
-        on.textContent = noValue;
+        kun.innerHTML = empty;
+        on.textContent = empty;
         meaning.textContent = noValue;
+        metaRadical.textContent = empty;
+        metaFrequency.textContent = empty;
       }
 
       if (data[char] === undefined) {
@@ -142,7 +148,7 @@ function createSentences(char) {
             japSentence.id = `jap${trueCounter}`;
             japSentence.className = 'jap-sentence';
             japSentence.setAttribute(
-              'onclick',
+              'ondblclick',
               `copyToClipBoard(${japSentence.id})`
             );
             sidebar.appendChild(japSentence);
@@ -151,7 +157,7 @@ function createSentences(char) {
             engSentence.id = `eng${trueCounter}`;
             engSentence.className = 'eng-sentence';
             engSentence.setAttribute(
-              'onclick',
+              'ondblclick',
               `copyToClipBoard(${engSentence.id})`
             );
             sidebar.appendChild(engSentence);
@@ -183,11 +189,24 @@ function createWords(char) {
       kanjiWords.textContent = '';
       for (let i = 0; i < len; i++) {
         let jap = jisho.data[i].slug;
-        let eng = jisho.data[i].senses[0].english_definitions.join(', ');
+        let reading = jisho.data[i].japanese[0].reading;
+        let eng = jisho.data[i].senses[0].english_definitions
+          .join(', ')
+          .toLowerCase();
 
+        let japReading = document.createElement('div');
+        japReading.id = `japReading${i}`;
+        japReading.textContent = `${reading}`;
+        japReading.className = 'jap-reading';
+        japReading.setAttribute(
+          'ondblclick',
+          `copyToClipBoard(${japReading.id})`
+        );
+        kanjiWords.appendChild(japReading);
+        //–––
         let japWord = document.createElement('div');
         japWord.id = `japWord${i}`;
-        japWord.textContent = `${jap} `;
+        japWord.textContent = jap;
         japWord.className = 'jap-word';
         japWord.setAttribute('ondblclick', `copyToClipBoard(${japWord.id})`);
         kanjiWords.appendChild(japWord);
@@ -198,6 +217,10 @@ function createWords(char) {
         engWord.className = 'eng-word';
         engWord.setAttribute('ondblclick', `copyToClipBoard(${engWord.id})`);
         kanjiWords.appendChild(engWord);
+
+        if (jisho.data[i].is_common) {
+          japWord.style.color = '#13949d';
+        }
       }
     })
     .catch(e => {
@@ -260,7 +283,7 @@ function highlightKanji() {
   const darkDefault = 'rgb(47, 187, 180)';
 
   let endValue = kanjis.length + 1;
-  let userValue = endValue + Number(kanjiCounter.value) + 1 - endValue;
+  let userValue = endValue + Number(kanjiCounterBtn.value) + 1 - endValue;
 
   for (i = 1; i < userValue; i++) {
     let selection = $(`#kan${i}`);
@@ -355,7 +378,6 @@ function scrollToKanji(char) {
 
 function copyToClipBoard(data) {
   // DOM-method
-  console.log(data.textContent);
   navigator.clipboard.writeText(data.textContent);
 }
 
@@ -440,15 +462,15 @@ function checkWindow() {
 
 function changeFooter(boolean) {
   if (boolean) {
-    inputKanji.style.background = '#d5fff1';
-    kanjiBtn.style.background = '#bf78e2';
-    darkModeBtn.style.background = '#765ad4';
-    /* kanjiToggleBtn.style.background = '#c76a32'; */
+    inputKanji.style.background = '#c1e8e4';
+    kanjiBtn.style.background = '#c1e8e4';
+    darkModeBtn.style.background = '#c1e8e4';
+    kanjiCounterBtn.style.background = '#c1e8e4';
   } else if (!boolean) {
-    inputKanji.style.background = '#b3fce4';
-    kanjiBtn.style.background = '#c95ef7';
-    darkModeBtn.style.background = '#825dfc';
-    /* kanjiToggleBtn.style.background = '#f07e3a'; */
+    inputKanji.style.background = '#7fe2d8';
+    kanjiBtn.style.background = '#7fe2d8';
+    darkModeBtn.style.background = '#7fe2d8';
+    kanjiCounterBtn.style.background = '#7fe2d8';
   }
 }
 
@@ -458,13 +480,15 @@ function toggleDarkMode() {
   const mainDay = '#000';
   const mainNight = '#e0e0ce';
   const stashNight = '#2fbbb4';
+  const treeNight = '#c1e8e4';
+
   if (isDark) {
     isDark = false;
     body.style.background = day;
     kanjiMain.style.color = mainDay;
     kanjiStash.style.color = mainDay;
     sidebar.style.color = mainDay;
-    /*sidebar.style.borderLeft = `1px solid ${mainDay}`; */
+    kanjiTree.style.color = mainDay;
     darkModeIcon.className = 'fa fa-moon-o';
   } else if (!isDark) {
     isDark = true;
@@ -472,7 +496,7 @@ function toggleDarkMode() {
     kanjiMain.style.color = mainNight;
     kanjiStash.style.color = stashNight;
     sidebar.style.color = mainNight;
-    /*sidebar.style.borderLeft = `1px solid ${mainNight}`; */
+    kanjiTree.style.color = treeNight;
     darkModeIcon.className = 'fa fa-sun-o';
   }
   changeFooter(isDark);
@@ -486,7 +510,7 @@ function goToJisho(char) {
 
 document.onkeydown = function keyPress(event) {
   /* gets rid of all elements except the main-kanji – for   printing */
-  if (event.key === 'Escape') {
+  if (event.ctrlKey && event.altKey && event.key === ',') {
     kanjiControl.style.display === 'none'
       ? (kanjiControl.style.display = 'flex')
       : (kanjiControl.style.display = 'none');
@@ -503,7 +527,7 @@ document.onkeydown = function keyPress(event) {
       ? sidebarBtn.style.removeProperty('display')
       : (sidebarBtn.style.display = 'none');
   }
-  if (event.ctrlKey && event.altKey && event.key === 'm') {
+  if (event.ctrlKey && event.altKey && event.key === '.') {
     if (sidebar.style.width > sidebarSmall) {
       kanjiControl.style.display === 'none'
         ? (kanjiControl.style.display = 'flex')
@@ -677,7 +701,7 @@ function loadActions() {
   createKanji(onLoadValue);
   changeFooter(isDark);
   checkWindow();
-  toggleDarkMode();
+  //toggleDarkMode();
 }
 
 //–––––––––––––––EVENTS––––––––––––––––––
@@ -687,7 +711,7 @@ kanjiBtn.addEventListener('click', () => {
   scrollToKanji(inputKanji.value);
 });
 darkModeBtn.addEventListener('click', toggleDarkMode);
-kanjiCounter.addEventListener('input', highlightKanji);
+kanjiCounterBtn.addEventListener('input', highlightKanji);
 kanjiMain.addEventListener('auxclick', showTree);
 // sidebar-button
 sidebarBtn.addEventListener('click', () => {
