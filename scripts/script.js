@@ -42,8 +42,8 @@ let sentences = [];
 // if Dark-Mode is turned on == true (default)
 let isDark = true;
 // defines which kanji is shown on window.load
-kanjiCounterBtn.value = 14;
-let onLoadValue = '日';
+kanjiCounterBtn.value = '';
+let onLoadValue = '一';
 
 // kanji-stash
 function stashKanji() {
@@ -77,9 +77,7 @@ function createKanji(char) {
         let entries = data[char];
         kanji.textContent = char;
         kun.textContent = `${entries.readings_kun.join(' • ')}`;
-        on.textContent = wanakana.toKatakana(
-          `${entries.readings_on.join(' • ')}`
-        );
+        on.textContent = `${entries.readings_on.join(' • ')}`;
         meaning.textContent = `${entries.meanings.join(', ')}`.toLowerCase();
         metaRadical.textContent = `${entries.radical} ⏐ ${entries.kangxi}`;
         metaRadical.id = `${entries.kangxi}`;
@@ -232,7 +230,9 @@ function createWords(char) {
 async function createTree(char) {
   let response = await fetch(`../kanji-tree/${char}.txt`);
   let responseText = await response.text();
-  kanjiTree.textContent = responseText;
+  response.status === 404
+    ? (kanjiTree.textContent = '—')
+    : (kanjiTree.textContent = responseText);
 }
 
 function showWords() {
@@ -402,7 +402,20 @@ function checkWindow() {
       }
     }
   } else if (window.innerWidth > smallScreen) {
+    kanjiMain.style.removeProperty('display');
+    kanjiStash.style.display = 'flex';
     sidebar.style.display = 'flex';
+    sidebarBtn.style.removeProperty('display');
+
+    if (
+      kanjiTree.style.display === 'flex' ||
+      kanjiWords.style.display === 'flex'
+    ) {
+      metaData.style.display = 'none';
+    } else {
+      metaData.style.removeProperty('display');
+    }
+
     if (sidebar.style.width > small) {
       kanjiMain.style.display = 'none';
     }
@@ -701,7 +714,7 @@ function loadActions() {
   createKanji(onLoadValue);
   changeControl(isDark);
   checkWindow();
-  //toggleDarkMode();
+  toggleDarkMode();
 }
 
 //–––––––––––––––EVENTS––––––––––––––––––

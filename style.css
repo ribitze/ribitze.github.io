@@ -115,13 +115,13 @@ body {
 
 .jap-word {
   font-family: 'Noto Sans CJK HK DemiLight', sans-serif;
-  font-size: 19px;
+  font-size: 21px;
 }
 
 .jap-reading {
   font-family: 'Roboto Light', sans-serif;
-  font-size: 10px;
-  margin-bottom: -5px;
+  font-size: 11px;
+  margin-bottom: -4px;
 }
 
 .jap-reading:hover,
@@ -133,7 +133,7 @@ body {
 .eng-word {
   font-family: 'Roboto Light', sans-serif;
   font-size: 14px;
-  margin-bottom: 11px;
+  margin-bottom: 13px;
 }
 
 .sidebar {
@@ -237,8 +237,7 @@ body {
   height: 24px;
 }
 
-#input-kanji:hover,
-#input-kanji:focus {
+#input-kanji:hover {
   background: #cccbf7 !important;
 }
 
@@ -268,12 +267,12 @@ body {
 
 .fa {
   font-weight: 700;
-  color: black;
+  color: rgb(35, 20, 51);
 }
 
 #kanji-counter {
   font-family: 'Roboto', sans-serif;
-  background-color: #f7b768;
+  background-color: #c1e8e4;
   /* background-color: rgb(255, 231, 196); */
   /* background-color: #ffe4c4; */
   /* background-color: #fbdfbb; */
@@ -285,8 +284,7 @@ body {
   height: 24px;
 }
 
-#kanji-counter:hover,
-#kanji-counter:focus {
+#kanji-counter:hover {
   background-color: #cccbf7 !important;
 }
 
@@ -383,7 +381,7 @@ input[type='number'] {
   }
 
   .symbol {
-    font-size: 170px;
+    font-size: 150px;
   }
 
   .kanji-words {
@@ -477,8 +475,13 @@ input[type='number'] {
   }
 
   .jap-word {
-    font-size: 17px;
+    font-size: 18px;
   }
+
+  .jap-reading {
+  font-size: 10px;
+  margin-bottom: -4px;
+}
 
   #tree {
     margin-top: 45px;
