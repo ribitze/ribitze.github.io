@@ -19,7 +19,7 @@ body {
 
 .kanji {
   cursor: pointer;
-  font-family: 'Noto Sans JP', sans-serif;
+  font-family: "Noto Sans JP", sans-serif;
   color: rgb(224, 224, 206);
   min-width: 150px;
   min-height: 250px;
@@ -33,7 +33,7 @@ body {
 }
 
 .symbol {
-  font-family: 'Noto Sans JP', sans-serif;
+  font-family: "Noto Sans JP", sans-serif;
   font-weight: normal;
   padding: 0px;
   margin: 0px 20px;
@@ -43,7 +43,7 @@ body {
 .reading {
   margin: 0px;
   padding: 0px;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 19px;
 }
 
@@ -52,7 +52,7 @@ body {
 }
 
 .meaning p {
-  font-family: 'Roboto Medium', sans-serif;
+  font-family: "Roboto Medium", sans-serif;
   font-weight: 500;
   font-size: 23px;
   margin: 15px 30px 10px 30px;
@@ -60,10 +60,11 @@ body {
 }
 
 .meta-data {
-  font-family: 'Roboto Light', sans-serif;
+  font-family: "Roboto Light", sans-serif;
 }
 
 .radical,
+/* .parts, */
 .frequency {
   font-size: 16px;
   padding-bottom: 0.15em;
@@ -73,13 +74,18 @@ body {
   padding-bottom: 8px;
 }
 
+/* .parts {
+  font-size: 14px;
+  padding-bottom: 10px;
+} */
+
 .frequency {
   font-size: 14px;
 }
 
 #tree {
   display: none;
-  font-family: 'Oxygen Mono', monospace;
+  font-family: "Oxygen Mono", monospace;
   color: #c1e8e4;
   margin-top: 60px;
   font-size: 25px;
@@ -90,7 +96,8 @@ body {
   max-width: 320px;
   text-align: left;
   white-space: pre-wrap;
-  letter-spacing: -0.15em;
+  line-height: 1.5em;
+  letter-spacing: -0.1em;
 }
 
 .kanji-words {
@@ -108,18 +115,18 @@ body {
 }
 
 .kanji-words::after {
-  content: '';
+  content: "";
   margin: 0px 0px 110px 0px;
   flex: 0 0 0;
 }
 
 .jap-word {
-  font-family: 'Noto Sans CJK HK DemiLight', sans-serif;
+  font-family: "Noto Sans CJK HK DemiLight", sans-serif;
   font-size: 21px;
 }
 
 .jap-reading {
-  font-family: 'Roboto Light', sans-serif;
+  font-family: "Roboto Light", sans-serif;
   font-size: 11px;
   margin-bottom: -4px;
 }
@@ -131,7 +138,7 @@ body {
 }
 
 .eng-word {
-  font-family: 'Roboto Light', sans-serif;
+  font-family: "Roboto Light", sans-serif;
   font-size: 14px;
   margin-bottom: 13px;
 }
@@ -156,18 +163,18 @@ body {
 }
 
 .sidebar::after {
-  content: '';
+  content: "";
   margin: 0px 0px 110px 0px;
   flex: 0 0 0;
 }
 
 .jap-sentence {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 17px;
 }
 
 .eng-sentence {
-  font-family: 'Roboto Light', sans-serif;
+  font-family: "Roboto Light", sans-serif;
   padding-bottom: 10px;
   font-size: 14px;
 }
@@ -221,7 +228,7 @@ body {
 #kanji-toggle,
 #dark-mode-btn,
 #kanji-counter {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   font-weight: 500;
   font-size: 15px;
   border: none;
@@ -232,7 +239,7 @@ body {
 
 #input-kanji {
   background-color: rgb(213, 255, 241);
-  font-family: 'Roboto Medium', sans-serif;
+  font-family: "Roboto Medium", sans-serif;
   width: 64px;
   height: 24px;
 }
@@ -242,7 +249,7 @@ body {
 }
 
 #input-kanji::placeholder {
-  font-family: 'Noto Sans JP Medium', sans-serif;
+  font-family: "Noto Sans JP Medium", sans-serif;
   font-size: 14px;
   color: rgb(35, 20, 51);
   opacity: 0.9;
@@ -271,7 +278,7 @@ body {
 }
 
 #kanji-counter {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   background-color: #c1e8e4;
   /* background-color: rgb(255, 231, 196); */
   /* background-color: #ffe4c4; */
@@ -289,7 +296,7 @@ body {
 }
 
 #kanji-counter::placeholder {
-  font-family: 'Noto Sans JP Medium', sans-serif;
+  font-family: "Noto Sans JP Medium", sans-serif;
   font-size: 14px;
   opacity: 0.9;
 }
@@ -300,13 +307,13 @@ body {
 
 /*kanji-counter appearance
 –––––––––––––––––––––––––*/
-input[type='number']::-webkit-inner-spin-button,
-input[type='number']::-webkit-outer-spin-button {
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
 
-input[type='number'] {
+input[type="number"] {
   -moz-appearance: textfield;
 }
 /*––––––––––––––––––––––––*/
@@ -331,13 +338,13 @@ input[type='number'] {
 }
 
 #kanji-stash::after {
-  content: '';
+  content: "";
   margin: 0px 0px 130px 0px;
   flex: 0 0 0;
 }
 
 .kanji-list {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 17px;
   color: rgb(47, 187, 180);
 }
@@ -397,7 +404,7 @@ input[type='number'] {
   }
 
   #kanji-counter {
-    font-family: 'Roboto', sans-serif;
+    font-family: "Roboto", sans-serif;
     font-weight: 500;
     max-width: 24px;
     font-size: 0.65em;
@@ -479,9 +486,9 @@ input[type='number'] {
   }
 
   .jap-reading {
-  font-size: 10px;
-  margin-bottom: -4px;
-}
+    font-size: 10px;
+    margin-bottom: -4px;
+  }
 
   #tree {
     margin-top: 45px;

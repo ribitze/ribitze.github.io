@@ -2,39 +2,40 @@
 const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
 //–––––––––––––––––––––––
-const title = $('#title');
-const container = $('.container');
-const body = $('body');
+const title = $("#title");
+const container = $(".container");
+const body = $("body");
 // footer-elements
-const kanjiControl = $('#kanji-control');
-const inputKanji = $('#input-kanji');
-const kanjiBtn = $('#create-kanji');
-const highlightSearch = $('.highlight-search');
-const darkModeBtn = $('#dark-mode-btn');
-const darkModeIcon = $('.fa-sun-o');
-const kanjiCounterBtn = $('#kanji-counter');
+const kanjiControl = $("#kanji-control");
+const inputKanji = $("#input-kanji");
+const kanjiBtn = $("#create-kanji");
+const highlightSearch = $(".highlight-search");
+const darkModeBtn = $("#dark-mode-btn");
+const darkModeIcon = $(".fa-sun-o");
+const kanjiCounterBtn = $("#kanji-counter");
 // main-kanji
-const kanjiMain = $('.kanji');
-const kanji = $('.symbol');
-const kun = $('#kun-reading');
-const on = $('#on-reading');
-const meaning = $('#meaning-print');
-const kanjiTree = $('#tree');
+const kanjiMain = $(".kanji");
+const kanji = $(".symbol");
+const kun = $("#kun-reading");
+const on = $("#on-reading");
+const meaning = $("#meaning-print");
+const kanjiTree = $("#tree");
 // meta-data
-const metaData = $('.meta-data');
-const metaRadical = $('.radical');
-const metaFrequency = $('.frequency');
+const metaData = $(".meta-data");
+const metaRadical = $(".radical");
+const metaParts = $(".parts");
+const metaFrequency = $(".frequency");
 // kanji-words
-const kanjiWords = $('.kanji-words');
+const kanjiWords = $(".kanji-words");
 // kanji-stash
-const kanjiStash = $('#kanji-stash');
-const kanjiList = $('.kanji-list');
-const hoverClass = $('.hover-state');
+const kanjiStash = $("#kanji-stash");
+const kanjiList = $(".kanji-list");
+const hoverClass = $(".hover-state");
 // sidebar
-const sidebar = $('.sidebar');
-const sidebarBtn = $('#sidebar-button');
-const sidebarSmall = '20vw'; // global sidebar-values
-const sidebarBig = '55vw';
+const sidebar = $(".sidebar");
+const sidebarBtn = $("#sidebar-button");
+const sidebarSmall = "20vw"; // global sidebar-values
+const sidebarBig = "55vw";
 // 'stashKanji': kanji + ID
 let stashedKanji = [];
 //'showSentences': kanji / jap + eng
@@ -42,19 +43,19 @@ let sentences = [];
 // if Dark-Mode is turned on == true (default)
 let isDark = true;
 // defines which kanji is shown on window.load
-kanjiCounterBtn.value = '';
-let onLoadValue = '一';
+kanjiCounterBtn.value = "";
+let onLoadValue = "一";
 
 // kanji-stash
 function stashKanji() {
   let counter = 1;
   for (const kanji of kanjis) {
     let kanjiName = `kan${counter}`;
-    let stashElement = document.createElement('div');
+    let stashElement = document.createElement("div");
     stashElement.textContent = kanji;
     stashElement.id = kanjiName;
-    stashElement.className = 'kanji-list';
-    stashElement.setAttribute('onclick', `clickOnKanji(${kanjiName})`);
+    stashElement.className = "kanji-list";
+    stashElement.setAttribute("onclick", `clickOnKanji(${kanjiName})`);
     kanjiStash.appendChild(stashElement);
     stashedKanji.push({
       char: `${kanji}`,
@@ -70,25 +71,30 @@ function clickOnKanji(name) {
 }
 
 function createKanji(char) {
-  fetch('../kanji.json')
+  fetch("../kanji.json")
     .then(response => response.json())
     .then(data => {
       if (data[char]) {
         let entries = data[char];
         kanji.textContent = char;
-        kun.textContent = `${entries.readings_kun.join(' • ')}`;
-        on.textContent = `${entries.readings_on.join(' • ')}`;
-        meaning.textContent = `${entries.meanings.join(', ')}`.toLowerCase();
+        kun.textContent = `${entries.readings_kun.join(" • ")}`;
+        on.textContent = `${entries.readings_on.join(" • ")}`;
+        meaning.textContent = `${entries.meanings.join(", ")}`.toLowerCase();
         metaRadical.textContent = `${entries.radical} ⏐ ${entries.kangxi}`;
         metaRadical.id = `${entries.kangxi}`;
+
+        /*         if (entries.parts !== "") {
+          metaParts.textContent = `${entries.parts.join(" · ")}`;
+        } */
+
         entries.freq === null
-          ? (metaFrequency.textContent = '▲ –')
+          ? (metaFrequency.textContent = "▲ –")
           : (metaFrequency.textContent = `▲ ${entries.freq}`);
         title.firstChild.textContent =
           `${char}-${entries.meanings[0]}`.toLowerCase();
       } else {
-        let noValue = '?';
-        let empty = '⸺';
+        let noValue = "?";
+        let empty = "⸺";
         kanji.innerHTML = noValue;
         kun.innerHTML = empty;
         on.textContent = empty;
@@ -108,13 +114,17 @@ function createKanji(char) {
       checkMeta(char);
 
       function checkMeta(char) {
-        data[char].kangxi === ''
-          ? (metaRadical.style.display = 'none')
-          : metaRadical.style.removeProperty('display');
+        data[char].kangxi === ""
+          ? (metaRadical.style.display = "none")
+          : metaRadical.style.removeProperty("display");
+
+        /* data[char].parts === ""
+          ? (metaParts.style.display = "none")
+          : metaParts.style.removeProperty("display"); */
 
         data[char].freq !== undefined
-          ? metaFrequency.style.removeProperty('display')
-          : (metaFrequency.style.display = 'none');
+          ? metaFrequency.style.removeProperty("display")
+          : (metaFrequency.style.display = "none");
       }
     });
   setTimeout(() => {
@@ -127,35 +137,35 @@ function createKanji(char) {
 
 function createSentences(char) {
   sentences.length = 0;
-  fetch('../all_v10.json')
+  fetch("../all_v10.json")
     .then(response => response.json())
     .then(data => {
       if (data) {
         let trueCounter = 0;
         let maximum = 50;
-        sidebar.textContent = '';
+        sidebar.textContent = "";
         for (let i = 0; i < data.length; i++) {
           let japData = data[i].jap;
           let engData = data[i].eng;
-          let japSentence = document.createElement('div');
-          let engSentence = document.createElement('div');
+          let japSentence = document.createElement("div");
+          let engSentence = document.createElement("div");
           if (japData.includes(char) && engData) {
             trueCounter += 1;
             // Japanese
             japSentence.textContent = data[i].jap;
             japSentence.id = `jap${trueCounter}`;
-            japSentence.className = 'jap-sentence';
+            japSentence.className = "jap-sentence";
             japSentence.setAttribute(
-              'ondblclick',
+              "ondblclick",
               `copyToClipBoard(${japSentence.id})`
             );
             sidebar.appendChild(japSentence);
             // English
             engSentence.textContent = data[i].eng;
             engSentence.id = `eng${trueCounter}`;
-            engSentence.className = 'eng-sentence';
+            engSentence.className = "eng-sentence";
             engSentence.setAttribute(
-              'ondblclick',
+              "ondblclick",
               `copyToClipBoard(${engSentence.id})`
             );
             sidebar.appendChild(engSentence);
@@ -169,11 +179,11 @@ function createSentences(char) {
           }
         }
       }
-      if (char === '') {
-        sidebar.textContent = 'Please enter a symbol!';
-        sidebar.style.fontFamily = 'Roboto Medium';
+      if (char === "") {
+        sidebar.textContent = "Please enter a symbol!";
+        sidebar.style.fontFamily = "Roboto Medium";
       } else {
-        sidebar.style.fontFamily = 'Roboto Light';
+        sidebar.style.fontFamily = "Roboto Light";
       }
       sidebar.scrollTo(0, 0);
     });
@@ -184,40 +194,40 @@ function createWords(char) {
     .then(response => response.json())
     .then(jisho => {
       let len = jisho.data.length;
-      kanjiWords.textContent = '';
+      kanjiWords.textContent = "";
       for (let i = 0; i < len; i++) {
         let jap = jisho.data[i].slug;
         let reading = jisho.data[i].japanese[0].reading;
         let eng = jisho.data[i].senses[0].english_definitions
-          .join(', ')
+          .join(", ")
           .toLowerCase();
 
-        let japReading = document.createElement('div');
+        let japReading = document.createElement("div");
         japReading.id = `japReading${i}`;
         japReading.textContent = `${reading}`;
-        japReading.className = 'jap-reading';
+        japReading.className = "jap-reading";
         japReading.setAttribute(
-          'ondblclick',
+          "ondblclick",
           `copyToClipBoard(${japReading.id})`
         );
         kanjiWords.appendChild(japReading);
         //–––
-        let japWord = document.createElement('div');
+        let japWord = document.createElement("div");
         japWord.id = `japWord${i}`;
         japWord.textContent = jap;
-        japWord.className = 'jap-word';
-        japWord.setAttribute('ondblclick', `copyToClipBoard(${japWord.id})`);
+        japWord.className = "jap-word";
+        japWord.setAttribute("ondblclick", `copyToClipBoard(${japWord.id})`);
         kanjiWords.appendChild(japWord);
         //–––
-        let engWord = document.createElement('div');
+        let engWord = document.createElement("div");
         engWord.id = `engWord${i}`;
         engWord.textContent = eng;
-        engWord.className = 'eng-word';
-        engWord.setAttribute('ondblclick', `copyToClipBoard(${engWord.id})`);
+        engWord.className = "eng-word";
+        engWord.setAttribute("ondblclick", `copyToClipBoard(${engWord.id})`);
         kanjiWords.appendChild(engWord);
 
         if (jisho.data[i].is_common) {
-          japWord.style.color = '#13949d';
+          japWord.style.color = "#13949d";
         }
       }
     })
@@ -231,56 +241,56 @@ async function createTree(char) {
   let response = await fetch(`../kanji-tree/${char}.txt`);
   let responseText = await response.text();
   response.status === 404
-    ? (kanjiTree.textContent = '—')
+    ? (kanjiTree.textContent = "—")
     : (kanjiTree.textContent = responseText);
 }
 
 function showWords() {
-  if (kanjiWords.style.display === 'none') {
-    kanji.style.display = 'none';
-    kun.style.display = 'none';
-    on.style.display = 'none';
-    meaning.style.display = 'none';
-    metaData.style.display = 'none';
-    kanjiTree.style.display = 'none';
-    kanjiWords.style.display = 'flex';
+  if (kanjiWords.style.display === "none") {
+    kanji.style.display = "none";
+    kun.style.display = "none";
+    on.style.display = "none";
+    meaning.style.display = "none";
+    metaData.style.display = "none";
+    kanjiTree.style.display = "none";
+    kanjiWords.style.display = "flex";
   } else {
-    kanji.style.removeProperty('display');
-    kun.style.removeProperty('display');
-    on.style.removeProperty('display');
-    meaning.style.removeProperty('display');
-    metaData.style.removeProperty('display');
-    kanjiTree.style.display = 'none';
-    kanjiWords.style.display = 'none';
+    kanji.style.removeProperty("display");
+    kun.style.removeProperty("display");
+    on.style.removeProperty("display");
+    meaning.style.removeProperty("display");
+    metaData.style.removeProperty("display");
+    kanjiTree.style.display = "none";
+    kanjiWords.style.display = "none";
   }
 }
 
 function showTree() {
-  if (kanjiTree.style.display === 'none') {
-    kanji.style.display = 'none';
-    kun.style.display = 'none';
-    on.style.display = 'none';
-    meaning.style.display = 'none';
-    metaData.style.display = 'none';
-    kanjiWords.style.display = 'none';
-    kanjiTree.style.display = 'flex';
+  if (kanjiTree.style.display === "none") {
+    kanji.style.display = "none";
+    kun.style.display = "none";
+    on.style.display = "none";
+    meaning.style.display = "none";
+    metaData.style.display = "none";
+    kanjiWords.style.display = "none";
+    kanjiTree.style.display = "flex";
   } else {
-    kanji.style.removeProperty('display');
-    kun.style.removeProperty('display');
-    on.style.removeProperty('display');
-    meaning.style.removeProperty('display');
-    metaData.style.removeProperty('display');
-    kanjiWords.style.display = 'none';
-    kanjiTree.style.display = 'none';
+    kanji.style.removeProperty("display");
+    kun.style.removeProperty("display");
+    on.style.removeProperty("display");
+    meaning.style.removeProperty("display");
+    metaData.style.removeProperty("display");
+    kanjiWords.style.display = "none";
+    kanjiTree.style.display = "none";
   }
 }
 
 function highlightKanji() {
   //const dayHighlight = '#ff7f7f';
-  const dayHighlight = '#13949d';
-  const dayDefault = '#000';
-  const darkHighlight = 'rgb(247, 183, 104)';
-  const darkDefault = 'rgb(47, 187, 180)';
+  const dayHighlight = "#13949d";
+  const dayDefault = "#000";
+  const darkHighlight = "rgb(247, 183, 104)";
+  const darkDefault = "rgb(47, 187, 180)";
 
   let endValue = kanjis.length + 1;
   let userValue = endValue + Number(kanjiCounterBtn.value) + 1 - endValue;
@@ -304,9 +314,9 @@ function highlightKanji() {
 
 function highlightClicked(char) {
   let clicked = $(`#${char}`);
-  clicked.classList.add('highlight-search');
-  kanjiStash.addEventListener('auxclick', () => {
-    clicked.classList.remove('highlight-search');
+  clicked.classList.add("highlight-search");
+  kanjiStash.addEventListener("auxclick", () => {
+    clicked.classList.remove("highlight-search");
   });
 }
 
@@ -319,38 +329,40 @@ function expandSidebar() {
     : (sidebar.style.width = big);
 
   if (sidebar.style.width === big) {
-    kanjiMain.style.display = 'none';
-    metaData.style.display = 'none';
+    kanjiMain.style.display = "none";
+    kanjiControl.style.display = "flex";
+    metaData.style.display = "none";
   } else if (sidebar.style.width !== big) {
-    kanjiMain.style.removeProperty('display');
+    kanjiMain.style.removeProperty("display");
+    kanjiControl.style.display = "flex";
     if (
-      kanjiTree.style.display === 'flex' ||
-      kanjiWords.style.display === 'flex'
+      kanjiTree.style.display === "flex" ||
+      kanjiWords.style.display === "flex"
     ) {
-      metaData.style.display = 'none';
+      metaData.style.display = "none";
     } else {
-      metaData.style.removeProperty('display');
+      metaData.style.removeProperty("display");
     }
     //restoring properties after 'smallSideBar()'
-    sidebar.style.display = 'flex';
-    sidebar.style.textAlign = 'left';
-    kanjiStash.style.display = 'flex';
+    sidebar.style.display = "flex";
+    sidebar.style.textAlign = "left";
+    kanjiStash.style.display = "flex";
   }
 }
 
 function smallSideBar() {
-  const expandedSidebar = '75vw';
+  const expandedSidebar = "75vw";
   if (window.innerWidth <= 970) {
-    if (sidebar.style.display === 'none') {
-      sidebar.style.display = 'flex';
+    if (sidebar.style.display === "none") {
+      sidebar.style.display = "flex";
       sidebar.style.width = expandedSidebar;
-      sidebar.style.textAlign = 'center';
-      kanjiMain.style.display = 'none';
-      kanjiStash.style.display = 'none';
+      sidebar.style.textAlign = "center";
+      kanjiMain.style.display = "none";
+      kanjiStash.style.display = "none";
     } else {
-      kanjiStash.style.display = 'flex';
-      sidebar.style.display = 'none';
-      kanjiMain.style.removeProperty('display');
+      kanjiStash.style.display = "flex";
+      sidebar.style.display = "none";
+      kanjiMain.style.removeProperty("display");
     }
   }
 }
@@ -362,14 +374,14 @@ function scrollToKanji(char) {
 
     if (kanjiData.includes(char)) {
       let selected = $(`#${kanjiID}`);
-      if (char === '') {
+      if (char === "") {
         return;
       } else {
         selected.scrollIntoView();
         // highlights the entered kanji until 'input-kanji' is used again:
-        selected.classList.add('highlight-search');
-        inputKanji.addEventListener('click', () => {
-          selected.classList.remove('highlight-search');
+        selected.classList.add("highlight-search");
+        inputKanji.addEventListener("click", () => {
+          selected.classList.remove("highlight-search");
         });
       }
     }
@@ -387,37 +399,46 @@ function checkWindow() {
   let smallScreen = 970;
 
   if (window.innerWidth <= smallScreen) {
-    if (sidebar.style.display === 'none' || sidebar.style.width <= big) {
-      kanjiMain.style.removeProperty('display');
-      sidebar.style.display = 'none';
+    if (sidebar.style.display === "none" || sidebar.style.width <= big) {
+      kanjiMain.style.removeProperty("display");
+      sidebar.style.display = "none";
       sidebar.style.width = small;
+      kanjiControl.style.display = "flex";
 
       if (
-        kanjiTree.style.display === 'flex' ||
-        kanjiWords.style.display === 'flex'
+        kanjiTree.style.display === "flex" ||
+        kanjiWords.style.display === "flex"
       ) {
-        metaData.style.display = 'none';
+        metaData.style.display = "none";
       } else {
-        metaData.style.removeProperty('display');
+        metaData.style.removeProperty("display");
       }
     }
   } else if (window.innerWidth > smallScreen) {
-    kanjiMain.style.removeProperty('display');
-    kanjiStash.style.display = 'flex';
-    sidebar.style.display = 'flex';
-    sidebarBtn.style.removeProperty('display');
+    kanjiMain.style.removeProperty("display");
+
+    kanjiStash.style.display = "flex";
+    kanjiControl.style.display = "flex";
+    sidebar.style.display = "flex";
+    sidebarBtn.style.removeProperty("display");
 
     if (
-      kanjiTree.style.display === 'flex' ||
-      kanjiWords.style.display === 'flex'
+      kanjiTree.style.display === "flex" ||
+      kanjiWords.style.display === "flex"
     ) {
-      metaData.style.display = 'none';
+      metaData.style.display = "none";
     } else {
-      metaData.style.removeProperty('display');
+      metaData.style.removeProperty("display");
+    }
+
+    if (sidebar.style.width > small && sidebar.style.width !== big) {
+      sidebar.style.display === "flex"
+        ? (kanjiStash.style.display = "none")
+        : (kanjiStash.style.display = "flex");
     }
 
     if (sidebar.style.width > small) {
-      kanjiMain.style.display = 'none';
+      kanjiMain.style.display = "none";
     }
   }
 }
@@ -475,25 +496,25 @@ function checkWindow() {
 
 function changeControl(boolean) {
   if (boolean) {
-    inputKanji.style.background = '#c1e8e4';
-    kanjiBtn.style.background = '#c1e8e4';
-    darkModeBtn.style.background = '#c1e8e4';
-    kanjiCounterBtn.style.background = '#c1e8e4';
+    inputKanji.style.background = "#c1e8e4";
+    kanjiBtn.style.background = "#c1e8e4";
+    darkModeBtn.style.background = "#c1e8e4";
+    kanjiCounterBtn.style.background = "#c1e8e4";
   } else if (!boolean) {
-    inputKanji.style.background = '#7fe2d8';
-    kanjiBtn.style.background = '#7fe2d8';
-    darkModeBtn.style.background = '#7fe2d8';
-    kanjiCounterBtn.style.background = '#7fe2d8';
+    inputKanji.style.background = "#7fe2d8";
+    kanjiBtn.style.background = "#7fe2d8";
+    darkModeBtn.style.background = "#7fe2d8";
+    kanjiCounterBtn.style.background = "#7fe2d8";
   }
 }
 
 function toggleDarkMode() {
-  const day = '#fff';
-  const night = '#231433';
-  const mainDay = '#000';
-  const mainNight = '#e0e0ce';
-  const stashNight = '#2fbbb4';
-  const treeNight = '#c1e8e4';
+  const day = "#fff";
+  const night = "#231433";
+  const mainDay = "#000";
+  const mainNight = "#e0e0ce";
+  const stashNight = "#2fbbb4";
+  const treeNight = "#c1e8e4";
 
   if (isDark) {
     isDark = false;
@@ -502,7 +523,7 @@ function toggleDarkMode() {
     kanjiStash.style.color = mainDay;
     sidebar.style.color = mainDay;
     kanjiTree.style.color = mainDay;
-    darkModeIcon.className = 'fa fa-moon-o';
+    darkModeIcon.className = "fa fa-moon-o";
   } else if (!isDark) {
     isDark = true;
     body.style.background = night;
@@ -510,84 +531,87 @@ function toggleDarkMode() {
     kanjiStash.style.color = stashNight;
     sidebar.style.color = mainNight;
     kanjiTree.style.color = treeNight;
-    darkModeIcon.className = 'fa fa-sun-o';
+    darkModeIcon.className = "fa fa-sun-o";
   }
   changeControl(isDark);
   highlightKanji();
 }
 
 function goToJisho(char) {
-  let urlEnd = '%23kanji';
-  window.open(`https://jisho.org/search/${char}${urlEnd}`, (target = '_blank'));
+  let urlEnd = "%23kanji";
+  window.open(
+    `https://jisho.org/search/${char} ${urlEnd}`,
+    (target = "_blank")
+  );
 }
 
 document.onkeydown = function keyPress(event) {
   /* gets rid of all elements except the main-kanji – for   printing */
-  if (event.ctrlKey && event.altKey && event.key === ',') {
-    kanjiControl.style.display === 'none'
-      ? (kanjiControl.style.display = 'flex')
-      : (kanjiControl.style.display = 'none');
+  if (event.ctrlKey && event.altKey && event.key === ",") {
+    kanjiControl.style.display === "none"
+      ? (kanjiControl.style.display = "flex")
+      : (kanjiControl.style.display = "none");
 
-    kanjiStash.style.display === 'none'
-      ? (kanjiStash.style.display = 'flex')
-      : (kanjiStash.style.display = 'none');
+    kanjiStash.style.display === "none"
+      ? (kanjiStash.style.display = "flex")
+      : (kanjiStash.style.display = "none");
 
-    sidebar.style.display === 'none'
-      ? (sidebar.style.display = 'flex')
-      : (sidebar.style.display = 'none');
+    sidebar.style.display === "none"
+      ? (sidebar.style.display = "flex")
+      : (sidebar.style.display = "none");
 
-    sidebarBtn.style.display === 'none'
-      ? sidebarBtn.style.removeProperty('display')
-      : (sidebarBtn.style.display = 'none');
+    sidebarBtn.style.display === "none"
+      ? sidebarBtn.style.removeProperty("display")
+      : (sidebarBtn.style.display = "none");
   }
-  if (event.ctrlKey && event.altKey && event.key === '.') {
+  if (event.ctrlKey && event.altKey && event.key === ".") {
     if (sidebar.style.width > sidebarSmall) {
-      kanjiControl.style.display === 'none'
-        ? (kanjiControl.style.display = 'flex')
-        : (kanjiControl.style.display = 'none');
+      kanjiControl.style.display === "none"
+        ? (kanjiControl.style.display = "flex")
+        : (kanjiControl.style.display = "none");
 
-      kanjiStash.style.display === 'none'
-        ? (kanjiStash.style.display = 'flex')
-        : (kanjiStash.style.display = 'none');
+      kanjiStash.style.display === "none"
+        ? (kanjiStash.style.display = "flex")
+        : (kanjiStash.style.display = "none");
     } else {
-      kanjiControl.style.display === 'none'
-        ? (kanjiControl.style.display = 'flex')
-        : (kanjiControl.style.display = 'none');
+      kanjiControl.style.display === "none"
+        ? (kanjiControl.style.display = "flex")
+        : (kanjiControl.style.display = "none");
 
-      kanjiStash.style.display === 'none'
-        ? (kanjiStash.style.display = 'flex')
-        : (kanjiStash.style.display = 'none');
+      kanjiStash.style.display === "none"
+        ? (kanjiStash.style.display = "flex")
+        : (kanjiStash.style.display = "none");
 
-      kanjiMain.style.display === 'none'
-        ? kanjiMain.style.removeProperty('display')
-        : (kanjiMain.style.display = 'none');
+      kanjiMain.style.display === "none"
+        ? kanjiMain.style.removeProperty("display")
+        : (kanjiMain.style.display = "none");
 
-      metaData.style.display === 'none'
-        ? metaData.style.removeProperty('display')
-        : (metaData.style.display = 'none');
+      metaData.style.display === "none"
+        ? metaData.style.removeProperty("display")
+        : (metaData.style.display = "none");
     }
   }
   //––––––––––––––––––––––––––––––––––––––––
-  if (event.key === 'Enter') {
+  if (event.key === "Enter") {
     createKanji(inputKanji.value);
     scrollToKanji(inputKanji.value);
   }
-  if (event.ctrlKey && event.key === ' ') toggleDarkMode();
-  if (event.altKey && event.key === 'ArrowRight') showWords();
-  if (event.altKey && event.key === 'ArrowLeft') showTree();
-  if (event.altKey && event.key === 'j') goToJisho(kanji.textContent);
+  if (event.ctrlKey && event.key === " ") toggleDarkMode();
+  if (event.altKey && event.key === "ArrowRight") showWords();
+  if (event.altKey && event.key === "ArrowLeft") showTree();
+  if (event.altKey && event.key === "j") goToJisho(kanji.textContent);
   //––––––––––––––––––––––––––––––––––––––––
-  if (event.key === 'Backspace') kanjiStash.scrollTo(0, 0);
+  if (event.key === "Backspace") kanjiStash.scrollTo(0, 0);
 };
 
 function scrollStash(event) {
   event = event || window.event;
-  kanjiStash.style.cursor = 'grab';
+  kanjiStash.style.cursor = "grab";
   let pos = { top: 0, left: 0, x: 0, y: 0 };
 
   const mouseDownHandler = function (event) {
-    kanjiStash.style.cursor = 'grabbing';
-    kanjiStash.style.userSelect = 'none';
+    kanjiStash.style.cursor = "grabbing";
+    kanjiStash.style.userSelect = "none";
 
     pos = {
       left: kanjiStash.scrollLeft,
@@ -597,8 +621,8 @@ function scrollStash(event) {
       y: event.clientY,
     };
 
-    document.addEventListener('mousemove', mouseMoveHandler);
-    document.addEventListener('mouseup', mouseUpHandler);
+    document.addEventListener("mousemove", mouseMoveHandler);
+    document.addEventListener("mouseup", mouseUpHandler);
   };
 
   const mouseMoveHandler = function (event) {
@@ -612,25 +636,25 @@ function scrollStash(event) {
   };
 
   const mouseUpHandler = function () {
-    kanjiStash.style.cursor = 'grab';
-    kanjiStash.style.removeProperty('user-select');
+    kanjiStash.style.cursor = "grab";
+    kanjiStash.style.removeProperty("user-select");
 
-    document.removeEventListener('mousemove', mouseMoveHandler);
-    document.removeEventListener('mouseup', mouseUpHandler);
+    document.removeEventListener("mousemove", mouseMoveHandler);
+    document.removeEventListener("mouseup", mouseUpHandler);
   };
 
   // Attach the handler
-  kanjiStash.addEventListener('mousedown', mouseDownHandler);
+  kanjiStash.addEventListener("mousedown", mouseDownHandler);
 }
 
 function scrollSidebar(event) {
   event = event || window.event;
-  sidebar.style.cursor = 'grab';
+  sidebar.style.cursor = "grab";
   let pos = { top: 0, left: 0, x: 0, y: 0 };
 
   const mouseDownHandler = function (event) {
-    sidebar.style.cursor = 'grabbing';
-    sidebar.style.userSelect = 'none';
+    sidebar.style.cursor = "grabbing";
+    sidebar.style.userSelect = "none";
 
     pos = {
       left: sidebar.scrollLeft,
@@ -640,8 +664,8 @@ function scrollSidebar(event) {
       y: event.clientY,
     };
 
-    document.addEventListener('mousemove', mouseMoveHandler);
-    document.addEventListener('mouseup', mouseUpHandler);
+    document.addEventListener("mousemove", mouseMoveHandler);
+    document.addEventListener("mouseup", mouseUpHandler);
   };
 
   const mouseMoveHandler = function (event) {
@@ -655,25 +679,25 @@ function scrollSidebar(event) {
   };
 
   const mouseUpHandler = function () {
-    sidebar.style.cursor = 'grab';
-    sidebar.style.removeProperty('user-select');
+    sidebar.style.cursor = "grab";
+    sidebar.style.removeProperty("user-select");
 
-    document.removeEventListener('mousemove', mouseMoveHandler);
-    document.removeEventListener('mouseup', mouseUpHandler);
+    document.removeEventListener("mousemove", mouseMoveHandler);
+    document.removeEventListener("mouseup", mouseUpHandler);
   };
 
   // Attach the handler
-  sidebar.addEventListener('mousedown', mouseDownHandler);
+  sidebar.addEventListener("mousedown", mouseDownHandler);
 }
 
 function scrollWords(event) {
   event = event || window.event;
-  kanjiWords.style.cursor = 'grab';
+  kanjiWords.style.cursor = "grab";
   let pos = { top: 0, left: 0, x: 0, y: 0 };
 
   const mouseDownHandler = function (event) {
-    kanjiWords.style.cursor = 'grabbing';
-    kanjiWords.style.userSelect = 'none';
+    kanjiWords.style.cursor = "grabbing";
+    kanjiWords.style.userSelect = "none";
 
     pos = {
       left: kanjiWords.scrollLeft,
@@ -683,8 +707,8 @@ function scrollWords(event) {
       y: event.clientY,
     };
 
-    document.addEventListener('mousemove', mouseMoveHandler);
-    document.addEventListener('mouseup', mouseUpHandler);
+    document.addEventListener("mousemove", mouseMoveHandler);
+    document.addEventListener("mouseup", mouseUpHandler);
   };
 
   const mouseMoveHandler = function (event) {
@@ -698,15 +722,15 @@ function scrollWords(event) {
   };
 
   const mouseUpHandler = function () {
-    kanjiWords.style.cursor = 'grab';
-    kanjiWords.style.removeProperty('user-select');
+    kanjiWords.style.cursor = "grab";
+    kanjiWords.style.removeProperty("user-select");
 
-    document.removeEventListener('mousemove', mouseMoveHandler);
-    document.removeEventListener('mouseup', mouseUpHandler);
+    document.removeEventListener("mousemove", mouseMoveHandler);
+    document.removeEventListener("mouseup", mouseUpHandler);
   };
 
   // Attach the handler
-  kanjiWords.addEventListener('mousedown', mouseDownHandler);
+  kanjiWords.addEventListener("mousedown", mouseDownHandler);
 }
 
 function loadActions() {
@@ -714,30 +738,30 @@ function loadActions() {
   createKanji(onLoadValue);
   changeControl(isDark);
   checkWindow();
-  toggleDarkMode();
+  //toggleDarkMode();
 }
 
 //–––––––––––––––EVENTS––––––––––––––––––
 // footer – button-events
-kanjiBtn.addEventListener('click', () => {
+kanjiBtn.addEventListener("click", () => {
   createKanji(inputKanji.value);
   scrollToKanji(inputKanji.value);
 });
-darkModeBtn.addEventListener('click', toggleDarkMode);
-kanjiCounterBtn.addEventListener('input', highlightKanji);
-kanjiMain.addEventListener('auxclick', showTree);
+darkModeBtn.addEventListener("click", toggleDarkMode);
+kanjiCounterBtn.addEventListener("input", highlightKanji);
+kanjiMain.addEventListener("auxclick", showTree);
 // sidebar-button
-sidebarBtn.addEventListener('click', () => {
+sidebarBtn.addEventListener("click", () => {
   expandSidebar();
   smallSideBar();
 });
-sidebarBtn.addEventListener('auxclick', () => {
+sidebarBtn.addEventListener("auxclick", () => {
   showWords();
 });
 // scroll-behaviour
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
   scrollStash(), scrollSidebar(), scrollWords(), highlightKanji();
 });
 // stash Kanji on windowload
 window.onload = loadActions();
-window.addEventListener('resize', checkWindow);
+window.addEventListener("resize", checkWindow);
