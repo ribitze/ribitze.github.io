@@ -23,8 +23,9 @@ const kanjiTree = $("#tree");
 // meta-data
 const metaData = $(".meta-data");
 const metaRadical = $(".radical");
-const metaParts = $(".parts");
+/* const metaParts = $(".parts"); */
 const metaFrequency = $(".frequency");
+const metaRelated = $(".related");
 // kanji-words
 const kanjiWords = $(".kanji-words");
 // kanji-stash
@@ -43,8 +44,8 @@ let sentences = [];
 // if Dark-Mode is turned on == true (default)
 let isDark = true;
 // defines which kanji is shown on window.load
-kanjiCounterBtn.value = "";
 let onLoadValue = "一";
+kanjiCounterBtn.value = "";
 
 // kanji-stash
 function stashKanji() {
@@ -68,6 +69,11 @@ function stashKanji() {
 function clickOnKanji(name) {
   createKanji(name.textContent);
   highlightClicked(name.id);
+}
+
+function clickOnRelated(name) {
+  createKanji(name.textContent);
+  scrollToKanji(name.textContent);
 }
 
 function createKanji(char) {
@@ -109,6 +115,36 @@ function createKanji(char) {
         (async () => {
           await createTree(char);
         })();
+      }
+
+      if (data[char].parts !== "") {
+        metaRelated.textContent = "";
+        metaRelated.style.display = "flex";
+        let matchCounter = 0;
+        let maximum = 10;
+        for (let kanji of kanjis) {
+          if (data[kanji].parts.includes(char)) {
+            let relatedElement = document.createElement("div");
+            let spanBreak = document.createElement("br");
+            relatedElement.className = "related-kanji";
+            relatedElement.id = `rel${matchCounter}`;
+            relatedElement.textContent = kanji;
+            relatedElement.setAttribute(
+              "onclick",
+              `clickOnRelated(${relatedElement.id})`
+            );
+            if (kanji == data[kanji].parts) {
+              continue;
+            } else {
+              metaRelated.appendChild(relatedElement);
+              matchCounter++;
+            }
+            if (matchCounter == maximum) break;
+          }
+        }
+      } else {
+        metaRelated.textContent = "";
+        metaRelated.style.display = "none";
       }
 
       checkMeta(char);
@@ -401,6 +437,7 @@ function checkWindow() {
   if (window.innerWidth <= smallScreen) {
     if (sidebar.style.display === "none" || sidebar.style.width <= big) {
       kanjiMain.style.removeProperty("display");
+      metaRelated.style.display = "none";
       sidebar.style.display = "none";
       sidebar.style.width = small;
       kanjiControl.style.display = "flex";
@@ -416,7 +453,6 @@ function checkWindow() {
     }
   } else if (window.innerWidth > smallScreen) {
     kanjiMain.style.removeProperty("display");
-
     kanjiStash.style.display = "flex";
     kanjiControl.style.display = "flex";
     sidebar.style.display = "flex";
@@ -440,6 +476,9 @@ function checkWindow() {
     if (sidebar.style.width > small) {
       kanjiMain.style.display = "none";
     }
+  }
+  if (window.innerWidth > 750) {
+    metaRelated.style.display = "flex";
   }
 }
 
@@ -594,6 +633,7 @@ document.onkeydown = function keyPress(event) {
   //––––––––––––––––––––––––––––––––––––––––
   if (event.key === "Enter") {
     createKanji(inputKanji.value);
+    console.log(inputKanji.value);
     scrollToKanji(inputKanji.value);
   }
   if (event.ctrlKey && event.key === " ") toggleDarkMode();

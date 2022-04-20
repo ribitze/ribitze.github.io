@@ -10,7 +10,7 @@
     "radical": "one 一",
     "heisig": "floor, ceiling",
     "wanikani": "ground",
-    "parts": ""
+    "parts": "一"
   },
   "二": {
     "strokes": 2,
@@ -23,7 +23,7 @@
     "radical": "two 二",
     "heisig": "",
     "wanikani": "",
-    "parts": ""
+    "parts": "二"
   },
   "九": {
     "strokes": 2,
@@ -121,7 +121,7 @@
     "radical": "ten, complete 十",
     "heisig": "needle",
     "wanikani": "cross",
-    "parts": ""
+    "parts": "十"
   },
   "三": {
     "strokes": 3,
@@ -134,7 +134,7 @@
     "radical": "one 一",
     "heisig": "",
     "wanikani": "",
-    "parts": ""
+    "parts": ["一","二"]
   },
   "上": {
     "strokes": 3,
@@ -189,7 +189,7 @@
     "radical": "▪",
     "heisig": "",
     "wanikani": "",
-    "parts": ""
+    "parts": ["一","｜","卜"]
   },
   "口": {
     "strokes": 3,
@@ -374,7 +374,7 @@
     "radical": "▪",
     "heisig": "",
     "wanikani": "",
-    "parts": ""
+    "parts": ["一","亅"]
   },
   "了": {
     "strokes": 2,
@@ -502,7 +502,7 @@
     "radical": "▪",
     "heisig": "",
     "wanikani": "",
-    "parts": ""
+    "parts": ["一","二","大"]
   },
   "手": {
     "strokes": 4,
@@ -550,7 +550,7 @@
     "radical": "sun, day 日",
     "heisig": "sun, day",
     "wanikani": "sun",
-    "parts": ""
+    "parts": "日"
   },
   "月": {
     "strokes": 4,
@@ -753,7 +753,7 @@
     "radical": "▪",
     "heisig": "",
     "wanikani": "",
-    "parts": ""
+    "parts": ["丶","日"]
   },
   "目": {
     "strokes": 5,
@@ -850,7 +850,7 @@
     "radical": "▪",
     "heisig": "",
     "wanikani": "",
-    "parts": ""
+    "parts": ["一","个"]
   },
   "元": {
     "strokes": 4,
@@ -958,7 +958,7 @@
     "radical": "▪",
     "heisig": "",
     "wanikani": "",
-    "parts": ""
+    "parts": ["ノ","十","干","乞"]
   },
   "友": {
     "strokes": 4,
@@ -1605,11 +1605,11 @@
       "はや.める",
       "さ-"
     ],
-    "kangxi": "",
-    "radical": "▪",
+    "kangxi": "72",
+    "radical": "sun, day 日",
     "heisig": "",
     "wanikani": "",
-    "parts": ""
+    "parts": ["十","日"]
   },
   "気": {
     "strokes": 6,
@@ -1913,7 +1913,7 @@
     "radical": "▪",
     "heisig": "",
     "wanikani": "",
-    "parts": ""
+    "parts": ["一","冂","口"]
   },
   "回": {
     "strokes": 6,
@@ -7612,7 +7612,7 @@
     "radical": "▪",
     "heisig": "",
     "wanikani": "",
-    "parts": ""
+    "parts": ["二","人","大"]
   },
   "建": {
     "strokes": 9,
@@ -8646,7 +8646,7 @@
     "radical": "▪",
     "heisig": "",
     "wanikani": "",
-    "parts": ""
+    "parts": ["一","十"]
   },
   "是": {
     "strokes": 9,
@@ -9128,7 +9128,7 @@
     "radical": "▪",
     "heisig": "",
     "wanikani": "",
-    "parts": ""
+    "parts": ["一","亅","口"]
   },
   "許": {
     "strokes": 11,
@@ -17256,7 +17256,7 @@
     "radical": "▪",
     "heisig": "",
     "wanikani": "",
-    "parts": ""
+    "parts": ["一","ヨ","彑"]
   },
   "剣": {
     "strokes": 10,
@@ -24705,7 +24705,7 @@
     "radical": "▪",
     "heisig": "",
     "wanikani": "",
-    "parts": ""
+    "parts": "日"
   },
   "洞": {
     "strokes": 9,
@@ -27063,7 +27063,7 @@
     "radical": "▪",
     "heisig": "",
     "wanikani": "",
-    "parts": ""
+    "parts": "日"
   },
   "旦": {
     "strokes": 5,
