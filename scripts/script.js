@@ -121,11 +121,11 @@ function createKanji(char) {
         metaRelated.textContent = "";
         metaRelated.style.display = "flex";
         let matchCounter = 0;
-        let maximum = 10;
+        let maximum = 100;
+
         for (let kanji of kanjis) {
           if (data[kanji].parts.includes(char)) {
             let relatedElement = document.createElement("div");
-            let spanBreak = document.createElement("br");
             relatedElement.className = "related-kanji";
             relatedElement.id = `rel${matchCounter}`;
             relatedElement.textContent = kanji;
@@ -773,6 +773,49 @@ function scrollWords(event) {
   kanjiWords.addEventListener("mousedown", mouseDownHandler);
 }
 
+function scrollRelated(event) {
+  event = event || window.event;
+  metaRelated.style.cursor = "grab";
+  let pos = { top: 0, left: 0, x: 0, y: 0 };
+
+  const mouseDownHandler = function (event) {
+    metaRelated.style.cursor = "grabbing";
+    metaRelated.style.userSelect = "none";
+
+    pos = {
+      left: metaRelated.scrollLeft,
+      top: metaRelated.scrollTop,
+      // Get the current mouse position
+      x: event.clientX,
+      y: event.clientY,
+    };
+
+    document.addEventListener("mousemove", mouseMoveHandler);
+    document.addEventListener("mouseup", mouseUpHandler);
+  };
+
+  const mouseMoveHandler = function (event) {
+    // How far the mouse has been moved
+    const dx = event.clientX - pos.x;
+    const dy = event.clientY - pos.y;
+
+    // Scroll the element
+    metaRelated.scrollTop = pos.top - dy;
+    metaRelated.scrollLeft = pos.left - dx;
+  };
+
+  const mouseUpHandler = function () {
+    metaRelated.style.cursor = "grab";
+    metaRelated.style.removeProperty("user-select");
+
+    document.removeEventListener("mousemove", mouseMoveHandler);
+    document.removeEventListener("mouseup", mouseUpHandler);
+  };
+
+  // Attach the handler
+  metaRelated.addEventListener("mousedown", mouseDownHandler);
+}
+
 function loadActions() {
   stashKanji();
   createKanji(onLoadValue);
@@ -800,7 +843,11 @@ sidebarBtn.addEventListener("auxclick", () => {
 });
 // scroll-behaviour
 document.addEventListener("DOMContentLoaded", () => {
-  scrollStash(), scrollSidebar(), scrollWords(), highlightKanji();
+  scrollStash(),
+    scrollSidebar(),
+    scrollWords(),
+    scrollRelated(),
+    highlightKanji();
 });
 // stash Kanji on windowload
 window.onload = loadActions();
