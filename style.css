@@ -90,8 +90,8 @@ body {
   align-content: flex-start;
   font-size: 20px;
   margin: 20px auto;
-  max-width: 204px;
-  height: 160px;
+  max-width: 192px;
+  height: 152px;
   overflow: hidden;
 }
 
@@ -101,7 +101,7 @@ body {
   width: 24px;
   cursor: grab;
   border: 1px solid;
-  padding: 3px;
+  padding: 2px;
   margin: 1px 1px;
 }
 
@@ -329,7 +329,7 @@ body {
 }
 
 .highlight-search {
-  color: #be3121 !important;
+  color: #c32a2a !important;
 }
 
 /*kanji-counter appearance

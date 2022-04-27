@@ -39,8 +39,6 @@ const sidebarSmall = "20vw"; // global sidebar-values
 const sidebarBig = "55vw";
 // 'stashKanji': kanji + ID
 let stashedKanji = [];
-//'showSentences': kanji / jap + eng
-let sentences = [];
 // if Dark-Mode is turned on == true (default)
 let isDark = true;
 // defines which kanji is shown on window.load
@@ -80,7 +78,24 @@ function createKanji(char) {
   fetch("../kanji.json")
     .then(response => response.json())
     .then(data => {
-      if (data[char]) {
+      if (char.length > 1) {
+        let matches = [];
+        char = char.toLowerCase();
+        for (let kan of kanjis) {
+          data[kan].meanings = data[kan].meanings.toString().toLowerCase();
+          if (data[kan].meanings.includes(char) || char[0] === kan) {
+            matches.push(kan);
+          }
+        }
+        if (matches.length === 0) {
+          matches.push("");
+        }
+        let newChar = matches[0];
+        createKanji(newChar);
+        scrollToKanji(newChar);
+        console.log(matches.join(" · "));
+        //
+      } else if (data[char]) {
         let entries = data[char];
         kanji.textContent = char;
         kun.textContent = `${entries.readings_kun.join(" • ")}`;
@@ -89,9 +104,9 @@ function createKanji(char) {
         metaRadical.textContent = `${entries.radical} ⏐ ${entries.kangxi}`;
         metaRadical.id = `${entries.kangxi}`;
 
-        /*         if (entries.parts !== "") {
+        /*if (entries.parts !== "") {
           metaParts.textContent = `${entries.parts.join(" · ")}`;
-        } */
+        }*/
 
         entries.freq === null
           ? (metaFrequency.textContent = "▲ –")
@@ -100,13 +115,14 @@ function createKanji(char) {
           `${char}-${entries.meanings[0]}`.toLowerCase();
       } else {
         let noValue = "?";
-        let empty = "⸺";
+        let empty = "•";
         kanji.innerHTML = noValue;
         kun.innerHTML = empty;
         on.textContent = empty;
         meaning.textContent = noValue;
         metaRadical.textContent = empty;
         metaFrequency.textContent = empty;
+        metaRelated.textContent = empty;
       }
 
       if (data[char] === undefined) {
@@ -121,7 +137,7 @@ function createKanji(char) {
         metaRelated.textContent = "";
         metaRelated.style.display = "flex";
         let matchCounter = 0;
-        let maximum = 100;
+        let maximum = 102;
 
         for (let kanji of kanjis) {
           if (data[kanji].parts.includes(char)) {
@@ -165,20 +181,21 @@ function createKanji(char) {
     });
   setTimeout(() => {
     createSentences(char);
-  }, 250);
+  }, 150);
   setTimeout(() => {
-    createWords(char);
+    if (char.length === 1) {
+      createWords(char);
+    }
   }, 100);
 }
 
 function createSentences(char) {
-  sentences.length = 0;
   fetch("../all_v10.json")
     .then(response => response.json())
     .then(data => {
       if (data) {
         let trueCounter = 0;
-        let maximum = 50;
+        let maximum = 100;
         sidebar.textContent = "";
         for (let i = 0; i < data.length; i++) {
           let japData = data[i].jap;
@@ -188,7 +205,7 @@ function createSentences(char) {
           if (japData.includes(char) && engData) {
             trueCounter += 1;
             // Japanese
-            japSentence.textContent = data[i].jap;
+            japSentence.textContent = japData;
             japSentence.id = `jap${trueCounter}`;
             japSentence.className = "jap-sentence";
             japSentence.setAttribute(
@@ -197,7 +214,7 @@ function createSentences(char) {
             );
             sidebar.appendChild(japSentence);
             // English
-            engSentence.textContent = data[i].eng;
+            engSentence.textContent = engData;
             engSentence.id = `eng${trueCounter}`;
             engSentence.className = "eng-sentence";
             engSentence.setAttribute(
@@ -206,11 +223,6 @@ function createSentences(char) {
             );
             sidebar.appendChild(engSentence);
             //
-            sentences.push({
-              char: `${char}`,
-              jap: `${japSentence.textContent}`,
-              eng: `${engSentence.textContent}`,
-            });
             if (trueCounter == maximum) break;
           }
         }
@@ -268,7 +280,8 @@ function createWords(char) {
       }
     })
     .catch(e => {
-      console.log(e);
+      //console.log(e);
+      return;
     });
   kanjiWords.scrollTo(0, 0);
 }
@@ -482,57 +495,6 @@ function checkWindow() {
   }
 }
 
-/* function toggleKanjiFullScreen() {
-  const smallStash = '20vw';
-  const expandedStash = '86vw';
-  const bigBtn = '48px';
-  const smallBtn = '32px';
-  const inputSmall = '24px';
-  const inputBig = '64px';
-  const smallFont = '16px';
-  const bigFont = '23px';
-
-  kanjiStash.style.width > smallStash
-    ? (kanjiStash.style.width = smallStash)
-    : (kanjiStash.style.width = expandedStash);
-
-  kanjiStash.style.fontSize > smallFont
-    ? (kanjiStash.style.fontSize = smallFont)
-    : (kanjiStash.style.fontSize = bigFont);
-
-  if (kanjiStash.style.width === expandedStash) {
-    kanjiStash.style.letterSpacing = '0.4em';
-    kanjiFooter.style.removeProperty('bottom');
-    kanjiFooter.style.display = 'grid';
-    kanjiMain.style.display = 'none';
-    sidebar.style.display = 'none';
-    sidebarBtn.style.display = 'none';
-    inputKanji.style.width = inputSmall;
-    inputKanji.style.height = bigBtn;
-    kanjiBtn.style.height = bigBtn;
-    darkModeBtn.style.height = bigBtn;
-    kanjiToggleBtn.style.height = bigBtn;
-  } else if (kanjiStash.style.width !== expandedStash) {
-    kanjiStash.style.letterSpacing = '0.2em';
-    kanjiFooter.style.removeProperty('display');
-    // checks if sidebar is (still) expanded
-    if (sidebar.style.width > '22vw') {
-      kanjiMain.style.display = 'none';
-    } else {
-      kanjiMain.style.removeProperty('display');
-    }
-    //––––––––––––––––––––––––––
-    sidebar.style.display = 'flex';
-    sidebarBtn.style.removeProperty('display');
-    //
-    inputKanji.style.width = inputBig;
-    inputKanji.style.height = inputSmall;
-    kanjiBtn.style.height = smallBtn;
-    darkModeBtn.style.height = smallBtn;
-    kanjiToggleBtn.style.height = smallBtn;
-  }
-} */
-
 function changeControl(boolean) {
   if (boolean) {
     inputKanji.style.background = "#c1e8e4";
@@ -633,7 +595,6 @@ document.onkeydown = function keyPress(event) {
   //––––––––––––––––––––––––––––––––––––––––
   if (event.key === "Enter") {
     createKanji(inputKanji.value);
-    console.log(inputKanji.value);
     scrollToKanji(inputKanji.value);
   }
   if (event.ctrlKey && event.key === " ") toggleDarkMode();
