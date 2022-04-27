@@ -3,6 +3,11 @@
   scrollbar-width: none;
 }
 
+textarea:focus,
+input:focus {
+  outline: none;
+}
+
 body {
   box-sizing: border-box;
   margin: 0px;
@@ -106,7 +111,7 @@ body {
 }
 
 .related-kanji:hover {
-  background: #13949d;
+  background: #2fbbb4;
   color: rgb(224, 224, 206);
 }
 
@@ -271,7 +276,8 @@ body {
   height: 24px;
 }
 
-#input-kanji:hover {
+#input-kanji:hover,
+#input-kanji:focus {
   background: #cccbf7 !important;
 }
 
@@ -318,7 +324,8 @@ body {
   height: 24px;
 }
 
-#kanji-counter:hover {
+#kanji-counter:hover,
+#kanji-counter:focus {
   background-color: #cccbf7 !important;
 }
 
@@ -346,7 +353,7 @@ input[type="number"] {
 /*––––––––––––––––––––––––*/
 
 #kanji-stash {
-  color: rgb(47, 187, 180);
+  color: #2fbbb4;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -379,6 +386,89 @@ input[type="number"] {
 .kanji-list:hover {
   color: #b42f55 !important;
 }
+
+#search-kanji {
+  display: flex;
+  overflow: hidden;
+  width: 100%;
+  position: fixed;
+  z-index: 1;
+  height: 0;
+  top: 0;
+  background-color: #231433f2;
+  transition: 0.3s;
+}
+
+.search-overlay-kanji {
+  font-family: "Roboto Medium", sans-serif;
+  color: #2fbbb4;
+  width: 100%;
+  text-align: left;
+  margin: 30px 20px;
+}
+
+.searched-kanji {
+  cursor: pointer;
+  padding: 5px;
+  font-size: 25px;
+  border: 1px solid;
+  width: fit-content;
+  margin: 10px 10px;
+  transition: 0.3s;
+}
+
+.searched-kanji:hover,
+.searched-kanji:focus {
+  color: #b42f55;
+}
+
+.searched-meaning {
+  font-size: 15px;
+  margin-left: 10px;
+  transition: 0.3s;
+}
+
+.searched-freq {
+  color: #f7b768;
+  text-align: center;
+  font-size: 13px;
+  margin-left: 10px;
+}
+
+.searched-meaning:hover,
+.searched-meaning:focus {
+  color: #b42f55;
+}
+
+.search-overlay .closebtn {
+  display: none;
+}
+
+.search-overlay .closebtn-show {
+  display: flex;
+  position: fixed;
+  top: 15px;
+  right: 30px;
+  font-size: 40px;
+  color: #2fbbb4;
+}
+
+.search-overlay .closebtn-show:hover,
+.search-overlay .closebtn-show:focus {
+  cursor: pointer;
+  color: #b42f55 !important;
+}
+
+/* .open-search {
+  position: fixed;
+  width: 20px;
+  height: 3px;
+  border-top: 9px double #2fbbb4;
+  border-bottom: 3px solid #2fbbb4;
+  bottom: 10px;
+  right: 50%;
+  cursor: pointer;
+} */
 
 /*–––––––––––––––––––––––*/
 /*–––––MEDIA-QUERIES–––––*/
@@ -459,6 +549,10 @@ input[type="number"] {
     left: 50%;
   }
 
+  .open-search {
+    right: 10px;
+  }
+
   .kanji-list {
     font-size: 16px;
   }
@@ -529,5 +623,22 @@ input[type="number"] {
     bottom: 0;
     left: 0;
     margin: 0% 10%;
+  }
+  #search-kanji {
+    width: 100%;
+  }
+
+  .search-overlay-kanji {
+    margin: 15px 5px;
+  }
+
+  .searched-kanji {
+    font-size: 20px;
+    padding: 3px;
+  }
+  .searched-meaning {
+    font-size: 13px;
+    margin-left: 5px;
+    line-break: normal;
   }
 }

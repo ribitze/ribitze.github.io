@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="./style.css" />
     <script src="./scripts/kanjis.js"></script>
+    <script src="./scripts/kanjiAll.js"></script>
     <script defer src="./scripts/script.js"></script>
     <title id="title">KANJI</title>
   </head>
@@ -54,6 +55,12 @@
         <button id="dark-mode-btn"><i class="fa fa-sun-o"></i></button>
         <input type="number" id="kanji-counter" min="0" max="2502" placeholder="〜">
       </footer>
+    </div>
+    <!-- –––––––––––––––––– -->
+    <span class="open-search" onclick="openSearchNav()"></span>
+    <div id="search-kanji" class="search-overlay">
+      <div href="javascript:void(0)" class="closebtn" onclick="closeSearchNav()">&times;</div>
+      <div class="search-overlay-kanji"></div>
     </div>
   </body>
 </html>
