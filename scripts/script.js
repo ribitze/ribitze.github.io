@@ -113,14 +113,7 @@ function createKanji(char) {
           }
         }
         if (matches.length === 0) {
-          char = Number(char);
-          if (typeof char === "number") {
-            for (kan of kanjis) {
-              if (data[kan].freq === char) {
-                createKanji(kan);
-              }
-            }
-          }
+          ifValueIsNumber(char);
         }
         matchesObject.kanjis = matches;
         matchesObject.meanings = meanings;
@@ -157,6 +150,8 @@ function createKanji(char) {
           breakLine.style.whiteSpace = "break-spaces";
           searchOverlay.appendChild(breakLine);
         }
+      } else if (!data[char] && char.length === 1) {
+        ifValueIsNumber(char);
         //––––––––––––––––––––––––––––––
         // if only one kanji was entered
       } else if (data[char]) {
@@ -245,6 +240,18 @@ function createKanji(char) {
         data[char].freq !== undefined
           ? metaFrequency.style.removeProperty("display")
           : (metaFrequency.style.display = "none");
+      }
+      // checks if the value of input-kanji is a number
+      function ifValueIsNumber(char) {
+        char = Number(char);
+        if (typeof char === "number") {
+          for (kan of kanjis) {
+            if (data[kan].freq === char) {
+              createKanji(kan);
+              scrollToKanji(kan);
+            }
+          }
+        }
       }
     });
   setTimeout(() => {
@@ -506,13 +513,11 @@ function scrollToKanji(char) {
 function openSearchNav() {
   searchKanji.style.height = "100%";
   searchCloseBtn.className = "closebtn-show";
-  //searchCloseBtn.style.display = "flex";
 }
 
 function closeSearchNav() {
   searchKanji.style.height = "0%";
   searchCloseBtn.className = "closebtn";
-  //searchCloseBtn.style.display = "none";
 }
 
 function copyToClipBoard(data) {
