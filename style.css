@@ -23,7 +23,7 @@ body {
 }
 
 .kanji {
-  cursor: pointer;
+  cursor: default;
   font-family: "Noto Sans JP", sans-serif;
   color: rgb(224, 224, 206);
   min-width: 150px;
@@ -48,7 +48,7 @@ body {
 .reading {
   margin: 0px;
   padding: 0px;
-  font-family: "Roboto", sans-serif;
+  font-family: "Noto Sans JP", sans-serif;
   font-size: 19px;
 }
 
@@ -76,7 +76,13 @@ body {
 }
 
 .radical {
+  cursor: pointer;
   padding-bottom: 10px;
+}
+
+.radical:hover,
+.radical:focus {
+  color: #b42f55;
 }
 
 /* .parts {
@@ -89,7 +95,7 @@ body {
 }
 
 .related {
-  display: none;
+  display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-content: flex-start;
@@ -153,13 +159,13 @@ body {
 }
 
 .jap-word {
-  font-family: "Noto Sans CJK HK DemiLight", sans-serif;
-  font-size: 21px;
+  font-family: "Noto Sans JP", sans-serif;
+  font-size: 22px;
 }
 
 .jap-reading {
-  font-family: "Roboto Light", sans-serif;
-  font-size: 11px;
+  font-family: "Noto Sans JP", sans-serif;
+  font-size: 12px;
   margin-bottom: -4px;
 }
 
@@ -201,7 +207,7 @@ body {
 }
 
 .jap-sentence {
-  font-family: "Roboto", sans-serif;
+  font-family: "Noto Sans JP", sans-serif;
   font-size: 17px;
 }
 
@@ -404,7 +410,7 @@ input[type="number"] {
   color: #2fbbb4;
   width: 100%;
   text-align: left;
-  margin: 30px 20px;
+  margin: 35px 25px;
 }
 
 .searched-kanji {
@@ -610,6 +616,14 @@ input[type="number"] {
     margin-bottom: -4px;
   }
 
+  .jap-sentence {
+    font-size: 16px;
+  }
+
+  .eng-sentence {
+    font-size: 13px;
+  }
+
   #tree {
     margin-top: 45px;
     font-size: 16px;
@@ -640,5 +654,11 @@ input[type="number"] {
     font-size: 13px;
     margin-left: 5px;
     line-break: normal;
+  }
+  .search-overlay .closebtn-show {
+    position: fixed;
+    top: 95%;
+    right: 15px;
+    font-size: 30px;
   }
 }
