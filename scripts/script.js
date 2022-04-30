@@ -174,7 +174,7 @@ function createKanji(char) {
           : (metaFrequency.textContent = `▲ ${entries.freq}`);
         //
         title.firstChild.textContent =
-          `${char}-${entries.meanings[0]}`.toLowerCase();
+          `${char} · ${entries.meanings[0]}`.toLowerCase();
       } else {
         let noValue = "?";
         let empty = "•";
@@ -214,13 +214,11 @@ function createKanji(char) {
         //
         let relatedSorted = relatedData.sort(sortArray(true));
         //
-        console.log(relatedSorted);
-
-        for (let i = 0; i < relatedData.length; i++) {
+        for (let i = 1; i < relatedData.length; i++) {
           let maximum = 102;
           let relatedElement = document.createElement("div");
           relatedElement.className = "related-kanji";
-          relatedElement.id = `rel${i + 1}`;
+          relatedElement.id = `rel${i}`;
           relatedElement.textContent = relatedSorted[i][1];
           relatedElement.setAttribute(
             "onclick",
@@ -529,13 +527,14 @@ function clickOnRadical(id) {
         radicalSorted[i][0] === null
           ? (radicalFrequency.textContent = "")
           : (radicalFrequency.textContent = `▲ ${radicalSorted[i][0]}`);
-        //
+        //–––––––––––––––––––––––
         searchOverlay.appendChild(radicalFrequency);
         // break line
         let radicalBreakLine = document.createElement("div");
         radicalBreakLine.textContent = " ";
         radicalBreakLine.style.whiteSpace = "break-spaces";
         searchOverlay.appendChild(radicalBreakLine);
+        //
       }
     });
 }
@@ -1066,7 +1065,7 @@ function loadActions() {
   createKanji(onLoadValue);
   changeControl(isDark);
   checkWindow();
-  toggleDarkMode();
+  //toggleDarkMode();
 }
 
 //–––––––––––––––EVENTS––––––––––––––––––
