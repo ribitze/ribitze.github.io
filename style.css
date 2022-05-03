@@ -476,8 +476,91 @@ input[type="number"] {
   cursor: pointer;
 } */
 
-/*–––––––––––––––––––––––*/
 /*–––––MEDIA-QUERIES–––––*/
+/* @media screen and (width <= 1200px) {
+  .kanji {
+    max-width: 300px;
+  }
+}
+
+@media screen and (width <= 1090px) {
+  .symbol {
+    margin: 20px 10px 0px 10px;
+    font-size: 150px;
+  }
+
+  .reading {
+    font-size: 17px;
+  }
+
+  .meaning p {
+    font-size: 22px;
+  }
+
+  #kanji-stash {
+    margin: 100px 50px 100px 100px;
+    height: 100vh;
+  }
+}
+
+@media screen and (width <= 970px) {
+  .kanji {
+    margin-left: 25%;
+  }
+
+  .symbol {
+    font-size: 150px;
+  }
+
+  .kanji-words {
+    margin-top: 50px;
+  }
+
+  #input-kanji {
+    width: 24px;
+  }
+
+  #input-kanji:focus {
+    width: 40px;
+  }
+
+  #kanji-counter {
+    font-family: "Roboto", sans-serif;
+    font-weight: 500;
+    max-width: 24px;
+    font-size: 0.65em;
+  }
+
+  #kanji-control {
+    z-index: -1;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 85%;
+    left: 0;
+  }
+
+  .sidebar {
+    margin-top: 60px;
+    right: 0;
+    text-align: center;
+    padding: 0px;
+  }
+
+  #sidebar-button {
+    top: 1%;
+    right: 50%;
+    left: 50%;
+  }
+
+  .open-search {
+    right: 10px;
+  }
+
+  .kanji-list {
+    font-size: 16px;
+  }
+}
 
 @media screen and (width <= 750px) {
   .kanji {
@@ -576,27 +659,44 @@ input[type="number"] {
     right: 15px;
     font-size: 30px;
   }
-}
+} */
 
-@media screen and (width <= 970px) {
+/*––– MOBILE_DEVICE –––*/
+
+@media screen and (width <= 750px) {
   .kanji {
+    max-width: 300px;
     margin-left: 25%;
+    justify-content: center;
+    align-items: center;
+    margin: 0%;
   }
 
   .symbol {
-    font-size: 150px;
+    font-size: 125px;
+    margin: 20px 10px 0px 10px;
   }
 
-  .kanji-words {
-    margin-top: 50px;
+  .reading {
+    font-size: 17px;
   }
 
-  #input-kanji {
-    width: 24px;
+  .meaning p {
+    margin: 10px 10px;
+    font-size: 20px;
   }
 
-  #input-kanji:focus {
-    width: 40px;
+  .radical,
+  .parts {
+    font-size: 14px;
+  }
+
+  .parts {
+    padding-bottom: 0.25em;
+  }
+
+  .frequency {
+    font-size: 12px;
   }
 
   #kanji-counter {
@@ -615,6 +715,61 @@ input[type="number"] {
     left: 0;
   }
 
+  #input-kanji {
+    width: 24px;
+  }
+
+  #input-kanji:focus {
+    width: 40px;
+  }
+
+  .kanji-words {
+    margin-top: 50px;
+    height: 47.5vh;
+  }
+
+  .jap-reading {
+    font-size: 10px;
+    margin-bottom: -3px;
+  }
+
+  .jap-word {
+    font-size: 18px;
+  }
+
+  .jap-reading {
+    font-size: 10px;
+    margin-bottom: -4px;
+  }
+
+  .jap-sentence {
+    font-size: 16px;
+  }
+
+  .eng-sentence {
+    font-size: 13px;
+  }
+
+  #tree {
+    margin-top: 45px;
+    font-size: 16px;
+    padding: 0px;
+    max-height: 60vh;
+  }
+
+  #kanji-stash {
+    margin: 100px 50px 100px 100px;
+    height: 40vh;
+    width: 80vw;
+    bottom: 0;
+    left: 0;
+    margin: 0% 10%;
+  }
+
+  .kanji-list {
+    font-size: 16px;
+  }
+
   .sidebar {
     margin-top: 60px;
     right: 0;
@@ -628,37 +783,27 @@ input[type="number"] {
     left: 50%;
   }
 
-  .open-search {
-    right: 10px;
+  #search-kanji {
+    width: 100%;
   }
 
-  .kanji-list {
-    font-size: 16px;
-  }
-}
-
-@media screen and (width <= 1090px) {
-  .symbol {
-    margin: 20px 10px 0px 10px;
-    font-size: 150px;
+  .search-overlay-kanji {
+    margin: 15px 5px;
   }
 
-  .reading {
-    font-size: 17px;
+  .searched-kanji {
+    font-size: 20px;
+    padding: 3px;
   }
-
-  .meaning p {
-    font-size: 22px;
+  .searched-meaning {
+    font-size: 13px;
+    margin-left: 5px;
+    line-break: normal;
   }
-
-  #kanji-stash {
-    margin: 100px 50px 100px 100px;
-    height: 100vh;
-  }
-}
-
-@media screen and (width <= 1200px) {
-  .kanji {
-    max-width: 300px;
+  .search-overlay .closebtn-show {
+    position: fixed;
+    top: 95%;
+    right: 15px;
+    font-size: 30px;
   }
 }
