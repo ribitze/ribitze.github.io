@@ -479,91 +479,6 @@ input[type="number"] {
 /*–––––––––––––––––––––––*/
 /*–––––MEDIA-QUERIES–––––*/
 
-@media screen and (width <= 1200px) {
-  .kanji {
-    max-width: 300px;
-  }
-}
-
-@media screen and (width <= 1090px) {
-  .symbol {
-    margin: 20px 10px 0px 10px;
-    font-size: 150px;
-  }
-
-  .reading {
-    font-size: 17px;
-  }
-
-  .meaning p {
-    font-size: 22px;
-  }
-
-  #kanji-stash {
-    margin: 100px 50px 100px 100px;
-    height: 100vh;
-  }
-}
-
-@media screen and (width <= 970px) {
-  .kanji {
-    margin-left: 25%;
-  }
-
-  .symbol {
-    font-size: 150px;
-  }
-
-  .kanji-words {
-    margin-top: 50px;
-  }
-
-  #input-kanji {
-    width: 24px;
-  }
-
-  #input-kanji:focus {
-    width: 40px;
-  }
-
-  #kanji-counter {
-    font-family: "Roboto", sans-serif;
-    font-weight: 500;
-    max-width: 24px;
-    font-size: 0.65em;
-  }
-
-  #kanji-control {
-    z-index: -1;
-    display: flex;
-    flex-direction: column;
-    position: fixed;
-    top: 85%;
-    left: 0;
-  }
-
-  .sidebar {
-    margin-top: 60px;
-    right: 0;
-    text-align: center;
-    padding: 0px;
-  }
-
-  #sidebar-button {
-    top: 1%;
-    right: 50%;
-    left: 50%;
-  }
-
-  .open-search {
-    right: 10px;
-  }
-
-  .kanji-list {
-    font-size: 16px;
-  }
-}
-
 @media screen and (width <= 750px) {
   .kanji {
     justify-content: center;
@@ -660,5 +575,90 @@ input[type="number"] {
     top: 95%;
     right: 15px;
     font-size: 30px;
+  }
+}
+
+@media screen and (width <= 970px) {
+  .kanji {
+    margin-left: 25%;
+  }
+
+  .symbol {
+    font-size: 150px;
+  }
+
+  .kanji-words {
+    margin-top: 50px;
+  }
+
+  #input-kanji {
+    width: 24px;
+  }
+
+  #input-kanji:focus {
+    width: 40px;
+  }
+
+  #kanji-counter {
+    font-family: "Roboto", sans-serif;
+    font-weight: 500;
+    max-width: 24px;
+    font-size: 0.65em;
+  }
+
+  #kanji-control {
+    z-index: -1;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 85%;
+    left: 0;
+  }
+
+  .sidebar {
+    margin-top: 60px;
+    right: 0;
+    text-align: center;
+    padding: 0px;
+  }
+
+  #sidebar-button {
+    top: 1%;
+    right: 50%;
+    left: 50%;
+  }
+
+  .open-search {
+    right: 10px;
+  }
+
+  .kanji-list {
+    font-size: 16px;
+  }
+}
+
+@media screen and (width <= 1090px) {
+  .symbol {
+    margin: 20px 10px 0px 10px;
+    font-size: 150px;
+  }
+
+  .reading {
+    font-size: 17px;
+  }
+
+  .meaning p {
+    font-size: 22px;
+  }
+
+  #kanji-stash {
+    margin: 100px 50px 100px 100px;
+    height: 100vh;
+  }
+}
+
+@media screen and (width <= 1200px) {
+  .kanji {
+    max-width: 300px;
   }
 }
