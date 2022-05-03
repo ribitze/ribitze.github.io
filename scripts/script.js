@@ -46,26 +46,31 @@ let stashedKanji = [];
 // if Dark-Mode is turned on == true (default)
 let isDark = true;
 // defines which kanji is shown on window.load
-let onLoadValue = "一";
+//let onLoadValue = "一";
+let onLoadValue;
+const onLoadRange = 500;
+// defines how long a japanese sentence should be at minimum
+let sentenceLength = 4;
+// sets a default value for the counter
 kanjiCounterBtn.value = "";
+//–––––––––––––––––––––––––––––––––––––
 
 // kanji-stash
 function stashKanji() {
   let counter = 1;
   for (const kanji of kanjis) {
-    let kanjiName = `kan${counter}`;
+    let kanjiID = `kan${counter}`;
     let stashElement = document.createElement("div");
     stashElement.textContent = kanji;
-    stashElement.id = kanjiName;
+    stashElement.id = kanjiID;
     stashElement.className = "kanji-list";
-    stashElement.setAttribute("onclick", `clickOnStash(${kanjiName})`);
+    stashElement.setAttribute("onclick", `clickOnStash(${kanjiID})`);
     kanjiStash.appendChild(stashElement);
-    stashedKanji.push({
-      char: `${kanji}`,
-      id: `${kanjiName}`,
-    });
+    stashedKanji.push(new Array(kanji, kanjiID));
     counter++;
   }
+  let number = Math.floor(Math.random(onLoadRange) * onLoadRange);
+  onLoadValue = stashedKanji[number][0];
 }
 
 function createKanji(char) {
@@ -275,13 +280,14 @@ function createKanji(char) {
     });
   setTimeout(() => {
     if (char.length <= 1) createSentences(char);
-  }, 200);
+  }, 500);
+  //
   setTimeout(() => {
     if (char.length <= 1) createWords(char);
-  }, 150);
+  }, 350);
   setTimeout(() => {
     metaRelated.scrollTo(0, 0);
-  }, 350);
+  }, 250);
   //
 }
 
@@ -289,19 +295,21 @@ function createSentences(char) {
   fetch("../all_v10.json")
     .then(response => response.json())
     .then(data => {
-      sidebar.textContent = "";
       if (data) {
+        sidebar.textContent = "";
         let sentenceData = [];
-        //let maximum = 500;
+        let trueCounter = 0;
+        let maximum = 500;
         //
         for (let i = 0; i < data.length; i++) {
           let japData = data[i].jap;
           let engData = data[i].eng;
           if (japData.includes(char) && engData) {
+            trueCounter++;
             sentenceData.push(new Array(japData, engData));
             //
-            //if (i == maximum) break;
           }
+          if (trueCounter == maximum) break;
         }
         // sort sentences
         function sortSentences(ascending) {
@@ -324,29 +332,32 @@ function createSentences(char) {
         let sortedData = sentenceData.sort(sortSentences(true));
         //
         for (let i = 0; i < sortedData.length; i++) {
-          let maximum = 100;
+          let maximum = 50;
           let japSentence = document.createElement("div");
           let engSentence = document.createElement("div");
           // Japanese
-          japSentence.textContent = sortedData[i][0];
-          japSentence.id = `jap${i + 1}`;
-          japSentence.className = "jap-sentence";
-          japSentence.setAttribute(
-            "ondblclick",
-            `copyToClipBoard(${japSentence.id})`
-          );
-          sidebar.appendChild(japSentence);
-          // English
-          engSentence.textContent = sortedData[i][1];
-          engSentence.id = `eng${i + 1}`;
-          engSentence.className = "eng-sentence";
-          engSentence.setAttribute(
-            "ondblclick",
-            `copyToClipBoard(${engSentence.id})`
-          );
-          sidebar.appendChild(engSentence);
-          //
-          if (i === maximum) break;
+          if (sortedData[i][0].length > sentenceLength) {
+            // sentenceLength === global scope
+            japSentence.textContent = sortedData[i][0];
+            japSentence.id = `jap${i + 1}`;
+            japSentence.className = "jap-sentence";
+            japSentence.setAttribute(
+              "ondblclick",
+              `copyToClipBoard(${japSentence.id})`
+            );
+            sidebar.appendChild(japSentence);
+            // English
+            engSentence.textContent = sortedData[i][1];
+            engSentence.id = `eng${i + 1}`;
+            engSentence.className = "eng-sentence";
+            engSentence.setAttribute(
+              "ondblclick",
+              `copyToClipBoard(${engSentence.id})`
+            );
+            sidebar.appendChild(engSentence);
+            //
+            if (i === maximum) break;
+          }
         }
       }
       if (char === "") {
@@ -363,9 +374,8 @@ function createWords(char) {
   fetch(`../jisho/${char}.json`)
     .then(response => response.json())
     .then(jisho => {
-      let len = jisho.data.length;
       kanjiWords.textContent = "";
-      for (let i = 0; i < len; i++) {
+      for (let i = 0; i < jisho.data.length; i++) {
         let jap = jisho.data[i].slug;
         let reading = jisho.data[i].japanese[0].reading;
         let eng = jisho.data[i].senses[0].english_definitions
@@ -416,6 +426,58 @@ async function createTree(char) {
     : (kanjiTree.textContent = responseText);
 }
 
+function createKanjiParts(char) {
+  searchOverlay.textContent = "";
+  let partsData = [];
+  fetch("../kanji.json")
+    .then(response => response.json())
+    .then(data => {
+      for (let part of data[char].parts) {
+        if (data[part]) {
+          partsData.push(new Array(data[part].freq, part, data[part].meanings));
+        }
+      }
+      //
+      let partsSorted = partsData.sort(sortArray(true));
+      //
+      for (let i = 0; i < partsSorted.length; i++) {
+        let kanjiParts = document.createElement("span");
+        kanjiParts.className = "searched-kanji";
+        kanjiParts.id = `part${i + 1}`;
+        kanjiParts.textContent = partsSorted[i][1];
+        kanjiParts.setAttribute("onclick", `clickOnKanji(${kanjiParts.id})`);
+        searchOverlay.appendChild(kanjiParts);
+        // kanji-meanings
+        let partsMeaning = document.createElement("span");
+        partsMeaning.className = "searched-meaning";
+        partsMeaning.id = `p-meaning${i + 1}`;
+        //
+        partsSorted[i][2].length === 0
+          ? (partsMeaning.textContent = "–")
+          : (partsMeaning.textContent = partsSorted[i][2]
+              .join(" · ")
+              .toLowerCase());
+        //
+        searchOverlay.appendChild(partsMeaning);
+        // kanji-frequency
+        let partsFrequency = document.createElement("span");
+        partsFrequency.className = "searched-freq";
+        partsFrequency.id = `p-freq${i + 1}`;
+        // no formatting, if frequency === null
+        partsSorted[i][0] === null
+          ? (partsFrequency.textContent = "")
+          : (partsFrequency.textContent = `▲ ${partsSorted[i][0]}`);
+        searchOverlay.appendChild(partsFrequency);
+        // break line
+        let partsBreakLine = document.createElement("div");
+        partsBreakLine.textContent = " ";
+        partsBreakLine.style.whiteSpace = "break-spaces";
+        searchOverlay.appendChild(partsBreakLine);
+      }
+      if (partsSorted[0][1] !== char) openSearchNav();
+    });
+}
+
 function showWords() {
   if (kanjiWords.style.display === "none") {
     kanji.style.display = "none";
@@ -454,62 +516,6 @@ function showTree() {
     kanjiWords.style.display = "none";
     kanjiTree.style.display = "none";
   }
-}
-
-function createKanjiParts(char) {
-  searchOverlay.textContent = "";
-  let partsData = [];
-  fetch("../kanji.json")
-    .then(response => response.json())
-    .then(data => {
-      if (data[char]) {
-        for (let part of data[char].parts) {
-          if (data[part]) {
-            partsData.push(
-              new Array(data[part].freq, part, data[part].meanings)
-            );
-          }
-        }
-        //
-        let partsSorted = partsData.sort(sortArray(true));
-        //
-        for (let i = 0; i < partsSorted.length; i++) {
-          let kanjiParts = document.createElement("span");
-          kanjiParts.className = "searched-kanji";
-          kanjiParts.id = `part${i + 1}`;
-          kanjiParts.textContent = partsSorted[i][1];
-          kanjiParts.setAttribute("onclick", `clickOnKanji(${kanjiParts.id})`);
-          searchOverlay.appendChild(kanjiParts);
-          // kanji-meanings
-          let partsMeaning = document.createElement("span");
-          partsMeaning.className = "searched-meaning";
-          partsMeaning.id = `p-meaning${i + 1}`;
-          //
-          partsSorted[i][2].length === 0
-            ? (partsMeaning.textContent = "–")
-            : (partsMeaning.textContent = partsSorted[i][2]
-                .join(" · ")
-                .toLowerCase());
-          //
-          searchOverlay.appendChild(partsMeaning);
-          // kanji-frequency
-          let partsFrequency = document.createElement("span");
-          partsFrequency.className = "searched-freq";
-          partsFrequency.id = `p-freq${i + 1}`;
-          // no formatting, if frequency === null
-          partsSorted[i][0] === null
-            ? (partsFrequency.textContent = "")
-            : (partsFrequency.textContent = `▲ ${partsSorted[i][0]}`);
-          searchOverlay.appendChild(partsFrequency);
-          // break line
-          let partsBreakLine = document.createElement("div");
-          partsBreakLine.textContent = " ";
-          partsBreakLine.style.whiteSpace = "break-spaces";
-          searchOverlay.appendChild(partsBreakLine);
-        }
-        if (partsSorted[0][1] !== char) openSearchNav();
-      }
-    });
 }
 
 function sortArray(ascending) {
@@ -688,9 +694,9 @@ function smallSideBar() {
 }
 
 function scrollToKanji(char) {
-  for (const kanji of stashedKanji) {
-    let kanjiData = kanji.char;
-    let kanjiID = kanji.id;
+  for (let i = 0; i < stashedKanji.length; i++) {
+    let kanjiData = stashedKanji[i][0];
+    let kanjiID = stashedKanji[i][1];
 
     if (kanjiData.includes(char)) {
       let selected = $(`#${kanjiID}`);
@@ -1131,7 +1137,7 @@ function loadActions() {
   createKanji(onLoadValue);
   changeControl(isDark);
   checkWindow();
-  //toggleDarkMode();
+  toggleDarkMode();
 }
 
 //–––––––––––––––EVENTS––––––––––––––––––
