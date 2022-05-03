@@ -69,6 +69,7 @@ function stashKanji() {
 }
 
 function createKanji(char) {
+  char = char.trim();
   fetch("../kanji.json")
     .then(response => response.json())
     .then(data => {
@@ -91,10 +92,15 @@ function createKanji(char) {
                   new Array(data[kan].freq, kan, data[kan].meanings)
                 );
           }
-          if (char[0] === kan) {
+          if (char[0] === kan || [...char].includes(kan)) {
             openSearchNav();
             searchKanji.scrollTo(0, 0);
-            char = [...char];
+            if (typeof char === "object") {
+              continue;
+            } else {
+              char = new Set([...char]);
+            }
+            //
             for (let character of char) {
               if (data[character]) {
                 data[character].freq === null
@@ -159,6 +165,10 @@ function createKanji(char) {
       } else if (data[char]) {
         let entries = data[char];
         kanji.textContent = char;
+        kanji.setAttribute(
+          "onclick",
+          `createKanjiParts("${kanji.textContent}")`
+        );
         kun.textContent = `${entries.readings_kun.join(" • ")}`;
         on.textContent = `${entries.readings_on.join(" • ")}`;
         meaning.textContent = `${entries.meanings.join(", ")}`.toLowerCase();
@@ -221,7 +231,7 @@ function createKanji(char) {
           relatedElement.id = `rel${i}`;
           relatedElement.textContent = relatedSorted[i][1];
           relatedElement.setAttribute(
-            "onclick",
+            "ondblclick",
             `clickOnKanji(${relatedElement.id})`
           );
           metaRelated.appendChild(relatedElement);
@@ -264,33 +274,33 @@ function createKanji(char) {
       }
     });
   setTimeout(() => {
+    if (char.length <= 1) createSentences(char);
+  }, 200);
+  setTimeout(() => {
     if (char.length <= 1) createWords(char);
   }, 150);
   setTimeout(() => {
-    if (char.length <= 1) createSentences(char);
-  }, 180);
+    metaRelated.scrollTo(0, 0);
+  }, 350);
   //
-  //metaRelated.scrollTo(0, 0);
 }
 
 function createSentences(char) {
   fetch("../all_v10.json")
     .then(response => response.json())
     .then(data => {
+      sidebar.textContent = "";
       if (data) {
         let sentenceData = [];
-        let trueCounter = 0;
         //let maximum = 500;
-        sidebar.textContent = "";
         //
         for (let i = 0; i < data.length; i++) {
           let japData = data[i].jap;
           let engData = data[i].eng;
           if (japData.includes(char) && engData) {
-            trueCounter += 1;
             sentenceData.push(new Array(japData, engData));
             //
-            //if (trueCounter == maximum) break;
+            //if (i == maximum) break;
           }
         }
         // sort sentences
@@ -314,12 +324,12 @@ function createSentences(char) {
         let sortedData = sentenceData.sort(sortSentences(true));
         //
         for (let i = 0; i < sortedData.length; i++) {
-          let maximum = 200;
+          let maximum = 100;
           let japSentence = document.createElement("div");
           let engSentence = document.createElement("div");
           // Japanese
           japSentence.textContent = sortedData[i][0];
-          japSentence.id = `jap${trueCounter}`;
+          japSentence.id = `jap${i + 1}`;
           japSentence.className = "jap-sentence";
           japSentence.setAttribute(
             "ondblclick",
@@ -328,7 +338,7 @@ function createSentences(char) {
           sidebar.appendChild(japSentence);
           // English
           engSentence.textContent = sortedData[i][1];
-          engSentence.id = `eng${trueCounter}`;
+          engSentence.id = `eng${i + 1}`;
           engSentence.className = "eng-sentence";
           engSentence.setAttribute(
             "ondblclick",
@@ -444,6 +454,62 @@ function showTree() {
     kanjiWords.style.display = "none";
     kanjiTree.style.display = "none";
   }
+}
+
+function createKanjiParts(char) {
+  searchOverlay.textContent = "";
+  let partsData = [];
+  fetch("../kanji.json")
+    .then(response => response.json())
+    .then(data => {
+      if (data[char]) {
+        for (let part of data[char].parts) {
+          if (data[part]) {
+            partsData.push(
+              new Array(data[part].freq, part, data[part].meanings)
+            );
+          }
+        }
+        //
+        let partsSorted = partsData.sort(sortArray(true));
+        //
+        for (let i = 0; i < partsSorted.length; i++) {
+          let kanjiParts = document.createElement("span");
+          kanjiParts.className = "searched-kanji";
+          kanjiParts.id = `part${i + 1}`;
+          kanjiParts.textContent = partsSorted[i][1];
+          kanjiParts.setAttribute("onclick", `clickOnKanji(${kanjiParts.id})`);
+          searchOverlay.appendChild(kanjiParts);
+          // kanji-meanings
+          let partsMeaning = document.createElement("span");
+          partsMeaning.className = "searched-meaning";
+          partsMeaning.id = `p-meaning${i + 1}`;
+          //
+          partsSorted[i][2].length === 0
+            ? (partsMeaning.textContent = "–")
+            : (partsMeaning.textContent = partsSorted[i][2]
+                .join(" · ")
+                .toLowerCase());
+          //
+          searchOverlay.appendChild(partsMeaning);
+          // kanji-frequency
+          let partsFrequency = document.createElement("span");
+          partsFrequency.className = "searched-freq";
+          partsFrequency.id = `p-freq${i + 1}`;
+          // no formatting, if frequency === null
+          partsSorted[i][0] === null
+            ? (partsFrequency.textContent = "")
+            : (partsFrequency.textContent = `▲ ${partsSorted[i][0]}`);
+          searchOverlay.appendChild(partsFrequency);
+          // break line
+          let partsBreakLine = document.createElement("div");
+          partsBreakLine.textContent = " ";
+          partsBreakLine.style.whiteSpace = "break-spaces";
+          searchOverlay.appendChild(partsBreakLine);
+        }
+        if (partsSorted[0][1] !== char) openSearchNav();
+      }
+    });
 }
 
 function sortArray(ascending) {
