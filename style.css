@@ -477,13 +477,13 @@ input[type="number"] {
 } */
 
 /*–––––MEDIA-QUERIES–––––*/
-@media all and (width <= 1200px) {
+@media screen and (max-width: 1200px) {
   .kanji {
     max-width: 300px;
   }
 }
 
-@media all and (width <= 1090px) {
+@media screen and (max-width: 1090px) {
   .symbol {
     margin: 20px 10px 0px 10px;
     font-size: 150px;
@@ -503,7 +503,7 @@ input[type="number"] {
   }
 }
 
-@media all and (width <= 970px) {
+@media screen and (max-width: 970px) {
   .kanji {
     margin-left: 25%;
   }
@@ -562,7 +562,7 @@ input[type="number"] {
   }
 }
 
-@media all and (width <= 750px) {
+@media screen and (max-width: 750px) {
   .kanji {
     justify-content: center;
     align-items: center;
