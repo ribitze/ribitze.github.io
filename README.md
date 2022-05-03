@@ -1,1 +1,1 @@
-# kanji-app
+# kanji-stash
