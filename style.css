@@ -23,6 +23,7 @@ body {
 }
 
 .kanji {
+  position: fixed;
   cursor: default;
   font-family: "Noto Sans JP", sans-serif;
   color: rgb(224, 224, 206);
