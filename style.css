@@ -410,7 +410,6 @@ input[type="number"] {
   font-family: "Roboto Medium", sans-serif;
   color: #2fbbb4;
   width: 100%;
-  line-height: 1.75em;
   text-align: left;
   margin: 35px 25px 0px 25px;
 }
@@ -712,16 +711,8 @@ input[type="number"] {
     padding: 3px;
   }
   .searched-meaning {
-    text-align: end;
     font-size: 13px;
     margin-left: 5px;
-    line-break: normal;
-  }
-
-  .searched-freq {
-    color: #f7b768;
-    font-size: 13px;
-    margin-left: 10px;
   }
 
   .search-overlay .closebtn-show {
