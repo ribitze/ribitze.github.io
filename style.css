@@ -477,13 +477,13 @@ input[type="number"] {
 } */
 
 /*–––––MEDIA-QUERIES–––––*/
-@media screen and (width <= 1200px) {
+@media screen and (max-width: 1200px) {
   .kanji {
     max-width: 300px;
   }
 }
 
-@media screen and (width <= 1090px) {
+@media screen and (max-width: 1090px) {
   .symbol {
     margin: 20px 10px 0px 10px;
     font-size: 150px;
@@ -503,7 +503,7 @@ input[type="number"] {
   }
 }
 
-@media screen and (width <= 970px) {
+@media screen and (max-width: 970px) {
   .kanji {
     margin-left: 25%;
   }
@@ -516,15 +516,15 @@ input[type="number"] {
     margin-top: 50px;
   }
 
-  #input-kanji {
+  /*   #input-kanji {
     width: 24px;
   }
 
   #input-kanji:focus {
     width: 40px;
-  }
+  } */
 
-  #kanji-counter {
+  /*   #kanji-counter {
     font-family: "Roboto", sans-serif;
     font-weight: 500;
     max-width: 24px;
@@ -538,7 +538,7 @@ input[type="number"] {
     position: fixed;
     top: 85%;
     left: 0;
-  }
+  } */
 
   .sidebar {
     margin-top: 60px;
@@ -547,18 +547,18 @@ input[type="number"] {
     padding: 0px;
   }
 
-  #sidebar-button {
+  /*   #sidebar-button {
     top: 1%;
     right: 50%;
     left: 50%;
-  }
+  } */
 
   .kanji-list {
     font-size: 16px;
   }
 }
 
-@media screen and (width <= 750px) {
+@media screen and (max-width: 750px) and (orientation: portrait) {
   .kanji {
     justify-content: center;
     align-items: center;
@@ -591,9 +591,8 @@ input[type="number"] {
     height: 47.5vh;
   }
 
-  .jap-reading {
-    font-size: 10px;
-    margin-bottom: -3px;
+  #sidebar-button {
+    top: 60px;
   }
 
   .jap-word {
@@ -646,5 +645,29 @@ input[type="number"] {
     top: 95%;
     right: 15px;
     font-size: 30px;
+  }
+}
+
+@media screen and (max-width: 600px) and (orientation: portrait) {
+  .symbol {
+    margin-top: 35px;
+    font-size: 80px;
+  }
+
+  .reading {
+    font-size: 12px;
+  }
+
+  .meaning p {
+    margin: 10px 10px;
+    font-size: 16px;
+  }
+
+  .radical {
+    font-size: 12px;
+  }
+
+  .frequency {
+    font-size: 12px;
   }
 }
