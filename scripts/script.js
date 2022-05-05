@@ -46,9 +46,8 @@ let stashedKanji = [];
 // if Dark-Mode is turned on == true (default)
 let isDark = true;
 // defines which kanji is shown on window.load
-//let onLoadValue = "一";
 let onLoadValue;
-const onLoadRange = 500;
+const onLoadRange = 500; //→ kanji-frequency
 // defines how long a japanese sentence should be at minimum
 let sentenceLength = 4;
 // sets a default value for the counter
@@ -445,7 +444,10 @@ function createKanjiParts(char) {
         kanjiParts.className = "searched-kanji";
         kanjiParts.id = `part${i + 1}`;
         kanjiParts.textContent = partsSorted[i][1];
-        kanjiParts.setAttribute("onclick", `clickOnKanji(${kanjiParts.id})`);
+        // kanji.json has no entries if length is 0 – therefore a click shouldn't initialize a search (again)!
+        if (partsSorted[i][2].length > 0) {
+          kanjiParts.setAttribute("onclick", `clickOnKanji(${kanjiParts.id})`);
+        }
         searchOverlay.appendChild(kanjiParts);
         // kanji-meanings
         let partsMeaning = document.createElement("span");
