@@ -477,13 +477,13 @@ input[type="number"] {
 } */
 
 /*–––––MEDIA-QUERIES–––––*/
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 1200px) and (orientation: landscape) {
   .kanji {
     max-width: 300px;
   }
 }
 
-@media screen and (max-width: 1090px) {
+@media screen and (max-width: 1090px) and (orientation: landscape) {
   .symbol {
     margin: 20px 10px 0px 10px;
     font-size: 150px;
@@ -503,7 +503,89 @@ input[type="number"] {
   }
 }
 
-@media screen and (max-width: 970px) {
+@media screen and (max-width: 970px) and (orientation: landscape) {
+  .kanji {
+    margin-left: 25%;
+  }
+
+  .symbol {
+    font-size: 150px;
+  }
+
+  .kanji-words {
+    margin-top: 50px;
+  }
+
+  /*   #input-kanji {
+    width: 24px;
+  }
+
+  #input-kanji:focus {
+    width: 40px;
+  } */
+
+  /*   #kanji-counter {
+    font-family: "Roboto", sans-serif;
+    font-weight: 500;
+    max-width: 24px;
+    font-size: 0.65em;
+  }
+
+  #kanji-control {
+    z-index: -1;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 85%;
+    left: 0;
+  } */
+
+  .sidebar {
+    margin-top: 60px;
+    right: 0;
+    text-align: center;
+    padding: 0px;
+  }
+
+  /*   #sidebar-button {
+    top: 1%;
+    right: 50%;
+    left: 50%;
+  } */
+
+  .kanji-list {
+    font-size: 16px;
+  }
+}
+
+/*––– portrait –––*/
+@media screen and (max-width: 1200px) and (orientation: portrait) {
+  .kanji {
+    max-width: 300px;
+  }
+}
+
+@media screen and (max-width: 1090px) and (orientation: portrait) {
+  .symbol {
+    margin: 20px 10px 0px 10px;
+    font-size: 150px;
+  }
+
+  .reading {
+    font-size: 17px;
+  }
+
+  .meaning p {
+    font-size: 22px;
+  }
+
+  #kanji-stash {
+    margin: 100px 50px 100px 100px;
+    height: 100vh;
+  }
+}
+
+@media screen and (max-width: 970px) and (orientation: portrait) {
   .kanji {
     margin-left: 25%;
   }
