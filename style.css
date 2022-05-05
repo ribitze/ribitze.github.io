@@ -328,6 +328,10 @@ body {
   color: rgb(35, 20, 51);
 }
 
+.fa-play {
+  font-size: 11px;
+}
+
 #kanji-counter {
   font-family: "Roboto", sans-serif;
   font-weight: 500;
