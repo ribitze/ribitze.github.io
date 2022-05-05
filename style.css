@@ -722,7 +722,8 @@ input[type="number"] {
 
   .search-overlay .closebtn-show {
     position: fixed;
-    right: 25px;
+    top: 5px;
+    right: 15px;
     font-size: 30px;
   }
 }
