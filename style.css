@@ -477,13 +477,13 @@ input[type="number"] {
 } */
 
 /*–––––MEDIA-QUERIES–––––*/
-@media screen and (width <= 1200px) and (orientation: portrait) {
+@media screen and (width <= 1200px) {
   .kanji {
     max-width: 300px;
   }
 }
 
-@media screen and (width <= 1090px) and (orientation: portrait) {
+@media screen and (width <= 1090px) {
   .symbol {
     margin: 20px 10px 0px 10px;
     font-size: 150px;
@@ -503,7 +503,7 @@ input[type="number"] {
   }
 }
 
-@media screen and (width <= 970px) and (orientation: portrait) {
+@media screen and (width <= 970px) {
   .kanji {
     margin-left: 25%;
   }
@@ -566,20 +566,21 @@ input[type="number"] {
   }
 
   .symbol {
-    font-size: 125px;
+    margin-top: 35px;
+    font-size: 80px;
   }
 
   .reading {
-    font-size: 17px;
+    font-size: 12px;
   }
 
   .meaning p {
     margin: 10px 10px;
-    font-size: 20px;
+    font-size: 16px;
   }
 
   .radical {
-    font-size: 14px;
+    font-size: 12px;
   }
 
   .frequency {
@@ -651,29 +652,5 @@ input[type="number"] {
     top: 95%;
     right: 15px;
     font-size: 30px;
-  }
-}
-
-@media screen and (width <= 500px) and (orientation: portrait) {
-  .symbol {
-    margin-top: 35px;
-    font-size: 80px;
-  }
-
-  .reading {
-    font-size: 12px;
-  }
-
-  .meaning p {
-    margin: 10px 10px;
-    font-size: 16px;
-  }
-
-  .radical {
-    font-size: 12px;
-  }
-
-  .frequency {
-    font-size: 12px;
   }
 }
