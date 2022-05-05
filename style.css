@@ -477,7 +477,13 @@ input[type="number"] {
 } */
 
 /*–––––MEDIA-QUERIES–––––*/
-@media screen and (max-width: 1090px) {
+@media screen and (width <= 1200px) {
+  .kanji {
+    max-width: 300px;
+  }
+}
+
+@media screen and (width <= 1090px) {
   .symbol {
     margin: 20px 10px 0px 10px;
     font-size: 150px;
@@ -497,7 +503,7 @@ input[type="number"] {
   }
 }
 
-@media screen and (max-width: 970px) {
+@media screen and (width <= 970px) {
   .kanji {
     margin-left: 25%;
   }
@@ -510,29 +516,29 @@ input[type="number"] {
     margin-top: 50px;
   }
 
-  #input-kanji {
+  /*  #input-kanji {
     width: 24px;
   }
 
   #input-kanji:focus {
     width: 40px;
-  }
+  } */
 
-  #kanji-counter {
+  /*   #kanji-counter {
     font-family: "Roboto", sans-serif;
     font-weight: 500;
     max-width: 24px;
     font-size: 0.65em;
-  }
+  } */
 
-  #kanji-control {
+  /*   #kanji-control {
     z-index: -1;
     display: flex;
     flex-direction: column;
     position: fixed;
     top: 85%;
     left: 0;
-  }
+  } */
 
   .sidebar {
     margin-top: 60px;
@@ -541,22 +547,18 @@ input[type="number"] {
     padding: 0px;
   }
 
-  #sidebar-button {
+  /*   #sidebar-button {
     top: 1%;
     right: 50%;
     left: 50%;
-  }
-
-  .open-search {
-    right: 10px;
-  }
+  } */
 
   .kanji-list {
     font-size: 16px;
   }
 }
 
-@media screen and (max-width: 750px) and (orientation: portrait) {
+@media screen and (width <= 750px) {
   .kanji {
     justify-content: center;
     align-items: center;
@@ -576,17 +578,17 @@ input[type="number"] {
     font-size: 20px;
   }
 
-  .radical,
-  .parts {
+  .radical {
     font-size: 14px;
-  }
-
-  .parts {
-    padding-bottom: 0.25em;
   }
 
   .frequency {
     font-size: 12px;
+  }
+
+  #sidebar-button {
+    top: 60px;
+    right: 15px;
   }
 
   .kanji-words {
@@ -649,5 +651,29 @@ input[type="number"] {
     top: 95%;
     right: 15px;
     font-size: 30px;
+  }
+}
+
+@media screen and (width <= 500px) and (orientation: portrait) {
+  .symbol {
+    margin-top: 35px;
+    font-size: 80px;
+  }
+
+  .reading {
+    font-size: 12px;
+  }
+
+  .meaning p {
+    margin: 10px 10px;
+    font-size: 16px;
+  }
+
+  .radical {
+    font-size: 12px;
+  }
+
+  .frequency {
+    font-size: 12px;
   }
 }
