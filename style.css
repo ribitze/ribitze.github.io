@@ -558,7 +558,7 @@ input[type="number"] {
   }
 }
 
-@media screen and (width <= 750px) and (orientation: portrait) {
+@media screen and (max-width: 750px) and (orientation: portrait) {
   .kanji {
     justify-content: center;
     align-items: center;
