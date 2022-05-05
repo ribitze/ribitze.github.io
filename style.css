@@ -410,8 +410,9 @@ input[type="number"] {
   font-family: "Roboto Medium", sans-serif;
   color: #2fbbb4;
   width: 100%;
+  line-height: 1.75em;
   text-align: left;
-  margin: 35px 25px;
+  margin: 35px 25px 0px 25px;
 }
 
 .searched-kanji {
@@ -464,17 +465,6 @@ input[type="number"] {
   cursor: pointer;
   color: #b42f55 !important;
 }
-
-/* .open-search {
-  position: fixed;
-  width: 20px;
-  height: 3px;
-  border-top: 9px double #2fbbb4;
-  border-bottom: 3px solid #2fbbb4;
-  bottom: 10px;
-  right: 50%;
-  cursor: pointer;
-} */
 
 /*–––––MEDIA-QUERIES–––––*/
 @media screen and (max-width: 1200px) and (orientation: landscape) {
@@ -711,7 +701,10 @@ input[type="number"] {
   }
 
   .search-overlay-kanji {
-    margin: 15px 5px;
+    width: 87.5%;
+    line-height: 1.5em;
+    margin-top: 30px;
+    margin-left: 5px;
   }
 
   .searched-kanji {
@@ -719,14 +712,21 @@ input[type="number"] {
     padding: 3px;
   }
   .searched-meaning {
+    text-align: end;
     font-size: 13px;
     margin-left: 5px;
     line-break: normal;
   }
+
+  .searched-freq {
+    color: #f7b768;
+    font-size: 13px;
+    margin-left: 10px;
+  }
+
   .search-overlay .closebtn-show {
     position: fixed;
-    top: 95%;
-    right: 15px;
+    right: 25px;
     font-size: 30px;
   }
 }
