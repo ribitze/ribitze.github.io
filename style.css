@@ -566,20 +566,21 @@ input[type="number"] {
   }
 
   .symbol {
-    font-size: 125px;
+    margin-top: 35px;
+    font-size: 80px;
   }
 
   .reading {
-    font-size: 17px;
+    font-size: 12px;
   }
 
   .meaning p {
     margin: 10px 10px;
-    font-size: 20px;
+    font-size: 16px;
   }
 
   .radical {
-    font-size: 14px;
+    font-size: 12px;
   }
 
   .frequency {
@@ -645,29 +646,5 @@ input[type="number"] {
     top: 95%;
     right: 15px;
     font-size: 30px;
-  }
-}
-
-@media screen and (max-width: 600px) and (orientation: portrait) {
-  .symbol {
-    margin-top: 35px;
-    font-size: 80px;
-  }
-
-  .reading {
-    font-size: 12px;
-  }
-
-  .meaning p {
-    margin: 10px 10px;
-    font-size: 16px;
-  }
-
-  .radical {
-    font-size: 12px;
-  }
-
-  .frequency {
-    font-size: 12px;
   }
 }
