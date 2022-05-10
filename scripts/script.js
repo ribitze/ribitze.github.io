@@ -21,6 +21,7 @@ const sidebarExpandBtn = $("#sidebar-expand-btn");
 const showTreeBtn = $("#show-tree-btn");
 const eraseHighlightBtn = $("#erase-highlight-btn");
 const onlyKanjiBtn = $("#only-kanji-btn");
+const copyKanjiBtn = $("#copy-kanji-btn");
 const showOverlayBtn = $("#show-overlay-btn");
 // main-kanji
 const kanjiMain = $(".kanji");
@@ -807,6 +808,7 @@ function changeControl(boolean) {
     showTreeBtn.style.background = nightTime;
     eraseHighlightBtn.style.background = nightTime;
     onlyKanjiBtn.style.background = nightTime;
+    copyKanjiBtn.style.background = nightTime;
     showOverlayBtn.style.background = nightTime;
   } else if (!boolean) {
     inputKanji.style.background = dayTime;
@@ -817,6 +819,7 @@ function changeControl(boolean) {
     showTreeBtn.style.background = dayTime;
     eraseHighlightBtn.style.background = dayTime;
     onlyKanjiBtn.style.background = dayTime;
+    copyKanjiBtn.style.background = dayTime;
     showOverlayBtn.style.background = dayTime;
   }
 }
@@ -1185,6 +1188,9 @@ sidebarExpandBtn.addEventListener("click", () => {
 showTreeBtn.addEventListener("click", showTree);
 onlyKanjiBtn.addEventListener("click", showOnlyKanji);
 onlyKanjiBtn.addEventListener("auxclick", showOnlySentences);
+copyKanjiBtn.addEventListener("click", () => {
+  copyToClipBoard(kanji);
+});
 showOverlayBtn.addEventListener("click", () => {
   if (searchOverlay.textContent) openSearchNav();
 });

@@ -166,7 +166,7 @@ body {
 .jap-word {
   font-family: "Noto Sans JP", sans-serif;
   font-weight: 400;
-  font-size: 22px;
+  font-size: 20px;
 }
 
 .jap-reading {
@@ -277,12 +277,13 @@ body {
 #show-tree-btn,
 #erase-highlight-btn,
 #only-kanji-btn,
+#copy-kanji-btn,
 #show-overlay-btn,
 #dark-mode-btn,
 #kanji-counter {
   font-family: "Roboto", sans-serif;
   font-weight: 500;
-  font-size: 15px;
+  font-size: 14px;
   border: none;
   width: 32px;
   height: 32px;
@@ -325,6 +326,7 @@ body {
 #show-tree-btn,
 #erase-highlight-btn,
 #only-kanji-btn,
+#copy-kanji-btn,
 #show-overlay-btn {
   background-color: #c1e8e4;
 }
@@ -335,6 +337,7 @@ body {
 #show-tree-btn:hover,
 #erase-highlight-btn:hover,
 #only-kanji-btn:hover,
+#copy-kanji-btn:hover,
 #show-overlay-btn:hover {
   background-color: #cccbf7 !important;
 }
@@ -343,14 +346,12 @@ body {
   font-size: 11px;
 }
 
-.fa-moon,
-.fa-sun {
-  font-size: 12px;
-}
-
+.fa-moon-o,
+.fa-sun-o,
 .fa-expand,
 .fa-cube,
-.fa-filter {
+.fa-filter,
+.fa-clone {
   font-size: 14px;
 }
 
@@ -704,6 +705,30 @@ input[type="number"] {
     font-size: 12px;
   }
 
+  #input-kanji {
+    width: 24px;
+    transition: 0.3s;
+  }
+
+  #input-kanji:focus {
+    transition: 0.3s;
+    width: 48px;
+  }
+
+  #kanji-counter {
+    font-family: "Roboto", sans-serif;
+    font-weight: 500;
+    width: 24px;
+    font-size: 0.65em;
+    transition: 0.3s;
+  }
+
+  #kanji-counter:focus {
+    transition: 0.3s;
+    width: 48px;
+    font-size: 14px;
+  }
+
   .sidebar {
     margin-top: 60px;
   }
@@ -714,11 +739,16 @@ input[type="number"] {
 
   .kanji-words {
     margin-top: 50px;
-    height: 47.5vh;
+    height: 27.5vh;
   }
 
   .jap-word {
     font-size: 18px;
+  }
+
+  .eng-word {
+    font-size: 13px;
+    margin-bottom: 8px;
   }
 
   .jap-reading {
