@@ -485,22 +485,24 @@ function createKanjiParts(char) {
 }
 
 function showWords() {
-  if (kanjiWords.style.display === "none") {
-    kanji.style.display = "none";
-    kun.style.display = "none";
-    on.style.display = "none";
-    meaning.style.display = "none";
-    metaData.style.display = "none";
-    kanjiTree.style.display = "none";
+  const hidden = "none";
+  const display = "display";
+  if (!kanjiWords.style.display) {
+    kanji.style.display = hidden;
+    kun.style.display = hidden;
+    on.style.display = hidden;
+    meaning.style.display = hidden;
+    metaData.style.display = hidden;
+    kanjiTree.style.display = hidden;
     kanjiWords.style.display = "flex";
   } else {
-    kanji.style.removeProperty("display");
-    kun.style.removeProperty("display");
-    on.style.removeProperty("display");
-    meaning.style.removeProperty("display");
-    metaData.style.removeProperty("display");
-    kanjiTree.style.display = "none";
-    kanjiWords.style.display = "none";
+    kanji.style.removeProperty(display);
+    kun.style.removeProperty(display);
+    on.style.removeProperty(display);
+    meaning.style.removeProperty(display);
+    metaData.style.removeProperty(display);
+    kanjiTree.style.removeProperty(display);
+    kanjiWords.style.removeProperty(display);
   }
 }
 
@@ -1097,6 +1099,38 @@ function showOnlyKanji() {
     : (metaRelated.style.display = "none");
 }
 
+function showOnlySentences() {
+  if (sidebar.style.width > sidebarSmall) {
+    /*     kanjiControl.style.display === "none"
+      ? (kanjiControl.style.display = "flex")
+      : (kanjiControl.style.display = "none"); */
+
+    kanjiStash.style.display === "none"
+      ? (kanjiStash.style.display = "flex")
+      : (kanjiStash.style.display = "none");
+
+    /* sidebarBtn.style.display === "none"
+      ? sidebarBtn.style.removeProperty("display")
+      : (sidebarBtn.style.display = "none"); */
+  } else {
+    /*     kanjiControl.style.display === "none"
+      ? (kanjiControl.style.display = "flex")
+      : (kanjiControl.style.display = "none"); */
+
+    kanjiStash.style.display === "none"
+      ? (kanjiStash.style.display = "flex")
+      : (kanjiStash.style.display = "none");
+
+    kanjiMain.style.display === "none"
+      ? kanjiMain.style.removeProperty("display")
+      : (kanjiMain.style.display = "none");
+
+    metaData.style.display === "none"
+      ? metaData.style.removeProperty("display")
+      : (metaData.style.display = "none");
+  }
+}
+
 function loadActions() {
   stashKanji();
   createKanji(onLoadValue);
@@ -1113,35 +1147,7 @@ document.onkeydown = function keyPress(event) {
     showOnlyKanji();
   }
   if (event.ctrlKey && event.altKey && event.key === ".") {
-    if (sidebar.style.width > sidebarSmall) {
-      kanjiControl.style.display === "none"
-        ? (kanjiControl.style.display = "flex")
-        : (kanjiControl.style.display = "none");
-
-      kanjiStash.style.display === "none"
-        ? (kanjiStash.style.display = "flex")
-        : (kanjiStash.style.display = "none");
-
-      /* sidebarBtn.style.display === "none"
-        ? sidebarBtn.style.removeProperty("display")
-        : (sidebarBtn.style.display = "none"); */
-    } else {
-      kanjiControl.style.display === "none"
-        ? (kanjiControl.style.display = "flex")
-        : (kanjiControl.style.display = "none");
-
-      kanjiStash.style.display === "none"
-        ? (kanjiStash.style.display = "flex")
-        : (kanjiStash.style.display = "none");
-
-      kanjiMain.style.display === "none"
-        ? kanjiMain.style.removeProperty("display")
-        : (kanjiMain.style.display = "none");
-
-      metaData.style.display === "none"
-        ? metaData.style.removeProperty("display")
-        : (metaData.style.display = "none");
-    }
+    showOnlySentences();
   }
   //––––––––––––––––––––––––––––––––––––––––
   if (event.key === "Enter") {
@@ -1178,7 +1184,10 @@ sidebarExpandBtn.addEventListener("click", () => {
 });
 showTreeBtn.addEventListener("click", showTree);
 onlyKanjiBtn.addEventListener("click", showOnlyKanji);
-showOverlayBtn.addEventListener("click", openSearchNav);
+onlyKanjiBtn.addEventListener("auxclick", showOnlySentences);
+showOverlayBtn.addEventListener("click", () => {
+  if (searchOverlay.textContent) openSearchNav();
+});
 darkModeBtn.addEventListener("click", toggleDarkMode);
 kanjiCounterBtn.addEventListener("input", highlightKanji);
 // sidebar-button
