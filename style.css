@@ -301,12 +301,12 @@ body {
   font-weight: 500;
   width: 24px;
   height: 24px;
-  transition: width 0.3s linear;
+  transition: width 0.3s ease;
 }
 
 #input-kanji:hover,
 #input-kanji:focus {
-  transition: width 0.15s linear;
+  transition: width 0.15s ease;
   width: 64px;
   background: #cccbf7 !important;
 }
@@ -377,12 +377,12 @@ body {
   width: 24px;
   height: 24px;
   font-size: 0.65em;
-  transition: width 0.3s linear;
+  transition: width 0.3s ease;
 }
 
 #kanji-counter:hover,
 #kanji-counter:focus {
-  transition: width 0.15s linear;
+  transition: width 0.15s ease;
   width: 48px;
   font-size: 14px;
   background-color: #cccbf7 !important;
