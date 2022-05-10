@@ -507,7 +507,7 @@ function showWords() {
 }
 
 function showTree() {
-  if (kanjiTree.style.display === "none") {
+  if (!kanjiTree.style.display) {
     kanji.style.display = "none";
     kun.style.display = "none";
     on.style.display = "none";
@@ -521,8 +521,8 @@ function showTree() {
     on.style.removeProperty("display");
     meaning.style.removeProperty("display");
     metaData.style.removeProperty("display");
-    kanjiWords.style.display = "none";
-    kanjiTree.style.display = "none";
+    kanjiWords.style.removeProperty("display");
+    kanjiTree.style.removeProperty("display");
   }
 }
 
@@ -746,6 +746,7 @@ function checkWindow() {
   let smallScreen = 970;
 
   if (window.innerWidth <= smallScreen) {
+    onlyKanjiBtn.style.display = "none";
     if (sidebar.style.display === "none" || sidebar.style.width <= big) {
       kanjiMain.style.removeProperty("display");
       metaRelated.style.display = "none";
@@ -768,6 +769,7 @@ function checkWindow() {
     kanjiControl.style.display = "flex";
     sidebar.style.display = "flex";
     sidebarBtn.style.removeProperty("display");
+    onlyKanjiBtn.style.removeProperty("display");
 
     if (
       kanjiTree.style.display === "flex" ||
@@ -1078,25 +1080,23 @@ function scrollSearch(event) {
 }
 
 function showOnlyKanji() {
-  /*   kanjiControl.style.display === "none"
-    ? (kanjiControl.style.display = "flex")
-    : (kanjiControl.style.display = "none"); */
+  if (window.innerWidth > 970) {
+    kanjiStash.style.display === "none"
+      ? (kanjiStash.style.display = "flex")
+      : (kanjiStash.style.display = "none");
 
-  kanjiStash.style.display === "none"
-    ? (kanjiStash.style.display = "flex")
-    : (kanjiStash.style.display = "none");
+    sidebar.style.display === "none"
+      ? (sidebar.style.display = "flex")
+      : (sidebar.style.display = "none");
 
-  sidebar.style.display === "none"
-    ? (sidebar.style.display = "flex")
-    : (sidebar.style.display = "none");
+    sidebarBtn.style.display === "none"
+      ? sidebarBtn.style.removeProperty("display")
+      : (sidebarBtn.style.display = "none");
 
-  sidebarBtn.style.display === "none"
-    ? sidebarBtn.style.removeProperty("display")
-    : (sidebarBtn.style.display = "none");
-
-  metaRelated.style.display === "none"
-    ? (metaRelated.style.display = "flex")
-    : (metaRelated.style.display = "none");
+    metaRelated.style.display === "none"
+      ? (metaRelated.style.display = "flex")
+      : (metaRelated.style.display = "none");
+  }
 }
 
 function showOnlySentences() {
