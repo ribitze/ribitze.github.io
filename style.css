@@ -223,7 +223,7 @@ body {
 .eng-sentence {
   font-family: "Roboto", sans-serif;
   font-weight: 300;
-  padding-bottom: 10px;
+  padding-bottom: 8px;
   font-size: 14px;
 }
 
@@ -273,7 +273,11 @@ body {
 
 #input-kanji,
 #create-kanji,
-#kanji-toggle,
+#sidebar-expand-btn,
+#show-tree-btn,
+#erase-highlight-btn,
+#only-kanji-btn,
+#show-overlay-btn,
 #dark-mode-btn,
 #kanji-counter {
   font-family: "Roboto", sans-serif;
@@ -283,6 +287,11 @@ body {
   width: 32px;
   height: 32px;
   padding: 4px;
+}
+
+.fa {
+  font-weight: 700;
+  color: rgb(35, 20, 51);
 }
 
 #input-kanji {
@@ -311,25 +320,43 @@ body {
   color: rgb(35, 20, 51);
 }
 
-#create-kanji:hover {
-  background-color: #cccbf7 !important;
-}
-
-#dark-mode-btn {
+#dark-mode-btn,
+#sidebar-expand-btn,
+#show-tree-btn,
+#erase-highlight-btn,
+#only-kanji-btn,
+#show-overlay-btn {
   background-color: #c1e8e4;
 }
 
-#dark-mode-btn:hover {
+#create-kanji:hover,
+#dark-mode-btn:hover,
+#sidebar-expand-btn:hover,
+#show-tree-btn:hover,
+#erase-highlight-btn:hover,
+#only-kanji-btn:hover,
+#show-overlay-btn:hover {
   background-color: #cccbf7 !important;
-}
-
-.fa {
-  font-weight: 700;
-  color: rgb(35, 20, 51);
 }
 
 .fa-play {
   font-size: 11px;
+}
+
+.fa-moon,
+.fa-sun {
+  font-size: 12px;
+}
+
+.fa-expand,
+.fa-cube,
+.fa-filter {
+  font-size: 14px;
+}
+
+.fa-angle-double-down {
+  font-size: 18px;
+  font-weight: bold;
 }
 
 #kanji-counter {
