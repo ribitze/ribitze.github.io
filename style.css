@@ -301,6 +301,7 @@ body {
   font-weight: 500;
   width: 24px;
   height: 24px;
+  transition: 0.3s;
 }
 
 #input-kanji:hover,
@@ -376,6 +377,7 @@ body {
   width: 24px;
   height: 24px;
   font-size: 0.65em;
+  transition: 0.3s;
 }
 
 #kanji-counter:hover,
