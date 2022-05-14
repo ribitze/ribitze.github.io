@@ -90,11 +90,6 @@ body {
   color: #b42f55;
 }
 
-/* .parts {
-  font-size: 14px;
-  padding-bottom: 10px;
-} */
-
 .frequency {
   font-size: 14px;
 }
@@ -377,12 +372,12 @@ body {
   width: 24px;
   height: 24px;
   font-size: 0.65em;
-  transition: width 0.3s ease;
+  transition: width 0.3s ease, font-size 0.3s ease;
 }
 
 #kanji-counter:hover,
 #kanji-counter:focus {
-  transition: width 0.15s ease;
+  transition: width 0.15s ease, font-size 0.15s ease;
   width: 48px;
   font-size: 14px;
   background-color: #cccbf7 !important;
