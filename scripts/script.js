@@ -1167,11 +1167,10 @@ document.onkeydown = function keyPress(event) {
   if (event.altKey && event.key === "j") goToJisho(kanji.textContent);
   //––––––––––––––––––––––––––––––––––––––––
   if (event.ctrlKey && event.key === "Backspace") kanjiStash.scrollTo(0, 0);
-  if (event.ctrlKey && event.key === "0") {
-    openSearchNav();
-  }
   if ((event.ctrlKey && event.key === "x") || event.key === "Escape") {
-    closeSearchNav();
+    if (searchOverlay.textContent) {
+      searchKanji.style.height === "100%" ? closeSearchNav() : openSearchNav();
+    }
   }
   if (event.altKey && event.key === "Backspace") searchKanji.scrollTo(0, 0);
 };
