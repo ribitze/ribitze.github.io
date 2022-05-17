@@ -227,24 +227,23 @@ function createKanji(char) {
             continue;
           } else if (data[kanji].parts.includes(char)) {
             relatedData.push(new Array(data[kanji].freq, kanji));
-            //
           }
         }
         //
         let relatedSorted = relatedData.sort(sortArray(true));
         //
-        for (let i = 1; i < relatedData.length; i++) {
-          let maximum = 102;
+        for (let i = 0; i < relatedData.length; i++) {
+          let maximum = 101;
           let relatedElement = document.createElement("div");
           relatedElement.className = "related-kanji";
-          relatedElement.id = `rel${i}`;
+          relatedElement.id = `rel${i + 1}`;
           relatedElement.textContent = relatedSorted[i][1];
           relatedElement.setAttribute(
             "ondblclick",
             `clickOnKanji(${relatedElement.id})`
           );
           metaRelated.appendChild(relatedElement);
-          if (i == maximum) {
+          if (i === maximum) {
             break;
           }
         }
