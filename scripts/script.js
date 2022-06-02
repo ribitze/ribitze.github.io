@@ -829,7 +829,7 @@ function toggleDarkMode() {
   const mainDay = "#000";
   const mainNight = "#e0e0ce";
   const stashNight = "#2fbbb4";
-  const treeNight = "#c1e8e4";
+  const treeNight = "#e0e0ce";
 
   if (isDark) {
     isDark = false;
