@@ -80,8 +80,8 @@ function stashKanji() {
 function createKanji(char) {
   char = char.trim();
   fetch("../kanji.json")
-    .then(response => response.json())
-    .then(data => {
+    .then((response) => response.json())
+    .then((data) => {
       // if multiple kanji or an english word was entered
       if (char.length > 1) {
         searchOverlay.textContent = "";
@@ -296,8 +296,8 @@ function createKanji(char) {
 
 function createSentences(char) {
   fetch("../all_v10.json")
-    .then(response => response.json())
-    .then(data => {
+    .then((response) => response.json())
+    .then((data) => {
       if (data) {
         sidebar.textContent = "";
         let sentenceData = [];
@@ -375,8 +375,8 @@ function createSentences(char) {
 
 function createWords(char) {
   fetch(`../jisho/${char}.json`)
-    .then(response => response.json())
-    .then(jisho => {
+    .then((response) => response.json())
+    .then((jisho) => {
       kanjiWords.textContent = "";
       for (let i = 0; i < jisho.data.length; i++) {
         let jap = jisho.data[i].slug;
@@ -414,7 +414,7 @@ function createWords(char) {
         }
       }
     })
-    .catch(e => {
+    .catch((e) => {
       //console.log(e);
       return;
     });
@@ -433,8 +433,8 @@ function createKanjiParts(char) {
   searchOverlay.textContent = "";
   let partsData = [];
   fetch("../kanji.json")
-    .then(response => response.json())
-    .then(data => {
+    .then((response) => response.json())
+    .then((data) => {
       for (let part of data[char].parts) {
         if (data[part]) {
           partsData.push(new Array(data[part].freq, part, data[part].meanings));
@@ -566,8 +566,8 @@ function clickOnKanji(name) {
 function clickOnRadical(id) {
   searchOverlay.textContent = "";
   fetch("../kanji.json")
-    .then(response => response.json())
-    .then(data => {
+    .then((response) => response.json())
+    .then((data) => {
       let radicalData = [];
       for (let kanji of kanjiAll) {
         if (!data[kanji].kangxi) {
@@ -1160,7 +1160,7 @@ document.onkeydown = function keyPress(event) {
   if (event.altKey && event.key === "w") {
     showWords();
   }
-  if (event.altKey && event.key === "e") {
+  if (event.ctrlKey && event.key === "y") {
     showTree();
   }
   if (event.altKey && event.key === "j") goToJisho(kanji.textContent);
